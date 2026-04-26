@@ -1,0 +1,15 @@
+/* Custom Twill Admin CSS */
+
+/* Nested Item - Languages - minimum space usage */
+.nested-item__cell.nested-item__cell--languages {
+    flex-basis: 100px;
+    display: flex;
+    align-items: center;
+    > span {
+        display: flex;
+        justify-content: center;
+        .tag {
+            margin: 0 5px;
+        }
+    }
+}

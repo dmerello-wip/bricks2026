@@ -1,0 +1,39 @@
+/* ------------- splide ------------- */
+
+.splide {
+    .splide__list {
+        align-items: center;
+    }
+    .splide__track {
+        overflow: visible;
+    }
+    .splide__pagination {
+        bottom: -2.5rem;
+    }
+}
+
+/* ------------- plyr ------------- */
+
+:root {
+    --plyr-video-control-background-hover: var(--primary);
+    --plyr-color-main: var(--primary);
+
+    .plyr-phase-idle .plyr__controls {
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+    }
+
+    .plyr--full-ui.plyr--video .plyr__control--overlaid {
+        --plyr-video-control-background-hover: var(--primary-foreground);
+        --plyr-video-control-color-hover: var(--primary);
+        --plyr-color-main: var(--primary);
+        --plyr-video-control-color: var(--primary);
+        @apply shadow-2xs;
+        width: 4rem;
+        height: 4rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+}

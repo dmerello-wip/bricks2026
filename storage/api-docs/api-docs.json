@@ -1,0 +1,526 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Twill Inertia StarterCMS",
+        "description": "Public-facing endpoints for the Twill + Inertia.js CMS.",
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "/",
+            "description": "Application root"
+        }
+    ],
+    "paths": {
+        "/{locale}": {
+            "get": {
+                "tags": [
+                    "Pages"
+                ],
+                "summary": "Homepage",
+                "operationId": "fe0a0ca6a274124850c80ccd0241510d",
+                "parameters": [
+                    {
+                        "name": "locale",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "en"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Homepage rendered via Inertia.js",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "required": [
+                                        "page",
+                                        "blocks",
+                                        "seo"
+                                    ],
+                                    "properties": {
+                                        "page": {
+                                            "$ref": "#/components/schemas/HomepageModel"
+                                        },
+                                        "blocks": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/Block"
+                                            }
+                                        },
+                                        "seo": {
+                                            "$ref": "#/components/schemas/SeoData"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "503": {
+                        "description": "Homepage not published"
+                    }
+                }
+            }
+        },
+        "/{locale}/{slug}": {
+            "get": {
+                "tags": [
+                    "Pages"
+                ],
+                "summary": "CMS Page",
+                "operationId": "cb27032a1a6f8d3d76196f1336aac4de",
+                "parameters": [
+                    {
+                        "name": "locale",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "en"
+                        }
+                    },
+                    {
+                        "name": "slug",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "about-us"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Page rendered via Inertia.js",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "required": [
+                                        "page",
+                                        "blocks",
+                                        "seo"
+                                    ],
+                                    "properties": {
+                                        "page": {
+                                            "$ref": "#/components/schemas/PageModel"
+                                        },
+                                        "blocks": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/Block"
+                                            }
+                                        },
+                                        "seo": {
+                                            "$ref": "#/components/schemas/SeoData"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "301": {
+                        "description": "Redirect to canonical slug"
+                    },
+                    "404": {
+                        "description": "Page not found or not published"
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "ArticleModel": {
+                "required": [
+                    "id",
+                    "published"
+                ],
+                "properties": {
+                    "id": {
+                        "description": "Article model data as returned by $article->toArray().\nTraits: HasTranslation (title, description), HasMedias, HasSlug, HasRelated, HasSeoData.",
+                        "type": "integer"
+                    },
+                    "published": {
+                        "type": "boolean"
+                    },
+                    "title": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "description": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "updated_at": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "deleted_at": {
+                        "type": "string",
+                        "format": "date-time",
+                        "nullable": true
+                    },
+                    "medias": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/TwillMedia"
+                        }
+                    },
+                    "related": {
+                        "type": "array",
+                        "items": {
+                            "type": "object"
+                        }
+                    }
+                },
+                "type": "object"
+            },
+            "HomepageModel": {
+                "required": [
+                    "id",
+                    "published"
+                ],
+                "properties": {
+                    "id": {
+                        "description": "Homepage model data as returned by $homepage->toArray().\nTraits: HasTranslation (title), HasMedias, HasSeoData.",
+                        "type": "integer"
+                    },
+                    "published": {
+                        "type": "boolean"
+                    },
+                    "title": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "updated_at": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "deleted_at": {
+                        "type": "string",
+                        "format": "date-time",
+                        "nullable": true
+                    },
+                    "medias": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/TwillMedia"
+                        }
+                    }
+                },
+                "type": "object"
+            },
+            "PageModel": {
+                "required": [
+                    "id",
+                    "published"
+                ],
+                "properties": {
+                    "id": {
+                        "description": "CMS Page model data as returned by $page->toArray().\nTraits: HasTranslation (title, description), HasMedias, HasSeoData,\n        HasSlug, HasPosition, HasNesting.",
+                        "type": "integer"
+                    },
+                    "published": {
+                        "type": "boolean"
+                    },
+                    "title": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "description": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "position": {
+                        "type": "integer",
+                        "nullable": true
+                    },
+                    "_lft": {
+                        "type": "integer"
+                    },
+                    "_rgt": {
+                        "type": "integer"
+                    },
+                    "parent_id": {
+                        "type": "integer",
+                        "nullable": true
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "updated_at": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "deleted_at": {
+                        "type": "string",
+                        "format": "date-time",
+                        "nullable": true
+                    },
+                    "medias": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/TwillMedia"
+                        }
+                    }
+                },
+                "type": "object"
+            },
+            "Block": {
+                "required": [
+                    "id",
+                    "type",
+                    "content"
+                ],
+                "properties": {
+                    "id": {
+                        "description": "Formatted block data returned by TwillBlockService::formatBlock().",
+                        "type": "integer"
+                    },
+                    "parent_id": {
+                        "type": "integer",
+                        "nullable": true
+                    },
+                    "type": {
+                        "type": "string"
+                    },
+                    "content": {
+                        "type": "object",
+                        "additionalProperties": {}
+                    },
+                    "medias": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/TwillMedia"
+                        }
+                    },
+                    "children": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Block"
+                        }
+                    },
+                    "images": {
+                        "type": "object",
+                        "additionalProperties": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "$ref": "#/components/schemas/ImageData"
+                            }
+                        }
+                    },
+                    "files": {
+                        "type": "object",
+                        "additionalProperties": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "type": "object"
+            },
+            "CtaContent": {
+                "required": [
+                    "cta_label",
+                    "cta_style",
+                    "cta_type",
+                    "cta_link",
+                    "cta_target_blank"
+                ],
+                "properties": {
+                    "cta_label": {
+                        "description": "A Block with its content typed as CtaContent.",
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "cta_style": {
+                        "type": "string",
+                        "enum": [
+                            "primary",
+                            "secondary"
+                        ]
+                    },
+                    "cta_type": {
+                        "type": "string",
+                        "enum": [
+                            "internal",
+                            "external",
+                            "download"
+                        ]
+                    },
+                    "cta_link": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "cta_target_blank": {
+                        "type": "boolean"
+                    },
+                    "cta_dl_link": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "cta_dl_filename": {
+                        "type": "string",
+                        "nullable": true
+                    }
+                },
+                "type": "object"
+            },
+            "CtaBlock": {
+                "allOf": [
+                    {
+                        "$ref": "#/components/schemas/Block"
+                    },
+                    {
+                        "properties": {
+                            "content": {
+                                "$ref": "#/components/schemas/CtaContent"
+                            }
+                        },
+                        "type": "object"
+                    }
+                ]
+            },
+            "ImageData": {
+                "required": [
+                    "src",
+                    "alt"
+                ],
+                "properties": {
+                    "src": {
+                        "description": "Processed image data returned by ImageService::buildImageData().",
+                        "type": "string"
+                    },
+                    "width": {
+                        "type": "integer",
+                        "nullable": true
+                    },
+                    "height": {
+                        "type": "integer",
+                        "nullable": true
+                    },
+                    "alt": {
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "SeoData": {
+                "required": [
+                    "canonical",
+                    "no_index",
+                    "alternates"
+                ],
+                "properties": {
+                    "title": {
+                        "description": "SEO metadata resolved by SeoService::resolve().",
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "description": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "canonical": {
+                        "type": "string"
+                    },
+                    "og_title": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "og_description": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "og_image": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "no_index": {
+                        "type": "boolean"
+                    },
+                    "alternates": {
+                        "type": "object",
+                        "additionalProperties": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "type": "object"
+            },
+            "TwillMedia": {
+                "required": [
+                    "id",
+                    "uuid",
+                    "filename"
+                ],
+                "properties": {
+                    "id": {
+                        "description": "Raw Twill media model, as returned via the medias() relationship.",
+                        "type": "integer"
+                    },
+                    "uuid": {
+                        "type": "string"
+                    },
+                    "filename": {
+                        "type": "string"
+                    },
+                    "width": {
+                        "type": "integer",
+                        "nullable": true
+                    },
+                    "height": {
+                        "type": "integer",
+                        "nullable": true
+                    },
+                    "size": {
+                        "type": "integer"
+                    },
+                    "mime_type": {
+                        "type": "string"
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "updated_at": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "pivot": {
+                        "properties": {
+                            "role": {
+                                "type": "string"
+                            },
+                            "crop": {
+                                "type": "string"
+                            }
+                        },
+                        "type": "object",
+                        "nullable": true
+                    }
+                },
+                "type": "object"
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Pages",
+            "description": "Pages"
+        }
+    ]
+}

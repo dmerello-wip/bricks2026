@@ -1,0 +1,30 @@
+@import 'tailwindcss';
+@import 'tw-animate-css';
+
+/*
+if using blade components (not for inertia)
+@source '../views';
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+*/
+
+@custom-variant dark (&:is(.dark *));
+
+@import './theme.css';
+
+@layer base {
+    * {
+        @apply border-border outline-ring/50;
+    }
+    body {
+        @apply bg-background text-foreground;
+        letter-spacing: var(--tracking-normal);
+    }
+}
+
+/*-- ----------------------------------------------------------------- --*/
+/*-------------------------------------------- project specific styles --*/
+/*-- ----------------------------------------------------------------- --*/
+
+/* application utilities */
+@import './vendors.css';
+@import './common.css';

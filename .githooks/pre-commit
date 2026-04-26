@@ -1,0 +1,4 @@
+#!/bin/sh
+for hook in .githooks/pre-commit.d/*; do
+  [ -x "$hook" ] && "$hook" || exit 1
+done
