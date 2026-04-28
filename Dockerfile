@@ -51,6 +51,9 @@ RUN composer dump-autoload \
     --optimize \
     --classmap-authoritative
 
+# Dummy key only for build-time artisan commands — overridden at runtime via env
+ENV APP_KEY=base64:AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=
+
 # Generate translation JSON files needed by the frontend build (gitignored)
 RUN php artisan translation-handler:import --force --fresh
 
