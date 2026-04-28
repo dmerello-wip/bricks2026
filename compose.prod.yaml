@@ -1,0 +1,123 @@
+# compose.prod.yaml
+# Stack di produzione per Coolify.
+# NON usare per lo sviluppo locale — usa compose.yaml (Sail).
+#
+# Configurare Coolify per usare QUESTO file (non compose.yaml).
+#
+# Dipendenze esterne (gestite separatamente in Coolify):
+#   - MySQL 8.4 → impostare DB_HOST, DB_DATABASE, DB_USERNAME, DB_PASSWORD nell'env
+#   - SMTP relay → impostare MAIL_* nell'env
+#   - Non richiede Redis (cache/session/queue usano il driver database)
+
+services:
+    app:
+        build:
+            context: .
+            dockerfile: Dockerfile
+            target: runtime
+        restart: unless-stopped
+        ports:
+            - '${APP_PORT:-80}:80'
+        environment:
+            APP_ENV: production
+            APP_DEBUG: 'false'
+            LOG_CHANNEL: stderr
+            INERTIA_SSR_URL: 'http://ssr:13714'
+        env_file:
+            - .env
+        volumes:
+            - app_storage:/var/www/html/storage
+        healthcheck:
+            test: ['CMD', 'curl', '-f', 'http://localhost/up']
+            interval: 30s
+            timeout: 10s
+            retries: 3
+            start_period: 30s
+        depends_on:
+            ssr:
+                condition: service_healthy
+        networks:
+            - app_network
+
+    queue:
+        build:
+            context: .
+            dockerfile: Dockerfile
+            target: runtime
+        restart: unless-stopped
+        command: >
+            php artisan queue:work
+            --sleep=3
+            --tries=3
+            --max-time=3600
+            --queue=default
+        environment:
+            APP_ENV: production
+            APP_DEBUG: 'false'
+            LOG_CHANNEL: stderr
+        env_file:
+            - .env
+        volumes:
+            - app_storage:/var/www/html/storage
+        depends_on:
+            app:
+                condition: service_healthy
+        healthcheck:
+            test: ['CMD', 'php', '-r', 'exit(0);']
+            interval: 30s
+            timeout: 5s
+            retries: 3
+        networks:
+            - app_network
+
+    scheduler:
+        build:
+            context: .
+            dockerfile: Dockerfile
+            target: runtime
+        restart: unless-stopped
+        command: >
+            sh -c "while true; do php artisan schedule:run --no-interaction; sleep 60; done"
+        environment:
+            APP_ENV: production
+            APP_DEBUG: 'false'
+            LOG_CHANNEL: stderr
+        env_file:
+            - .env
+        volumes:
+            - app_storage:/var/www/html/storage
+        depends_on:
+            app:
+                condition: service_healthy
+        healthcheck:
+            test: ['CMD', 'php', '-r', 'exit(0);']
+            interval: 60s
+            timeout: 5s
+            retries: 3
+        networks:
+            - app_network
+
+    ssr:
+        build:
+            context: .
+            dockerfile: Dockerfile
+            target: ssr
+        restart: unless-stopped
+        expose:
+            - '13714'
+        healthcheck:
+            test: ['CMD-SHELL', 'wget -qO- http://localhost:13714 || exit 0']
+            interval: 15s
+            timeout: 5s
+            retries: 3
+            start_period: 10s
+        networks:
+            - app_network
+
+volumes:
+    app_storage:
+        driver: local
+
+networks:
+    app_network:
+        driver: bridge

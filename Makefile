@@ -46,3 +46,18 @@ swagger:
 types:
 	make translations
 	make swagger
+
+# --- Production Docker (Coolify) ---
+
+.PHONY: build-prod
+build-prod:
+	docker build --tag bricks2026-app:local --file Dockerfile .
+
+.PHONY: run-prod
+run-prod:
+	docker compose -f compose.prod.yaml up -d
+
+.PHONY: deploy-local
+deploy-local: build-prod
+	docker compose -f compose.prod.yaml up -d --force-recreate
+	docker exec $$(docker compose -f compose.prod.yaml ps -q app) bash /var/www/html/scripts/deploy.sh
