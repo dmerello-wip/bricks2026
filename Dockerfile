@@ -58,7 +58,7 @@ ENV APP_KEY=base64:AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=
 RUN php artisan translation-handler:import --force --fresh
 
 # Generate Wayfinder TypeScript files needed by the frontend build (gitignored)
-RUN php artisan wayfinder:generate
+RUN php artisan wayfinder:generate --with-form
 
 ###############################################################################
 # Stage 2 — node-builder: Vite build (SSR mode)
@@ -79,8 +79,9 @@ COPY --from=php-base /app/resources/js/actions ./resources/js/actions
 COPY --from=php-base /app/resources/js/routes ./resources/js/routes
 COPY --from=php-base /app/resources/js/wayfinder ./resources/js/wayfinder
 
-# Build client bundle + SSR bundle
-RUN npm run build:ssr
+# Build client bundle + SSR bundle (WAYFINDER_SKIP prevents the plugin from
+# re-running php artisan wayfinder:generate — files are already copied above)
+RUN WAYFINDER_SKIP=1 npm run build:ssr
 
 ###############################################################################
 # Stage 3 — runtime: php:8.4-apache (web server)
