@@ -144,6 +144,9 @@ WORKDIR /var/www/html
 COPY --from=php-base --chown=www-data:www-data /app .
 COPY --from=node-builder --chown=www-data:www-data /app/public/build ./public/build
 
+# Dummy key only for build-time artisan commands — overridden at runtime via env
+ENV APP_KEY=base64:AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=
+
 # Publish Twill admin assets from vendor (no npm required)
 RUN php artisan twill:build
 
