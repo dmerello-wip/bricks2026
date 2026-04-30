@@ -7,6 +7,8 @@ RUN apk add --no-cache \
     bash \
     git \
     unzip \
+    nodejs \
+    npm \
     libpng-dev \
     libjpeg-turbo-dev \
     freetype-dev \
@@ -51,14 +53,26 @@ RUN composer dump-autoload \
     --optimize \
     --classmap-authoritative
 
-# Dummy key only for build-time artisan commands — overridden at runtime via env
+# Dummy values only for build-time artisan commands — overridden at runtime
+# via Coolify env. CACHE/SESSION/QUEUE forzati a in-memory: senza un .env nel
+# build context Laravel cadrebbe sui default (sqlite) e twill:build
+# (-> twill:flush-manifest -> cache) crasherebbe.
 ENV APP_KEY=base64:AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=
+ENV CACHE_STORE=array
+ENV SESSION_DRIVER=array
+ENV QUEUE_CONNECTION=sync
 
 # Generate translation JSON files needed by the frontend build (gitignored)
 RUN php artisan translation-handler:import --force --fresh
 
 # Generate Wayfinder TypeScript files needed by the frontend build (gitignored)
 RUN php artisan wayfinder:generate --with-form
+
+# Build Twill admin assets — compila eventuali custom Vue blocks/components in
+# resources/assets/js/{blocks,components}. Pulisce node_modules e dist subito
+# dopo: a valle servono solo i file pubblicati in public/assets/twill/.
+RUN php artisan twill:build \
+    && rm -rf vendor/area17/twill/node_modules vendor/area17/twill/dist
 
 ###############################################################################
 # Stage 2 — node-builder: Vite build (SSR mode)
@@ -150,13 +164,9 @@ COPY --from=node-builder --chown=www-data:www-data /app/public/build ./public/bu
 # Dummy key only for build-time artisan commands — overridden at runtime via env
 ENV APP_KEY=base64:AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=
 
-# Publish Twill admin assets (precompiled in vendor/area17/twill/twill-assets/).
-# Do NOT use `twill:build` — it runs `npm ci` + `npm run build` inside the Twill
-# vendor dir, but the runtime stage has no node/npm.
-RUN php artisan vendor:publish \
-    --provider="A17\Twill\TwillServiceProvider" \
-    --tag=assets \
-    --force
+# Twill admin assets sono già pubblicati in public/assets/twill/ dallo stage
+# php-base (`twill:build`), e arrivano qui via il `COPY --from=php-base /app .`
+# qui sopra. Niente da fare.
 
 RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache && \
     chmod -R 775 /var/www/html/storage /var/www/html/bootstrap/cache

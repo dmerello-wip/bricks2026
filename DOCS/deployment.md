@@ -37,11 +37,12 @@ Il [Dockerfile](../Dockerfile) ha 4 stage. Ognuno produce solo quello che serve 
 ```
 
 ### Stage 1 — `php-base`
-Base: `php:8.4-cli-alpine`. Composer install `--no-dev`, autoload ottimizzato, e poi:
+Base: `php:8.4-cli-alpine` con `nodejs` + `npm` aggiunti via `apk` (servono al `twill:build`). Composer install `--no-dev`, autoload ottimizzato, e poi:
 - `php artisan translation-handler:import --force --fresh` → genera `resources/js/lang/*.json` (gitignored)
 - `php artisan wayfinder:generate --with-form` → genera `resources/js/{actions,routes,wayfinder}/*.ts` (gitignored)
+- `php artisan twill:build` → compila gli asset admin Twill (incluse eventuali custom Vue blocks/components da `resources/assets/js/{blocks,components}`) e li pubblica in `public/assets/twill/`. Subito dopo il build, `vendor/area17/twill/node_modules` e `dist/` vengono rimossi nello stesso layer per non gonfiare l'immagine.
 
-L'`ENV APP_KEY` dummy serve solo a far bootstrappare l'app per questi due comandi: la chiave reale arriva a runtime via env Coolify.
+L'`ENV APP_KEY` dummy serve solo a far bootstrappare l'app per questi comandi: la chiave reale arriva a runtime via env Coolify.
 
 ### Stage 2 — `node-builder`
 Base: `node:22-alpine`. `npm ci` + Vite build SSR. Copia dai file generati nello stage 1:
@@ -69,9 +70,10 @@ Step rilevanti:
 6. Process tree `docker/supervisord.conf` → `/etc/supervisor/conf.d/supervisord.conf` (lancia `php-fpm -F` e `nginx -g "daemon off;"`).
 7. `COPY --from=php-base /app .` → app PHP completa (vendor, codice, file generati).
 8. `COPY --from=node-builder /app/public/build` → bundle Vite client.
-9. `php artisan vendor:publish --provider="A17\Twill\TwillServiceProvider" --tag=assets --force` → pubblica gli asset admin Twill da `vendor/area17/twill/twill-assets/` a `public/assets/twill/`. **Vedi nota più sotto sul perché NON usiamo `twill:build`.**
-10. chown `storage/` e `bootstrap/cache/` su `www-data:www-data`, chmod 775.
-11. `CMD supervisord -c …` → entrypoint del container.
+9. chown `storage/` e `bootstrap/cache/` su `www-data:www-data`, chmod 775.
+10. `CMD supervisord -c …` → entrypoint del container.
+
+Gli asset admin Twill non vengono pubblicati qui: arrivano già pronti in `public/assets/twill/` dal `COPY --from=php-base` perché `twill:build` è stato eseguito nello stage 1 (vedi sezione dedicata).
 
 ### Stage 4 — `ssr`
 Base: `node:22-alpine`. Solo `bootstrap/ssr/` copiato dallo stage 2. `CMD ["node", "bootstrap/ssr/ssr.js"]`. Espone 13714.
@@ -91,19 +93,22 @@ Base: `node:22-alpine`. Solo `bootstrap/ssr/` copiato dallo stage 2. `CMD ["node
 
 ---
 
-## Asset admin Twill — `vendor:publish`, NON `twill:build`
+## Asset admin Twill — `twill:build` nello stage `php-base`
 
-Il comando `twill:build` ([vendor/area17/twill/src/Commands/Build.php](../vendor/area17/twill/src/Commands/Build.php)) **compila da sorgenti** Vue/JS dentro `vendor/area17/twill/` (`npm ci` + `npm run build`) e poi copia il risultato in `public/`. Richiede `node` e `npm`, **non disponibili nello stage runtime** (php:8.4-fpm-alpine).
+Usiamo lo stesso comando del workflow locale (`make init` → `php artisan twill:build`), così se in futuro vengono introdotti custom Vue blocks/components per l'admin Twill (`resources/assets/js/blocks/*.vue`, `resources/assets/js/components/*.vue`) la pipeline li raccoglie automaticamente.
 
-Twill distribuisce gli asset admin **già precompilati** in `vendor/area17/twill/twill-assets/`, pubblicabili via:
+`twill:build` ([vendor/area17/twill/src/Commands/Build.php](../vendor/area17/twill/src/Commands/Build.php)):
+1. esegue `npm ci` dentro `vendor/area17/twill/` (richiede node/npm)
+2. copia i custom Vue blocks/components nelle directory sorgenti di Twill
+3. esegue `npm run build` → produce `vendor/area17/twill/dist/`
+4. chiama `twill:update --fromBuild` che copia `dist/` → `public/assets/twill/`
 
-```bash
-php artisan vendor:publish --provider="A17\Twill\TwillServiceProvider" --tag=assets --force
-```
+Per evitare che `vendor/area17/twill/node_modules/` (200-500 MB di toolchain Vue/webpack) finisca nell'immagine finale, dopo il build facciamo `rm -rf` di `node_modules` e `dist` nello stesso layer Docker. Solo `public/assets/twill/` viene preservato e raggiunge il runtime tramite il `COPY --from=php-base /app .`.
 
-Questo è il comando usato nel Dockerfile.
+Trade-off: +1-2 minuti al build time per `npm ci` e `npm run build` di Twill, ammortizzati dal layer cache se `composer.lock` non cambia. Lo stage `runtime` resta snello (no node, no toolchain Vue).
 
-> **Limitazione**: se un giorno il progetto introducesse custom Vue blocks/components admin Twill (es. `resources/assets/js/blocks/*.vue`), questi richiedono un build effettivo e quindi `twill:build`. In tal caso bisognerà spostarne l'esecuzione nello stage `node-builder` (che ha node) e copiare `vendor/area17/twill/dist/` nello stage runtime. Oggi il progetto usa solo blocchi React/Inertia, quindi non serve.
+### Alternativa — solo asset stock
+Twill distribuisce anche asset admin **già precompilati** in `vendor/area17/twill/twill-assets/` (`vendor:publish --tag=assets`), che è la strada più veloce ma ignora le tue customizzazioni Vue. Nel progetto bricks2026 attualmente non ci sono custom Vue admin, quindi tecnicamente sarebbe equivalente — ma manteniamo `twill:build` come default per essere future-proof.
 
 ---
 
@@ -182,8 +187,10 @@ make deploy-local            # esegue scripts/deploy.sh dentro app
 
 ## Troubleshooting
 
-### Build fallisce su `vendor:publish` dei Twill assets
-Verificare che `vendor/area17/twill/twill-assets/` esista nello stage runtime (deve essere stato copiato da `php-base` via `COPY --from=php-base /app .`). Se manca, controllare che `composer install --no-dev` nello stage 1 includa `area17/twill`.
+### Build fallisce su `twill:build` (stage `php-base`)
+- `npm ci` di Twill che fallisce: di solito è una mismatch di versione node. Lo stage installa `nodejs npm` da `apk` di Alpine (versione corrente del repository alpine). Se Twill in futuro richiedesse una versione node specifica, switchare al package `nodejs-current` o installare un major node fisso.
+- `npm run build` che fallisce su un custom Vue block: errore di sintassi/import nel `.vue` — riproducibile in locale con `make init` o `vendor/bin/sail artisan twill:build`.
+- Se vuoi temporaneamente bypassare il build Twill (es. per isolare un altro errore), commentare la riga `RUN php artisan twill:build ...` nel Dockerfile e ripristinare `vendor:publish --tag=assets` nello stage runtime — gli asset stock dell'admin sono comunque distribuiti dal pacchetto.
 
 ### 502 Bad Gateway dal container `app`
 nginx non riesce a parlare con php-fpm. Probabili cause:
