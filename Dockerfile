@@ -84,19 +84,30 @@ COPY --from=php-base /app/resources/js/wayfinder ./resources/js/wayfinder
 RUN WAYFINDER_SKIP=1 npm run build:ssr
 
 ###############################################################################
-# Stage 3 — runtime: php:8.4-apache (web server)
+# Stage 3 — runtime: nginx + php-fpm (Alpine) managed by supervisord
 ###############################################################################
-FROM php:8.4-apache AS runtime
+FROM php:8.4-fpm-alpine AS runtime
 
-RUN apt-get update && apt-get install -y --no-install-recommends \
-    curl \
-    libpng-dev \
-    libjpeg-dev \
-    libfreetype6-dev \
-    libzip-dev \
-    libicu-dev \
-    libonig-dev \
-    unzip \
+# Runtime libs + transient build deps for PHP extensions (removed at the end)
+RUN apk add --no-cache \
+        nginx \
+        supervisor \
+        curl \
+        bash \
+        libpng \
+        libjpeg-turbo \
+        freetype \
+        libzip \
+        icu-libs \
+        oniguruma \
+    && apk add --no-cache --virtual .build-deps \
+        $PHPIZE_DEPS \
+        libpng-dev \
+        libjpeg-turbo-dev \
+        freetype-dev \
+        libzip-dev \
+        icu-dev \
+        oniguruma-dev \
     && docker-php-ext-configure gd \
         --with-freetype \
         --with-jpeg \
@@ -110,7 +121,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
         bcmath \
         intl \
         opcache \
-    && rm -rf /var/lib/apt/lists/*
+    && apk del .build-deps \
+    && rm -rf /var/cache/apk/*
 
 RUN mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini"
 
@@ -124,20 +136,11 @@ RUN { \
     echo 'opcache.fast_shutdown=1'; \
 } > /usr/local/etc/php/conf.d/opcache.ini
 
-RUN a2enmod rewrite headers
+# Run nginx as www-data so it shares ownership with php-fpm
+RUN sed -i 's/user nginx;/user www-data;/' /etc/nginx/nginx.conf
 
-RUN { \
-    echo '<VirtualHost *:80>'; \
-    echo '    DocumentRoot /var/www/html/public'; \
-    echo '    <Directory /var/www/html/public>'; \
-    echo '        AllowOverride All'; \
-    echo '        Require all granted'; \
-    echo '        Options -Indexes +FollowSymLinks'; \
-    echo '    </Directory>'; \
-    echo '    ErrorLog ${APACHE_LOG_DIR}/error.log'; \
-    echo '    CustomLog ${APACHE_LOG_DIR}/access.log combined'; \
-    echo '</VirtualHost>'; \
-} > /etc/apache2/sites-available/000-default.conf
+COPY docker/nginx.conf /etc/nginx/http.d/default.conf
+COPY docker/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
 WORKDIR /var/www/html
 
@@ -147,15 +150,20 @@ COPY --from=node-builder --chown=www-data:www-data /app/public/build ./public/bu
 # Dummy key only for build-time artisan commands — overridden at runtime via env
 ENV APP_KEY=base64:AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=
 
-# Publish Twill admin assets from vendor (no npm required)
-RUN php artisan twill:build
+# Publish Twill admin assets (precompiled in vendor/area17/twill/twill-assets/).
+# Do NOT use `twill:build` — it runs `npm ci` + `npm run build` inside the Twill
+# vendor dir, but the runtime stage has no node/npm.
+RUN php artisan vendor:publish \
+    --provider="A17\Twill\TwillServiceProvider" \
+    --tag=assets \
+    --force
 
 RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache && \
     chmod -R 775 /var/www/html/storage /var/www/html/bootstrap/cache
 
 EXPOSE 80
 
-CMD ["apache2-foreground"]
+CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/conf.d/supervisord.conf"]
 
 ###############################################################################
 # Stage 4 — ssr: Node SSR server
