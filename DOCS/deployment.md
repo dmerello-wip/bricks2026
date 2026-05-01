@@ -182,25 +182,3 @@ docker compose -f compose.prod.yaml exec app ps -ef | grep -E "nginx|php-fpm" # 
 docker compose -f compose.prod.yaml exec app curl -fsS http://localhost/up   # 200
 make deploy-local            # esegue docker/deploy.sh dentro app
 ```
-
----
-
-## Troubleshooting
-
-### Build fallisce su `twill:build` (stage `php-base`)
-- `npm ci` di Twill che fallisce: di solito è una mismatch di versione node. Lo stage installa `nodejs npm` da `apk` di Alpine (versione corrente del repository alpine). Se Twill in futuro richiedesse una versione node specifica, switchare al package `nodejs-current` o installare un major node fisso.
-- `npm run build` che fallisce su un custom Vue block: errore di sintassi/import nel `.vue` — riproducibile in locale con `make init` o `vendor/bin/sail artisan twill:build`.
-- Se vuoi temporaneamente bypassare il build Twill (es. per isolare un altro errore), commentare la riga `RUN php artisan twill:build ...` nel Dockerfile e ripristinare `vendor:publish --tag=assets` nello stage runtime — gli asset stock dell'admin sono comunque distribuiti dal pacchetto.
-
-### 502 Bad Gateway dal container `app`
-nginx non riesce a parlare con php-fpm. Probabili cause:
-- php-fpm non è up — `docker exec <app> ps -ef | grep php-fpm`
-- pool php-fpm non in ascolto su 9000 — controllare `/usr/local/etc/php-fpm.d/www.conf` (dovrebbe essere `listen = 9000` di default nell'image ufficiale `php:8.4-fpm-alpine`)
-- supervisord ha riavviato troppe volte uno dei due processi — log con `docker logs <app>`
-
-### Healthcheck `/up` fallisce
-- Curl non installato nel container → `apk add curl` (è già incluso nel Dockerfile)
-- L'app non bootstrappa per env mancanti — `docker compose logs app` mostrerà l'eccezione Laravel
-
-### File scrivibili — permessi
-nginx e php-fpm girano entrambi come `www-data`. `storage/` e `bootstrap/cache/` sono chown `www-data:www-data` chmod 775 nel build. Il volume `app_storage` (named volume per `storage/`) eredita il chown alla prima creazione; se viene creato vuoto e poi il container scrive come root, possono nascere mismatch. In quel caso: `docker exec app chown -R www-data:www-data /var/www/html/storage`.
