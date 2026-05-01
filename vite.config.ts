@@ -33,6 +33,9 @@ export default defineConfig({
     esbuild: {
         jsx: 'automatic',
     },
+    ssr: {
+        noExternal: true, /* high weight inline dependencies, but avoid node modules in ssr stage */
+    },
     server: {
         hmr: {
             host: 'localhost',
