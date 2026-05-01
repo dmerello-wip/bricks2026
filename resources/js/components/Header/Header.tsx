@@ -15,11 +15,11 @@ export function Header({
     menu: MenuItem[];
 }) {
     return (
-        <header className="site-header sticky top-0 z-50 border-b bg-background py-2">
+        <header className="site-header sticky top-0 z-50 border-b py-2">
             <div className="container flex items-center justify-between gap-6">
                 {/* Logo */}
                 <div className="logo">
-                    <BrandLogo width={120} />
+                    <BrandLogo width={80} />
                 </div>
 
                 {/* Menu Primary Desktop*/}
@@ -27,19 +27,22 @@ export function Header({
                     <HeaderMenu menu={menu} />
 
                     {/* Auth & Language */}
+
+                    {/*
                     <div className="flex items-center gap-2">
                         <AuthTrigger isLogged={isLogged} />
                         <LanguageSelector />
                     </div>
+                    */}
                 </div>
 
                 {/* Menu Primary Mobile*/}
                 <div className="site-header__trigger lg:hidden">
                     <HeaderMenuMobile menu={menu}>
-                        <div className="flex justify-between gap-2">
-                            <AuthTrigger isLogged={isLogged} />
-                            <LanguageSelector />
-                        </div>
+                        {/*
+                        <AuthTrigger isLogged={isLogged} />
+                        <LanguageSelector />
+                        */}
                     </HeaderMenuMobile>
                 </div>
             </div>

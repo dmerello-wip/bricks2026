@@ -79,14 +79,8 @@ class TwillBlockService
         $locale = app()->getLocale();
 
         foreach ($content as $key => $value) {
-            if (! is_array($value)) {
-                continue;
-            }
-
-            if (array_key_exists($locale, $value)) {
-                $content[$key] = $value[$locale];
-            } elseif ($this->isLocaleMap($value)) {
-                $content[$key] = null;
+            if (is_array($value) && $this->isLocaleMap($value)) {
+                $content[$key] = $value[$locale] ?? null;
             }
         }
 
@@ -95,9 +89,17 @@ class TwillBlockService
 
     private function isLocaleMap(array $value): bool
     {
-        $locales = config('translatable.locales', []);
+        if ($value === [] || array_is_list($value)) {
+            return false;
+        }
 
-        return ! empty($value) && count(array_diff(array_keys($value), $locales)) === 0;
+        foreach (array_keys($value) as $key) {
+            if (! is_string($key) || preg_match('/^[a-z]{2}(_[A-Z]{2})?$/', $key) !== 1) {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     /**

@@ -50,7 +50,8 @@ Attivata dal pulsante "Preview" nel form Twill. Mostra l'intera pagina con tutti
 
 ### Trait `HasBlockPreview`
 
-`app/Twill/Concerns/HasBlockPreview.php` — da aggiungere a qualsiasi Twill ModuleController che ha blocchi.
+`app/Twill/Concerns/HasBlockPreview.php` — da aggiungere a qualsiasi Twill ModuleController che ha blocchi.Compatibile sia con `ModuleController` / `NestedModuleController` (es. `PageController`) che con `SingletonModuleController` (es. `HomepageController`).
+
 
 ```php
 use App\Twill\Concerns\HasBlockPreview;

@@ -16,7 +16,7 @@ it('returns xml content type', function () {
 
 it('includes a published homepage', function () {
     $homepage = Homepage::create(['published' => true]);
-    $homepage->translations()->create(['locale' => 'en', 'active' => true]);
+    $homepage->translations()->create(['locale' => 'it', 'active' => true]);
 
     $response = $this->get('sitemap.xml');
 
@@ -34,7 +34,7 @@ it('excludes homepage when not published', function () {
 
 it('excludes homepage when no_index is true', function () {
     $homepage = Homepage::create(['published' => true]);
-    $homepage->translations()->create(['locale' => 'en', 'active' => true]);
+    $homepage->translations()->create(['locale' => 'it', 'active' => true]);
 
     $homepage->seoData()->create(['no_index' => true, 'translations' => []]);
 
@@ -45,8 +45,8 @@ it('excludes homepage when no_index is true', function () {
 
 it('includes published pages with active slugs', function () {
     $page = Page::create(['published' => true]);
-    $page->translations()->create(['locale' => 'en', 'active' => true, 'title' => 'About Us']);
-    $page->slugs()->forceCreate(['locale' => 'en', 'active' => true, 'slug' => 'about-us']);
+    $page->translations()->create(['locale' => 'it', 'active' => true, 'title' => 'About Us']);
+    $page->slugs()->forceCreate(['locale' => 'it', 'active' => true, 'slug' => 'about-us']);
 
     $xml = $this->get('sitemap.xml')->getContent();
 
@@ -55,8 +55,8 @@ it('includes published pages with active slugs', function () {
 
 it('excludes unpublished pages', function () {
     $page = Page::create(['published' => false]);
-    $page->translations()->create(['locale' => 'en', 'active' => true, 'title' => 'Hidden']);
-    $page->slugs()->forceCreate(['locale' => 'en', 'active' => true, 'slug' => 'hidden-page']);
+    $page->translations()->create(['locale' => 'it', 'active' => true, 'title' => 'Hidden']);
+    $page->slugs()->forceCreate(['locale' => 'it', 'active' => true, 'slug' => 'hidden-page']);
 
     $xml = $this->get('sitemap.xml')->getContent();
 
@@ -65,8 +65,8 @@ it('excludes unpublished pages', function () {
 
 it('excludes pages with no_index set to true', function () {
     $page = Page::create(['published' => true]);
-    $page->translations()->create(['locale' => 'en', 'active' => true, 'title' => 'No Index Page']);
-    $page->slugs()->forceCreate(['locale' => 'en', 'active' => true, 'slug' => 'no-index-page']);
+    $page->translations()->create(['locale' => 'it', 'active' => true, 'title' => 'No Index Page']);
+    $page->slugs()->forceCreate(['locale' => 'it', 'active' => true, 'slug' => 'no-index-page']);
 
     $page->seoData()->create(['no_index' => true, 'translations' => []]);
 
@@ -77,7 +77,7 @@ it('excludes pages with no_index set to true', function () {
 
 it('excludes pages with no active slug', function () {
     $page = Page::create(['published' => true]);
-    $page->translations()->create(['locale' => 'en', 'active' => true, 'title' => 'No Slug Page']);
+    $page->translations()->create(['locale' => 'it', 'active' => true, 'title' => 'No Slug Page']);
 
     $xml = $this->get('sitemap.xml')->getContent();
 

@@ -265,7 +265,7 @@ Il parametro `locale` è gestito dal gruppo di route — Wayfinder lo vede come 
    },
    ```
 
-4. Nel Twill module controller, aggiungere `getLocalizedPermalinkBase()`:
+4. Nel Twill module controller, aggiungere `getLocalizedPermalinkBase()` con le lingue abilitate:
    ```php
    protected function getLocalizedPermalinkBase(): array
    {

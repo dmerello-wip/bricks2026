@@ -16,7 +16,7 @@ class HomepageController extends Controller
         summary: 'Homepage',
         tags: ['Pages'],
         parameters: [
-            new OA\Parameter(name: 'locale', in: 'path', required: true, schema: new OA\Schema(type: 'string', example: 'en')),
+            new OA\Parameter(name: 'locale', in: 'path', required: true, schema: new OA\Schema(type: 'string', example: 'it')),
         ],
         responses: [
             new OA\Response(

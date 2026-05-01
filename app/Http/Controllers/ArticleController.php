@@ -145,7 +145,6 @@ class ArticleController extends Controller
         $seo = $seoService->resolve($article);
         $seo['alternates'] = $this->resolveArticleAlternates($article, $matchingCategory);
 
-
         return Inertia::render('Article/Show', [
             'article' => $article->toArray(),
             'blocks' => $blocks,
@@ -183,7 +182,7 @@ class ArticleController extends Controller
             $alternates[$locale] = url("/{$locale}/{$modulePrefix}/{$categorySlugs[$locale]}");
         }
 
-        $fallback = config('translatable.fallback_locale', 'en');
+        $fallback = config('translatable.fallback_locale', 'it');
 
         if (isset($alternates[$fallback])) {
             $alternates['x-default'] = $alternates[$fallback];
@@ -229,7 +228,7 @@ class ArticleController extends Controller
             $alternates[$locale] = url("/{$locale}/{$modulePrefix}/{$categorySlugs[$locale]}/{$articleSlugs[$locale]}");
         }
 
-        $fallback = config('translatable.fallback_locale', 'en');
+        $fallback = config('translatable.fallback_locale', 'it');
 
         if (isset($alternates[$fallback])) {
             $alternates['x-default'] = $alternates[$fallback];

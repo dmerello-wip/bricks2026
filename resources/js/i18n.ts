@@ -4,12 +4,12 @@ import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
 
 i18n.use(initReactI18next).init({
-    fallbackLng: 'en',
+    fallbackLng: 'it',
     interpolation: {
         escapeValue: false,
     },
     resources: {
-        en: { translation: en },
+        // en: { translation: en },
         it: { translation: it },
     },
 });

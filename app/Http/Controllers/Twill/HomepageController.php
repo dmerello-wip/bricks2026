@@ -7,10 +7,13 @@ use A17\Twill\Models\Contracts\TwillModelContract;
 use A17\Twill\Services\Forms\Fields\BlockEditor;
 use A17\Twill\Services\Forms\Fields\Input;
 use A17\Twill\Services\Forms\Form;
+use App\Twill\Concerns\HasBlockPreview;
 use App\Twill\Fieldsets\SeoFieldset;
 
 class HomepageController extends SingletonModuleController
 {
+    use HasBlockPreview;
+
     protected $moduleName = 'homepages';
 
     protected function setUpController(): void

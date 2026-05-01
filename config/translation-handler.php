@@ -12,7 +12,8 @@ return [
     'keyDelimiter' => '.',
 
     'fileNames' => ['app', 'routes'],
-    'locales' => ['it', 'en'],
+    // 'locales' => ['it', 'en'],
+    'locales' => ['it'],
 
     'defaultImportFrom' => TranslationOptions::PHP,
     'defaultImportTo' => TranslationOptions::JSON,

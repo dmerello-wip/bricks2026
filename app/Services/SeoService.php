@@ -66,7 +66,7 @@ class SeoService
             }
         }
 
-        $fallback = config('translatable.fallback_locale', 'en');
+        $fallback = config('translatable.fallback_locale', 'it');
 
         if (isset($alternates[$fallback])) {
             $alternates['x-default'] = $alternates[$fallback];

@@ -15,7 +15,7 @@ class PageController extends Controller
         summary: 'CMS Page',
         tags: ['Pages'],
         parameters: [
-            new OA\Parameter(name: 'locale', in: 'path', required: true, schema: new OA\Schema(type: 'string', example: 'en')),
+            new OA\Parameter(name: 'locale', in: 'path', required: true, schema: new OA\Schema(type: 'string', example: 'it')),
             new OA\Parameter(name: 'slug', in: 'path', required: true, schema: new OA\Schema(type: 'string', example: 'about-us')),
         ],
         responses: [

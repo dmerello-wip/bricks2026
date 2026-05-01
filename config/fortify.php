@@ -73,7 +73,8 @@ return [
     |
     */
 
-    'home' => '/'.env('APP_LOCALE', 'en').'/dashboard',
+    // 'home' => '/'.env('APP_LOCALE', 'en').'/dashboard',
+    'home' => '/'.env('APP_LOCALE', 'it').'/dashboard',
 
     /*
     |--------------------------------------------------------------------------

@@ -23,7 +23,7 @@ class ArticleController extends BaseModuleController
     {
         return [
             'it' => trans('routes.articles', [], 'it').'/{category}',
-            'en' => trans('routes.articles', [], 'en').'/{category}',
+            // 'en' => trans('routes.articles', [], 'en').'/{category}',
         ];
     }
 

@@ -19,12 +19,12 @@ createInertiaApp({
         ),
     setup({ el, App, props }) {
         const locale =
-            (props.initialPage.props as { locale?: string }).locale ?? 'en';
+            (props.initialPage.props as { locale?: string }).locale ?? 'it';
         setUrlDefaults({ locale });
 
         router.on('navigate', (event) => {
             const pageLocale =
-                (event.detail.page.props as { locale?: string }).locale ?? 'en';
+                (event.detail.page.props as { locale?: string }).locale ?? 'it';
             setUrlDefaults({ locale: pageLocale });
         });
 
