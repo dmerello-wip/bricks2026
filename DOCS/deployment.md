@@ -143,10 +143,10 @@ In produzione settare `INERTIA_SSR_URL=http://ssr:13714` (DNS Docker risolve `ss
 
 ## Post-deploy hook
 
-[scripts/deploy.sh](../scripts/deploy.sh) — da configurare in Coolify "Post-deployment command":
+[docker/deploy.sh](../docker/deploy.sh) — da configurare in Coolify "Post-deployment command":
 
 ```bash
-bash /var/www/html/scripts/deploy.sh
+bash /var/www/html/docker/deploy.sh
 ```
 
 Esegue, in ordine:
@@ -180,7 +180,7 @@ docker compose -f compose.prod.yaml ps                                       # t
 docker compose -f compose.prod.yaml exec app ls public/assets/twill          # css/, js/, fonts/, twill-manifest.json
 docker compose -f compose.prod.yaml exec app ps -ef | grep -E "nginx|php-fpm" # entrambi presenti
 docker compose -f compose.prod.yaml exec app curl -fsS http://localhost/up   # 200
-make deploy-local            # esegue scripts/deploy.sh dentro app
+make deploy-local            # esegue docker/deploy.sh dentro app
 ```
 
 ---

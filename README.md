@@ -101,7 +101,7 @@ MAIL_FROM_NAME="${APP_NAME}"
 3. **Crea un database MySQL 8.4** gestito in Coolify → copia le credenziali nelle env var.
 4. **Verifica il volume** `app_storage` — Coolify lo rileva automaticamente dal compose file (tab "Storages").
 5. **Imposta le variabili d'ambiente** come da elenco sopra.
-6. **Imposta il Post-deployment command**: `bash /var/www/html/scripts/deploy.sh`
+6. **Imposta il Post-deployment command**: `bash /var/www/html/docker/deploy.sh`
 7. **Deploy**.
 
 ## First-deploy checklist
@@ -118,7 +118,7 @@ MAIL_FROM_NAME="${APP_NAME}"
 ## Deploy successivi
 
 - Push al branch monitorato da Coolify → redeploy automatico
-- `scripts/deploy.sh` esegue le migration automaticamente (`--force`)
+- `docker/deploy.sh` esegue le migration automaticamente (`--force`)
 - Zero-downtime: Coolify aspetta il health check su `/up` prima di instradare il traffico
 
 ## Test build produzione in locale

@@ -2,7 +2,7 @@
 # Post-deploy hook — eseguito dentro il container `app` dopo che il health check passa.
 #
 # Configurare in Coolify → "Post-deployment command":
-#   bash /var/www/html/scripts/deploy.sh
+#   bash /var/www/html/docker/deploy.sh
 
 set -euo pipefail
 

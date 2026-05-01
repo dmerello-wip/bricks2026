@@ -60,4 +60,4 @@ run-prod:
 .PHONY: deploy-local
 deploy-local: build-prod
 	docker compose -f compose.prod.yaml up -d --force-recreate
-	docker exec $$(docker compose -f compose.prod.yaml ps -q app) bash /var/www/html/scripts/deploy.sh
+	docker exec $$(docker compose -f compose.prod.yaml ps -q app) bash /var/www/html/docker/deploy.sh
