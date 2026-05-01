@@ -182,6 +182,11 @@ FROM node:22-alpine AS ssr
 
 WORKDIR /app
 
+# Install production deps so the SSR bundle can resolve runtime imports
+# (react, react-dom, @inertiajs/react, ecc. — Vite per default li externalize)
+COPY package.json package-lock.json ./
+RUN npm ci --omit=dev --omit=optional --ignore-scripts
+
 COPY --from=node-builder /app/bootstrap/ssr ./bootstrap/ssr
 
 EXPOSE 13714
