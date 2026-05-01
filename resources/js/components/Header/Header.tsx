@@ -6,24 +6,56 @@ import { LanguageSelector } from '@/components/LanguageSelector';
 import { Button } from '@/components/ui/Button';
 import type { MenuItem } from '@/lib/types';
 import { dashboard, login } from '@/routes';
+import { useEffect, useState, useRef} from 'react';
+import { useLenis } from 'lenis/react'
+import { cn } from '@/lib/utils';
 
 export function Header({
-    isLogged,
     menu,
 }: {
     isLogged: boolean;
     menu: MenuItem[];
 }) {
+
+
+ const [headerHeight, setHeaderHeight] = useState(0);
+ const [hasScrolled, setHasScrolled] = useState(false);
+    const headerRef = useRef(null);
+    
+    const headerClasses = cn(
+        'header fixed top-0 w-full z-50',
+       hasScrolled ? 'p-2' : 'p-6',
+    );
+
+    const logoSize = hasScrolled ? 80 : 160;
+
+    useLenis((lenis) => {
+        if (lenis.targetScroll > headerHeight) {
+           setHasScrolled(true);
+        } else {
+            setHasScrolled(false);
+        }
+    });
+
+    useEffect(() => {
+        if (headerRef.current) {
+            setHeaderHeight(headerRef.current.offsetHeight);
+            window.addEventListener('resize', () => {
+                setHeaderHeight(headerRef.current.offsetHeight);
+            });
+        }
+    }, []);
+
     return (
-        <header className="site-header sticky top-0 z-50 border-b py-2">
-            <div className="container flex items-center justify-between gap-6">
+        <header ref={headerRef} className={headerClasses}>
+            <div className="flex items-center justify-between gap-6">
                 {/* Logo */}
                 <div className="logo">
-                    <BrandLogo width={80} />
+                    <BrandLogo width={logoSize} className='transition-all duration-500'/>
                 </div>
 
                 {/* Menu Primary Desktop*/}
-                <div className="site-header__actions hidden grow justify-between lg:flex">
+                <div className="header__actions hidden grow justify-between lg:flex">
                     <HeaderMenu menu={menu} />
 
                     {/* Auth & Language */}
@@ -37,7 +69,7 @@ export function Header({
                 </div>
 
                 {/* Menu Primary Mobile*/}
-                <div className="site-header__trigger lg:hidden">
+                <div className="header__trigger lg:hidden">
                     <HeaderMenuMobile menu={menu}>
                         {/*
                         <AuthTrigger isLogged={isLogged} />
