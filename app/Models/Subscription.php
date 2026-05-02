@@ -5,14 +5,16 @@ namespace App\Models;
 use A17\Twill\Models\Behaviors\HasFiles;
 use A17\Twill\Models\Model;
 use Illuminate\Database\Eloquent\Casts\Attribute;
-use Illuminate\Support\Facades\Storage;
 
 class Subscription extends Model
 {
     use HasFiles;
 
+    public $filesParams = ['video_file'];
+
     protected $fillable = [
         'published',
+        'title',
         'band',
         'nr_componenti',
         'eta_media',
@@ -22,7 +24,6 @@ class Subscription extends Model
         'referente',
         'telefono',
         'email',
-        'video_file_path',
         'video_link',
         'privacy',
         'evento',
@@ -43,7 +44,7 @@ class Subscription extends Model
     protected function videoFileUrl(): Attribute
     {
         return Attribute::make(
-            get: fn () => $this->video_file_path ? Storage::url($this->video_file_path) : null,
+            get: fn () => $this->file('video_file') ?: null,
         );
     }
 }

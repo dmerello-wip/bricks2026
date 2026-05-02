@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreSubscriptionRequest;
 use App\Repositories\SubscriptionRepository;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Support\Facades\Storage;
 
 class SubscriptionController extends Controller
 {
@@ -17,18 +16,19 @@ class SubscriptionController extends Controller
     {
         $data = $request->validated();
 
-        if ($request->hasFile('video_file_path')) {
-            $data['video_file_path'] = Storage::disk('public')
-                ->putFile('subscriptions', $request->file('video_file_path'));
-        } else {
-            $data['video_file_path'] = null;
-        }
+        $upload = $request->file('video_file_path');
+        unset($data['video_file_path']);
 
+        $data['title'] = $data['band'];
         $data['privacy'] = (bool) ($data['privacy'] ?? false);
         $data['data_iscrizione'] = now();
         $data['published'] = true;
 
-        $this->subscriptions->create($data);
+        $subscription = $this->subscriptions->create($data);
+
+        if ($upload) {
+            $this->subscriptions->attachVideoFile($subscription, $upload);
+        }
 
         return back()->with('success', 'Iscrizione inviata con successo.');
     }

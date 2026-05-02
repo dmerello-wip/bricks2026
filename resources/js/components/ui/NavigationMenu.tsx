@@ -58,9 +58,7 @@ function NavigationMenuItem({
     );
 }
 
-const navigationMenuTriggerStyle = cva(
-    'group inline-flex h-9 w-max items-center justify-center rounded-md bg-background px-4 py-2 text-sm font-medium ring-ring/10 outline-ring/50 transition-[color,box-shadow] hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus-visible:ring-4 focus-visible:outline-1 disabled:pointer-events-none disabled:opacity-50 data-[active=true]:bg-accent/50 data-[active=true]:text-accent-foreground data-[state=open]:bg-accent/50 dark:ring-ring/20 dark:outline-ring/40',
-);
+const navigationMenuTriggerStyle = cva('font-bold text-background uppercase');
 
 function NavigationMenuTrigger({
     className,

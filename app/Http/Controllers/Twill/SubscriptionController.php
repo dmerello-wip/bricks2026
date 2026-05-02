@@ -92,7 +92,7 @@ class SubscriptionController extends BaseModuleController
             Files::make()
                 ->name('video_file')
                 ->label('Video file')
-                ->note('File video caricato dall\'utente (max 100MB).')
+                ->note('File video caricato dal PC (max 100MB).')
                 ->max(1)
         );
 
@@ -101,14 +101,6 @@ class SubscriptionController extends BaseModuleController
                 ->name('video_link')
                 ->label('Link al video')
                 ->note('In alternativa al file: link a YouTube, Vimeo, Drive, WeTransfer, ecc.')
-        );
-
-        $form->add(
-            Input::make()
-                ->name('video_file_path')
-                ->label('Path file video (legacy)')
-                ->note('Compilato automaticamente dalle submission pubbliche del form.')
-                ->disabled()
         );
 
         $form->add(
