@@ -9,7 +9,6 @@ use A17\Twill\Services\Forms\Fields\DatePicker;
 use A17\Twill\Services\Forms\Fields\Files;
 use A17\Twill\Services\Forms\Fields\Input;
 use A17\Twill\Services\Forms\Form;
-use A17\Twill\Services\Listings\Columns\Link;
 use A17\Twill\Services\Listings\Columns\Text;
 use A17\Twill\Services\Listings\TableColumns;
 
@@ -133,13 +132,6 @@ class SubscriptionController extends BaseModuleController
 
         $table->add(
             Text::make()
-                ->field('band')
-                ->title('Band')
-                ->sortable()
-        );
-
-        $table->add(
-            Text::make()
                 ->field('evento')
                 ->title('Evento')
                 ->sortable()
@@ -147,22 +139,39 @@ class SubscriptionController extends BaseModuleController
 
         $table->add(
             Text::make()
+                ->field('band')
+                ->title('Band')
+                ->sortable()
+                ->customRender(fn ($model) => "<strong>Band:</strong> {$model->band}<br>".
+                    "<strong>Componenti:</strong> {$model->nr_componenti}<br>".
+                    "<strong>Durata:</strong> {$model->durata} min<br>".
+                    "<strong>Età media:</strong> {$model->eta_media}<br>".
+                    "<strong>Genere:</strong> {$model->genere}")
+        );
+        $table->add(
+            Text::make()
                 ->field('referente')
                 ->title('Referente')
+                ->customRender(fn ($model) => "<strong>Referente:</strong> {$model->referente}<br>".
+                    "<strong>Email:</strong> {$model->email}<br>".
+                    "<strong>Telefono:</strong> {$model->telefono}<br>".
+                    "<strong>Città:</strong> {$model->citta}")
         );
 
         $table->add(
             Text::make()
-                ->field('email')
-                ->title('Email referente')
-        );
-
-        $table->add(
-            Link::make()
                 ->field('video_file_url')
                 ->title('Video File')
-                ->url(fn ($model) => $model->video_file_url)
-                ->customRender(fn ($model) => $model->video_file_path ? 'Download' : '-')
+                ->customRender(function ($model) {
+                    if ($model->video_file_url) {
+                        return "<a href=\"{$model->video_file_url}\" target=\"_blank\">Scarica video</a>";
+                    }
+                    if ($model->video_link) {
+                        return "<a href=\"{$model->video_link}\" target=\"_blank\">Apri video</a>";
+                    }
+
+                    return 'N/A';
+                })
         );
 
         $table->add(

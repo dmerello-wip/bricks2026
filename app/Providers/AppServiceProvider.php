@@ -39,22 +39,22 @@ class AppServiceProvider extends ServiceProvider
         $this->registerRouteMacros();
         $this->registerTwillCustomCss();
         TwillNavigation::addLink(
+            NavigationLink::make()->forModule('menus')
+        );
+        TwillNavigation::addLink(
             NavigationLink::make()->forSingleton('homepage')->title('Homepage')
         );
         TwillNavigation::addLink(
             NavigationLink::make()->forModule('pages')
         );
         TwillNavigation::addLink(
-            NavigationLink::make()->forModule('articles')
+            NavigationLink::make()->forModule('subscriptions')->title('Iscrizioni')
         );
         TwillNavigation::addLink(
             NavigationLink::make()->forModule('categories')
         );
         TwillNavigation::addLink(
-            NavigationLink::make()->forModule('menus')
-        );
-        TwillNavigation::addLink(
-            NavigationLink::make()->forModule('subscriptions')->title('Iscrizioni')
+            NavigationLink::make()->forModule('articles')
         );
         TwillNavigation::addLink(
             NavigationLink::make()->forSingleton('seoDefault')->title('SEO Defaults')
