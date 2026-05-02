@@ -9,6 +9,7 @@ use A17\Twill\Services\Forms\Fields\DatePicker;
 use A17\Twill\Services\Forms\Fields\Files;
 use A17\Twill\Services\Forms\Fields\Input;
 use A17\Twill\Services\Forms\Form;
+use A17\Twill\Services\Listings\Columns\Link;
 use A17\Twill\Services\Listings\Columns\Text;
 use A17\Twill\Services\Listings\TableColumns;
 
@@ -146,14 +147,22 @@ class SubscriptionController extends BaseModuleController
 
         $table->add(
             Text::make()
-                ->field('citta')
-                ->title('Città')
+                ->field('referente')
+                ->title('Referente')
         );
 
         $table->add(
             Text::make()
                 ->field('email')
                 ->title('Email referente')
+        );
+
+        $table->add(
+            Link::make()
+                ->field('video_file_url')
+                ->title('Video File')
+                ->url(fn ($model) => $model->video_file_url)
+                ->customRender(fn ($model) => $model->video_file_path ? 'Download' : '-')
         );
 
         $table->add(

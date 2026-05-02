@@ -4,6 +4,8 @@ namespace App\Models;
 
 use A17\Twill\Models\Behaviors\HasFiles;
 use A17\Twill\Models\Model;
+use Illuminate\Database\Eloquent\Casts\Attribute;
+use Illuminate\Support\Facades\Storage;
 
 class Subscription extends Model
 {
@@ -36,5 +38,12 @@ class Subscription extends Model
             'durata' => 'integer',
             'data_iscrizione' => 'datetime',
         ];
+    }
+
+    protected function videoFileUrl(): Attribute
+    {
+        return Attribute::make(
+            get: fn () => $this->video_file_path ? Storage::url($this->video_file_path) : null,
+        );
     }
 }
