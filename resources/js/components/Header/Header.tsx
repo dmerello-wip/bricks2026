@@ -17,10 +17,10 @@ export function Header({ menu }: { isLogged: boolean; menu: MenuItem[] }) {
 
     const headerClasses = cn(
         'header fixed top-0 z-50 w-full',
-        hasScrolled ? 'p-2' : 'p-6',
+        hasScrolled ? 'bg-foreground/80 p-3 backdrop-blur-md' : 'p-6',
     );
 
-    const logoSize = hasScrolled ? 80 : 160;
+    const logoSize = hasScrolled ? 60 : 180;
 
     useLenis((lenis) => {
         if (lenis.targetScroll > headerHeight) {
@@ -44,7 +44,7 @@ export function Header({ menu }: { isLogged: boolean; menu: MenuItem[] }) {
             ref={headerRef}
             className={headerClasses}
         >
-            <div className="flex items-center justify-between gap-6">
+            <div className="header__inner flex items-center justify-between gap-6">
                 {/* Logo */}
                 <div className="logo">
                     <BrandLogo
@@ -54,7 +54,7 @@ export function Header({ menu }: { isLogged: boolean; menu: MenuItem[] }) {
                 </div>
 
                 {/* Menu Primary Desktop*/}
-                <div className="header__actions hidden grow justify-between lg:flex">
+                <div className="header__actions hidden grow justify-start lg:flex">
                     <HeaderMenu menu={menu} />
 
                     {/* Auth & Language */}

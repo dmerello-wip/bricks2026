@@ -10,6 +10,7 @@ import Paragraph from './Paragraph';
 import Gallery from './Gallery';
 import Matrix from './Matrix';
 import Video from './Video';
+import SubscriptionForm from '@/components/form/SubscriptionForm';
 
 type BlockType =
     | 'abstract'
@@ -20,7 +21,8 @@ type BlockType =
     | 'download'
     | 'gallery'
     | 'matrix'
-    | 'video';
+    | 'video'
+    | 'subscriptionform';
 
 const BLOCK_COMPONENTS: Record<
     BlockType,
@@ -35,6 +37,7 @@ const BLOCK_COMPONENTS: Record<
     gallery: Gallery,
     matrix: Matrix,
     video: Video,
+    subscriptionform: SubscriptionForm,
 };
 
 function isBlockType(type: string): type is BlockType {

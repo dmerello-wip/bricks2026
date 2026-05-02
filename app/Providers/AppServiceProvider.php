@@ -54,6 +54,9 @@ class AppServiceProvider extends ServiceProvider
             NavigationLink::make()->forModule('menus')
         );
         TwillNavigation::addLink(
+            NavigationLink::make()->forModule('subscriptions')->title('Iscrizioni')
+        );
+        TwillNavigation::addLink(
             NavigationLink::make()->forSingleton('seoDefault')->title('SEO Defaults')
         );
 

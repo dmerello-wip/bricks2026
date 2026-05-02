@@ -30,7 +30,7 @@ class HomepageController extends SingletonModuleController
         );
 
         $form->add(
-            BlockEditor::make()->blocks(['hero', 'abstract', 'paragraph', 'download', 'gallery', 'matrix', 'video'])
+            BlockEditor::make()->blocks(['hero', 'abstract', 'paragraph', 'download', 'gallery', 'matrix', 'video', 'subscriptionform'])
         );
 
         $form->addFieldset(SeoFieldset::make());

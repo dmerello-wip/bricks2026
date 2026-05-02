@@ -12,3 +12,4 @@ TwillRoutes::module('menuitems');
 TwillRoutes::module('menus');
 TwillRoutes::module('articles');
 TwillRoutes::module('categories');
+TwillRoutes::module('subscriptions');

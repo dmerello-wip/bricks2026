@@ -15,10 +15,7 @@ const menuLinkClass =
 
 export function HeaderMenu({ menu }: { menu: MenuItem[] }) {
     return (
-        <NavigationMenu
-            viewport={false}
-            className="mx-auto flex grow justify-center"
-        >
+        <NavigationMenu viewport={false}>
             <NavigationMenuList className="gap-6">
                 {menu.map((item) => (
                     <Level1Item

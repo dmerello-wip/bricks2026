@@ -39,6 +39,7 @@ class PageController extends BaseModuleController
                 'download',
                 'matrix',
                 'video',
+                'subscriptionform',
             ])
         );
 
