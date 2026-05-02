@@ -150,8 +150,11 @@ RUN { \
     echo 'opcache.fast_shutdown=1'; \
 } > /usr/local/etc/php/conf.d/opcache.ini
 
-# Run nginx as www-data so it shares ownership with php-fpm
-RUN sed -i 's/user nginx;/user www-data;/' /etc/nginx/nginx.conf
+# Run nginx as www-data so it shares ownership with php-fpm. Also chown
+# /var/lib/nginx so the worker can write request body buffers (used for any
+# POST larger than client_body_buffer_size — e.g. media uploads).
+RUN sed -i 's/user nginx;/user www-data;/' /etc/nginx/nginx.conf && \
+    chown -R www-data:www-data /var/lib/nginx
 
 COPY docker/nginx.conf /etc/nginx/http.d/default.conf
 COPY docker/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
