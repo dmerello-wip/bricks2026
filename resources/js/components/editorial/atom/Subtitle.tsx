@@ -15,7 +15,7 @@ export default function Subtitle({
     if (!content) return null;
 
     const defaultClasses =
-        'block-subtitle w-full text-2xl text-secondary group-[.block-text-light]:text-white group-[.hero-text-under]:max-sm:!text-secondary';
+        'block-subtitle w-full text-2xl text-secondary font-serif font-bold uppercase text-background group-[.block-text-light]:text-background group-[.hero-text-under]:max-sm:!text-muted-foreground';
 
     return React.createElement(
         seoTag,

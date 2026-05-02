@@ -56,7 +56,7 @@ const heroWrapperClasses = cva(
 );
 
 const heroCtasWrapper = cva(
-    'block-hero__ctas flex w-full flex-col items-center gap-4 pt-4 sm:flex-row',
+    'block-hero__ctas flex w-full flex-col items-center justify-center gap-4 pt-4 sm:flex-row',
     {
         variants: {
             alignment: {
@@ -107,7 +107,7 @@ export default function Hero({ block }: { block: Block }) {
             {/* Content Container */}
             <div className={heroWrapperClasses({ alignment })}>
                 {/* Content */}
-                <div className="block-hero__content relative flex flex-col gap-6 sm:max-w-3xl">
+                <div className="block-hero__content relative flex flex-col gap-6 sm:max-w-3xl sm:bg-black/50 sm:p-12 sm:backdrop-blur-xs">
                     <div className="flex flex-col gap-2">
                         <Eyelet
                             content={block.content.eyelet}

@@ -6,32 +6,25 @@ import { LanguageSelector } from '@/components/LanguageSelector';
 import { Button } from '@/components/ui/Button';
 import type { MenuItem } from '@/lib/types';
 import { dashboard, login } from '@/routes';
-import { useEffect, useState, useRef} from 'react';
-import { useLenis } from 'lenis/react'
+import { useEffect, useState, useRef } from 'react';
+import { useLenis } from 'lenis/react';
 import { cn } from '@/lib/utils';
 
-export function Header({
-    menu,
-}: {
-    isLogged: boolean;
-    menu: MenuItem[];
-}) {
-
-
- const [headerHeight, setHeaderHeight] = useState(0);
- const [hasScrolled, setHasScrolled] = useState(false);
+export function Header({ menu }: { isLogged: boolean; menu: MenuItem[] }) {
+    const [headerHeight, setHeaderHeight] = useState(0);
+    const [hasScrolled, setHasScrolled] = useState(false);
     const headerRef = useRef(null);
-    
+
     const headerClasses = cn(
-        'header fixed top-0 w-full z-50',
-       hasScrolled ? 'p-2' : 'p-6',
+        'header fixed top-0 z-50 w-full',
+        hasScrolled ? 'p-2' : 'p-6',
     );
 
     const logoSize = hasScrolled ? 80 : 160;
 
     useLenis((lenis) => {
         if (lenis.targetScroll > headerHeight) {
-           setHasScrolled(true);
+            setHasScrolled(true);
         } else {
             setHasScrolled(false);
         }
@@ -47,11 +40,17 @@ export function Header({
     }, []);
 
     return (
-        <header ref={headerRef} className={headerClasses}>
+        <header
+            ref={headerRef}
+            className={headerClasses}
+        >
             <div className="flex items-center justify-between gap-6">
                 {/* Logo */}
                 <div className="logo">
-                    <BrandLogo width={logoSize} className='transition-all duration-500'/>
+                    <BrandLogo
+                        width={logoSize}
+                        className="transition-all duration-500"
+                    />
                 </div>
 
                 {/* Menu Primary Desktop*/}

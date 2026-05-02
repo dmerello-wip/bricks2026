@@ -8,7 +8,10 @@ import { PreviewContext } from '@/lib/context/preview';
 // - Inertia links in Twill iframe preview mode (where Inertia navigation brakes the preview)
 
 // Omit HTML events that conflict with Inertia's own callback signatures
-type SharedProps = Omit<React.HTMLAttributes<Element>, 'children' | 'onProgress' | 'onError'>;
+type SharedProps = Omit<
+    React.HTMLAttributes<Element>,
+    'children' | 'onProgress' | 'onError'
+>;
 
 export type AppLinkProps = SharedProps & {
     href: string;
@@ -43,7 +46,11 @@ export default function AppLink({
 
     if (type === 'download') {
         return (
-            <a href={href} download={download ?? true} {...anchorProps}>
+            <a
+                href={href}
+                download={download ?? true}
+                {...anchorProps}
+            >
                 {children}
             </a>
         );
@@ -51,7 +58,12 @@ export default function AppLink({
 
     if (type === 'external') {
         return (
-            <a href={href} target={target} rel={rel} {...anchorProps}>
+            <a
+                href={href}
+                target={target}
+                rel={rel}
+                {...anchorProps}
+            >
                 {children}
             </a>
         );
@@ -59,7 +71,11 @@ export default function AppLink({
 
     if (isPreview) {
         return (
-            <a href={href} target={target} {...anchorProps}>
+            <a
+                href={href}
+                target={target}
+                {...anchorProps}
+            >
                 {children}
             </a>
         );

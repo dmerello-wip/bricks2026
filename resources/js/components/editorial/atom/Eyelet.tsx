@@ -14,7 +14,7 @@ export default function Eyelet({
     if (!content) return null;
 
     const defaultClasses =
-        'block-eyelet w-full text-xs font-bold uppercase tracking-wider text-secondary group-[.block-text-light]:text-white group-[.hero-text-under]:max-sm:!text-white';
+        'block-eyelet w-full font-serif text-md font-bold uppercase tracking-wider text-secondary';
 
     return React.createElement(
         seoTag,

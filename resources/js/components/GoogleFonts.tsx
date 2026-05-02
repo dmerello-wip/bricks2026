@@ -13,7 +13,7 @@ export default function GoogleFonts() {
                 crossOrigin="anonymous"
             />
             <link
-                href="https://fonts.googleapis.com/css2?family=Rethink+Sans:ital,wght@0,400..800;1,400..800&display=swap"
+                href="https://fonts.googleapis.com/css2?family=Unbounded:wght@200..900&display=swap"
                 rel="stylesheet"
             />
         </Head>

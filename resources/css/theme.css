@@ -11,9 +11,9 @@
     --popover-foreground: oklch(0 0 0);
     --border: oklch(0.9253 0.0144 254.6087);
     --input: oklch(0.9253 0.0144 254.6087);
-    --primary: oklch(0.3931 0.1245 253.8524);
+    --primary: oklch(0.7908 0.17 221.7);
     --primary-foreground: oklch(1 0 89.8756);
-    --secondary: oklch(0.5882 0.2309 28.2936);
+    --secondary: oklch(0.7357 0.25 328.36);
     --secondary-foreground: oklch(1 0 89.8756);
     --destructive: oklch(0.629 0.1902 23.0704);
     --destructive-foreground: oklch(1 0 89.8756);
@@ -32,9 +32,7 @@
     --sidebar-border: oklch(0.9253 0.0144 254.6087);
     --sidebar-ring: oklch(0.5882 0.2309 28.2936);
     --custom-focus: oklch(0.7155 0 89.8756 / 0.5);
-    --custom-destructive-focus: oklch(
-        0.5786 0.2137 27.1659 / 0.4000000059604645
-    );
+    --custom-destructive-focus: oklch(0.5786 0.2137 27.1659 / 0.4000000059604645);
     --shadow-2xs: oklch(0 0 0 / 0.03999999910593033);
     --shadow-sm: oklch(0 0 0 / 0.03999999910593033);
     --shadow: oklch(0 0 0 / 0.03999999910593033);
@@ -52,8 +50,8 @@
     --custom-bg-input-80: oklch(0.9219 0 89.8756);
     --custom-bg-primary-10: oklch(0.2046 0 89.8756 / 0.05000000074505806);
     --radius: 0.5rem;
-    --font-sans: Rethink Sans;
-    --font-serif: Lora;
+    --font-sans: system-ui;
+    --font-serif: Unbounded;
     --font-mono: DM Mono;
     --shadow-x: 0px;
     --shadow-y: 2.5px;
@@ -109,9 +107,7 @@
     --shadow-lg: oklch(0 0 0 / 0.03999999910593033);
     --shadow-md: oklch(0 0 0 / 0.03999999910593033);
     --custom-focus: oklch(0.8711 0.0055 286.286 / 0.5);
-    --custom-destructive-focus: oklch(
-        0.3958 0.1331 25.723 / 0.4000000059604645
-    );
+    --custom-destructive-focus: oklch(0.3958 0.1331 25.723 / 0.4000000059604645);
     --shadow-2xs: oklch(0 0 0 / 0.03999999910593033);
     --shadow-xl: oklch(0 0 0 / 0.03999999910593033);
     --shadow-2xl: oklch(0 0 0 / 0.03999999910593033);
