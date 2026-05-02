@@ -14,4 +14,5 @@
 
 return [
     'articles' => 'news',
+    'events' => 'events',
 ];

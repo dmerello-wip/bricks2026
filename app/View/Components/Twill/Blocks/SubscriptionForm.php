@@ -2,6 +2,7 @@
 
 namespace App\View\Components\Twill\Blocks;
 
+use A17\Twill\Services\Forms\Fields\Browser;
 use A17\Twill\Services\Forms\Fields\Input;
 use A17\Twill\Services\Forms\Form;
 use App\View\Components\Twill\AppBlock;
@@ -27,10 +28,12 @@ class SubscriptionForm extends AppBlock
                 ->label('Sottotitolo')
                 ->translatable(),
 
-            Input::make()
-                ->name('event_name')
-                ->label('Nome Evento')
-                ->note('Identificatore dell\'evento, salvato sulla Subscription nel campo "evento".'),
+            Browser::make()
+                ->name('event')
+                ->label('Evento')
+                ->modules(['events'])
+                ->max(1)
+                ->note('Evento a cui è collegata l\'iscrizione (salvato sulla Subscription).'),
         ]);
     }
 }

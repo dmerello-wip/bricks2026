@@ -29,7 +29,7 @@ class StoreSubscriptionRequest extends FormRequest
             'video_file_path' => ['required_without:video_link', 'nullable', 'file', 'max:102400'],
             'video_link' => ['required_without:video_file_path', 'nullable', 'url', 'max:2048'],
             'privacy' => ['required', 'accepted'],
-            'evento' => ['required', 'string', 'max:255'],
+            'evento' => ['required', 'integer', 'exists:events,id'],
         ];
     }
 

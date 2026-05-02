@@ -28,6 +28,31 @@ export interface ArticleModel {
     related?: object[];
 }
 
+export interface EventModel {
+    /**
+     * Event model data as returned by $event->toArray().
+     * Traits: HasTranslation (title, description), HasMedias, HasSlug, HasRevisions, HasSeoData.
+     */
+    id: number;
+    published: boolean;
+    title?: string | null;
+    description?: string | null;
+    /** @format date-time */
+    data?: string | null;
+    luogo?: string | null;
+    /** @format float */
+    luogo_lat?: number | null;
+    /** @format float */
+    luogo_lng?: number | null;
+    /** @format date-time */
+    created_at?: string;
+    /** @format date-time */
+    updated_at?: string;
+    /** @format date-time */
+    deleted_at?: string | null;
+    medias?: TwillMedia[];
+}
+
 export interface HomepageModel {
     /**
      * Homepage model data as returned by $homepage->toArray().

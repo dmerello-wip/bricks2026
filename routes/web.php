@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ArticleController;
+use App\Http\Controllers\EventController;
 use App\Http\Controllers\HomepageController;
 use App\Http\Controllers\ImageCropperController;
 use App\Http\Controllers\PageController;
@@ -67,6 +68,8 @@ Route::group([
 
     Route::localizedCategoryIndex('articles', ArticleController::class, 'article-list');
     Route::localizedCategorizedArticle('articles', ArticleController::class, 'article');
+
+    Route::localizedModule('events', EventController::class, 'event');
 
     // Catch-all for pages (must remain last)
     Route::get('/{slug}', [PageController::class, 'show'])

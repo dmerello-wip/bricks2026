@@ -32,6 +32,17 @@ class TwillBlockService
             $blockData['ctas'] = $block->children->map(fn ($child) => $child->content)->toArray();
         }
 
+        // Resolve related Event for the SubscriptionForm block
+        if ($block->type === 'subscriptionform') {
+            $event = $block->getRelated('event')->first();
+            if ($event) {
+                $blockData['event'] = [
+                    'id' => $event->id,
+                    'title' => $event->title,
+                ];
+            }
+        }
+
         // Map Images for Roles and Crops
         foreach ($block->medias as $media) {
             $role = $media->pivot->role;
@@ -70,6 +81,10 @@ class TwillBlockService
             'files' => $files,
             'children' => $blockData['children'],
         ];
+
+        if (isset($blockData['event'])) {
+            $data['event'] = $blockData['event'];
+        }
 
         return $data;
     }

@@ -13,3 +13,5 @@ TwillRoutes::module('menus');
 TwillRoutes::module('articles');
 TwillRoutes::module('categories');
 TwillRoutes::module('subscriptions');
+
+TwillRoutes::module('events');

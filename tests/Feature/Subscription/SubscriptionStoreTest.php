@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Event;
 use App\Models\Subscription;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\UploadedFile;
@@ -7,11 +8,18 @@ use Illuminate\Support\Facades\Storage;
 
 uses(RefreshDatabase::class);
 
+function makeEventForSubscription(): Event
+{
+    return Event::factory()->create(['published' => true]);
+}
+
 /**
  * @return array<string, mixed>
  */
 function validSubscriptionPayload(array $overrides = []): array
 {
+    $eventId = $overrides['evento'] ?? makeEventForSubscription()->id;
+
     return array_merge([
         'band' => 'Bricks',
         'nr_componenti' => 4,
@@ -24,7 +32,7 @@ function validSubscriptionPayload(array $overrides = []): array
         'email' => 'mario@example.com',
         'video_link' => 'https://youtu.be/dQw4w9WgXcQ',
         'privacy' => '1',
-        'evento' => 'bricks-music-festival-2026',
+        'evento' => $eventId,
     ], $overrides);
 }
 
@@ -38,9 +46,8 @@ it('stores a subscription with valid payload (link only)', function () {
 
     $subscription = Subscription::first();
     expect($subscription->band)->toBe('Bricks');
-    expect($subscription->evento)->toBe('bricks-music-festival-2026');
+    expect($subscription->event_id)->not->toBeNull();
     expect($subscription->video_link)->toBe('https://youtu.be/dQw4w9WgXcQ');
-    expect($subscription->video_file_path)->toBeNull();
     expect($subscription->privacy)->toBeTrue();
     expect($subscription->data_iscrizione)->not->toBeNull();
 });

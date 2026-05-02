@@ -5,6 +5,7 @@ namespace App\Models;
 use A17\Twill\Models\Behaviors\HasFiles;
 use A17\Twill\Models\Model;
 use Illuminate\Database\Eloquent\Casts\Attribute;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Subscription extends Model
 {
@@ -26,7 +27,7 @@ class Subscription extends Model
         'email',
         'video_link',
         'privacy',
-        'evento',
+        'event_id',
         'data_iscrizione',
     ];
 
@@ -39,6 +40,11 @@ class Subscription extends Model
             'durata' => 'integer',
             'data_iscrizione' => 'datetime',
         ];
+    }
+
+    public function event(): BelongsTo
+    {
+        return $this->belongsTo(Event::class);
     }
 
     protected function videoFileUrl(): Attribute

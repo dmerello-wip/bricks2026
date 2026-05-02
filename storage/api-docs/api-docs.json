@@ -26,7 +26,7 @@
                         "required": true,
                         "schema": {
                             "type": "string",
-                            "example": "en"
+                            "example": "it"
                         }
                     }
                 ],
@@ -80,7 +80,7 @@
                         "required": true,
                         "schema": {
                             "type": "string",
-                            "example": "en"
+                            "example": "it"
                         }
                     },
                     {
@@ -179,6 +179,68 @@
                         "type": "array",
                         "items": {
                             "type": "object"
+                        }
+                    }
+                },
+                "type": "object"
+            },
+            "EventModel": {
+                "required": [
+                    "id",
+                    "published"
+                ],
+                "properties": {
+                    "id": {
+                        "description": "Event model data as returned by $event->toArray().\nTraits: HasTranslation (title, description), HasMedias, HasSlug, HasRevisions, HasSeoData.",
+                        "type": "integer"
+                    },
+                    "published": {
+                        "type": "boolean"
+                    },
+                    "title": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "description": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "data": {
+                        "type": "string",
+                        "format": "date-time",
+                        "nullable": true
+                    },
+                    "luogo": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "luogo_lat": {
+                        "type": "number",
+                        "format": "float",
+                        "nullable": true
+                    },
+                    "luogo_lng": {
+                        "type": "number",
+                        "format": "float",
+                        "nullable": true
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "updated_at": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "deleted_at": {
+                        "type": "string",
+                        "format": "date-time",
+                        "nullable": true
+                    },
+                    "medias": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/TwillMedia"
                         }
                     }
                 },

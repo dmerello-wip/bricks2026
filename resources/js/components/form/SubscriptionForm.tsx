@@ -26,9 +26,9 @@ interface SubscriptionFormData {
     video_file_path: File | null;
     video_link: string;
     privacy: boolean;
-    evento: string;
+    evento: number | string;
     data_iscrizione: string;
-    [key: string]: string | boolean | File | null;
+    [key: string]: string | number | boolean | File | null;
 }
 
 const fieldsetClasses = 'border-b border-primary pb-8 pt-4';
@@ -45,7 +45,10 @@ export default function SubscriptionForm({ block }: { block: Block }) {
 
     const title = block.content?.title as string | undefined;
     const subtitle = block.content?.subtitle as string | undefined;
-    const eventName = (block.content?.event_name as string | undefined) ?? '';
+    const blockEvent =
+        (block as Block & { event?: { id: number; title: string } }).event ??
+        null;
+    const eventId = blockEvent?.id ?? '';
 
     const [clientError, setClientError] = useState<string | null>(null);
 
@@ -72,7 +75,7 @@ export default function SubscriptionForm({ block }: { block: Block }) {
         video_file_path: null,
         video_link: '',
         privacy: false,
-        evento: eventName,
+        evento: eventId,
         data_iscrizione: '',
     });
 
@@ -95,7 +98,7 @@ export default function SubscriptionForm({ block }: { block: Block }) {
             preserveScroll: true,
             onSuccess: () => {
                 reset();
-                setData('evento', eventName);
+                setData('evento', eventId);
             },
         });
     };

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Twill;
 
 use A17\Twill\Http\Controllers\Admin\ModuleController as BaseModuleController;
 use A17\Twill\Models\Contracts\TwillModelContract;
+use A17\Twill\Services\Forms\Fields\Browser;
 use A17\Twill\Services\Forms\Fields\Checkbox;
 use A17\Twill\Services\Forms\Fields\DatePicker;
 use A17\Twill\Services\Forms\Fields\Files;
@@ -26,9 +27,11 @@ class SubscriptionController extends BaseModuleController
         $form = parent::getForm($model);
 
         $form->add(
-            Input::make()
-                ->name('evento')
+            Browser::make()
+                ->name('event')
                 ->label('Evento')
+                ->modules(['events'])
+                ->max(1)
         );
 
         $form->add(
@@ -124,9 +127,9 @@ class SubscriptionController extends BaseModuleController
 
         $table->add(
             Text::make()
-                ->field('evento')
+                ->field('event_title')
                 ->title('Evento')
-                ->sortable()
+                ->customRender(fn ($model) => $model->event?->title ?? 'N/A')
         );
 
         $table->add(

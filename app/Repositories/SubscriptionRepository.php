@@ -13,6 +13,8 @@ class SubscriptionRepository extends ModuleRepository
 {
     use HandleFiles;
 
+    protected $browsers = ['event'];
+
     public function __construct(Subscription $model)
     {
         $this->model = $model;

@@ -19,6 +19,10 @@ class SubscriptionController extends Controller
         $upload = $request->file('video_file_path');
         unset($data['video_file_path']);
 
+        $eventId = (int) $data['evento'];
+        unset($data['evento']);
+        $data['browsers'] = ['event' => [['id' => $eventId]]];
+
         $data['title'] = $data['band'];
         $data['privacy'] = (bool) ($data['privacy'] ?? false);
         $data['data_iscrizione'] = now();
