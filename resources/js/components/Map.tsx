@@ -34,12 +34,12 @@ function loadScript(): Promise<void> {
 
 export default function Map({ lat, lng }: { lat: number; lng: number }) {
     const mapRef = useRef<HTMLDivElement>(null);
+    const hasCoords = Number.isFinite(lat) && Number.isFinite(lng);
 
     useEffect(() => {
-        if (!API_KEY || !mapRef.current || (!lat && !lng)) return;
+        if (!API_KEY || !mapRef.current || !hasCoords) return;
 
         const center = { lat, lng };
-        console.log('Loading map with center:', center);
 
         loadScript().then(() => {
             if (!mapRef.current || !window.google?.maps) return;
@@ -50,9 +50,9 @@ export default function Map({ lat, lng }: { lat: number; lng: number }) {
             });
             new window.google.maps.Marker({ position: center, map });
         });
-    }, [lat, lng]);
+    }, [lat, lng, hasCoords]);
 
-    if (!location) return null;
+    if (!hasCoords) return null;
 
     return (
         <section className="map">

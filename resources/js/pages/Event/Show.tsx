@@ -13,9 +13,18 @@ type EventShowProps = SharedData & {
 export default function EventShow() {
     const { event, seo } = usePage<EventShowProps>().props;
 
-    const choords = JSON.parse(event.luogo);
-    const lat = parseFloat(choords.latlng?.split('|')[0] ?? '');
-    const lng = parseFloat(choords.latlng?.split('|')[1] ?? '');
+    let lat = NaN;
+    let lng = NaN;
+    if (event.luogo) {
+        try {
+            const choords = JSON.parse(event.luogo) as { latlng?: string };
+            const [latStr, lngStr] = (choords.latlng ?? '').split('|');
+            lat = parseFloat(latStr ?? '');
+            lng = parseFloat(lngStr ?? '');
+        } catch {
+            // luogo is not valid JSON — leave coords as NaN, Map will render nothing
+        }
+    }
 
     return (
         <PageLayout>

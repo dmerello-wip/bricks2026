@@ -15,6 +15,7 @@ services:
             context: .
             dockerfile: Dockerfile
             target: runtime
+        image: bricks2026-runtime:latest
         restart: unless-stopped
         expose:
             - '80'
@@ -35,10 +36,7 @@ services:
             - app_network
 
     queue:
-        build:
-            context: .
-            dockerfile: Dockerfile
-            target: runtime
+        image: bricks2026-runtime:latest
         restart: unless-stopped
         command: >
             php artisan queue:work
@@ -62,10 +60,7 @@ services:
             - app_network
 
     scheduler:
-        build:
-            context: .
-            dockerfile: Dockerfile
-            target: runtime
+        image: bricks2026-runtime:latest
         restart: unless-stopped
         command: >
             sh -c "while true; do php artisan schedule:run --no-interaction; sleep 60; done"
