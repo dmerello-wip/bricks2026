@@ -50,8 +50,7 @@ COPY . .
 
 RUN composer dump-autoload \
     --no-dev \
-    --optimize \
-    --classmap-authoritative
+    --optimize
 
 # Dummy values only for build-time artisan commands — overridden at runtime
 # via Coolify env. CACHE/SESSION/QUEUE forzati a in-memory: senza un .env nel
@@ -149,6 +148,12 @@ RUN { \
     echo 'opcache.save_comments=1'; \
     echo 'opcache.fast_shutdown=1'; \
 } > /usr/local/etc/php/conf.d/opcache.ini
+
+RUN { \
+    echo 'upload_max_filesize=80M'; \
+    echo 'post_max_size=80M'; \
+    echo 'memory_limit=256M'; \
+} > /usr/local/etc/php/conf.d/uploads.ini
 
 # Run nginx as www-data so it shares ownership with php-fpm. Also chown
 # /var/lib/nginx so the worker can write request body buffers (used for any
