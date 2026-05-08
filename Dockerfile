@@ -19,9 +19,12 @@ RUN apk add --no-cache \
     g++ \
     make
 
+# Output di gcc reindirizzato a /dev/null: il volume del compile parallelo
+# satura la pipe stdout letta da Coolify (broken pipe -> exit 255). Stderr
+# resta attivo, quindi errori reali continuano ad arrivare.
 RUN docker-php-ext-configure gd \
         --with-freetype \
-        --with-jpeg && \
+        --with-jpeg > /dev/null && \
     docker-php-ext-install -j"$(nproc)" \
         pdo_mysql \
         mbstring \
@@ -31,7 +34,7 @@ RUN docker-php-ext-configure gd \
         zip \
         bcmath \
         intl \
-        opcache
+        opcache > /dev/null
 
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
@@ -123,7 +126,7 @@ RUN apk add --no-cache \
         oniguruma-dev \
     && docker-php-ext-configure gd \
         --with-freetype \
-        --with-jpeg \
+        --with-jpeg > /dev/null \
     && docker-php-ext-install -j"$(nproc)" \
         pdo_mysql \
         mbstring \
@@ -133,7 +136,7 @@ RUN apk add --no-cache \
         zip \
         bcmath \
         intl \
-        opcache \
+        opcache > /dev/null \
     && apk del .build-deps \
     && rm -rf /var/cache/apk/*
 
