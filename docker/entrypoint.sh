@@ -6,6 +6,11 @@ set -e
 
 cd /var/www/html
 
+# Pulisce qualunque cache (config/route/view/event) ereditata dal build container
+# con APP_KEY/CACHE_STORE dummy, per evitare incoerenze al primo boot in prod.
+echo "[entrypoint] Clearing application caches..."
+php artisan optimize:clear --no-interaction || true
+
 echo "[entrypoint] Running migrations..."
 php artisan migrate --force --no-interaction
 

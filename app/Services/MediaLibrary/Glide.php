@@ -2,6 +2,15 @@
 
 namespace App\Services\MediaLibrary;
 
+// TEMP DIAGNOSTIC: cattura chi sta includendo questo file una seconda volta
+// in produzione (errore "Cannot redeclare class App\Services\MediaLibrary\Glide").
+// Da rimuovere una volta identificata la causa.
+if (class_exists(__NAMESPACE__ . '\\Glide', false)) {
+    error_log('GLIDE DOUBLE-LOAD: ' . json_encode(array_slice(debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS), 0, 15)));
+
+    return;
+}
+
 use A17\Twill\Services\MediaLibrary\Glide as GlideExtend;
 use A17\Twill\Services\MediaLibrary\ImageServiceDefaults;
 use Illuminate\Config\Repository as Config;
