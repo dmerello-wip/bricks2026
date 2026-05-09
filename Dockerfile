@@ -12,6 +12,7 @@ RUN apk add --no-cache \
     libpng-dev \
     libjpeg-turbo-dev \
     freetype-dev \
+    libwebp-dev \
     libzip-dev \
     icu-dev \
     oniguruma-dev \
@@ -24,7 +25,8 @@ RUN apk add --no-cache \
 # resta attivo, quindi errori reali continuano ad arrivare.
 RUN docker-php-ext-configure gd \
         --with-freetype \
-        --with-jpeg > /dev/null && \
+        --with-jpeg \
+        --with-webp > /dev/null && \
     docker-php-ext-install -j"$(nproc)" \
         pdo_mysql \
         mbstring \
@@ -113,6 +115,7 @@ RUN apk add --no-cache \
         libpng \
         libjpeg-turbo \
         freetype \
+        libwebp \
         libzip \
         icu-libs \
         oniguruma \
@@ -121,12 +124,14 @@ RUN apk add --no-cache \
         libpng-dev \
         libjpeg-turbo-dev \
         freetype-dev \
+        libwebp-dev \
         libzip-dev \
         icu-dev \
         oniguruma-dev \
     && docker-php-ext-configure gd \
         --with-freetype \
-        --with-jpeg > /dev/null \
+        --with-jpeg \
+        --with-webp > /dev/null \
     && docker-php-ext-install -j"$(nproc)" \
         pdo_mysql \
         mbstring \

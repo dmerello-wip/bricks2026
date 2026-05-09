@@ -76,7 +76,10 @@ return [
         'endpoint_type' => env('MEDIA_LIBRARY_ENDPOINT_TYPE', 'local'),
         'cascade_delete' => env('MEDIA_LIBRARY_CASCADE_DELETE', true),
         'local_path' => env('MEDIA_LIBRARY_LOCAL_PATH', 'uploads'),
-        'image_service' => env('MEDIA_LIBRARY_IMAGE_SERVICE', 'A17\Twill\Services\MediaLibrary\Glide'),
+        // Normalize runs of backslashes to single: Coolify env injection doubles them
+        // (the env value `App\Services\MediaLibrary\Glide` arrives as `App\\Services\\...`),
+        // breaking class_exists() lookup against Composer's classmap.
+        'image_service' => preg_replace('/\\\\+/', '\\\\', env('MEDIA_LIBRARY_IMAGE_SERVICE', 'A17\Twill\Services\MediaLibrary\Glide')),
         'acl' => env('MEDIA_LIBRARY_ACL', 'private'),
         'filesize_limit' => env('MEDIA_LIBRARY_FILESIZE_LIMIT', 50),
         'allowed_extensions' => ['jpg', 'jpeg', 'png', 'webp', 'gif', 'svg'],
