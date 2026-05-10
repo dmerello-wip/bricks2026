@@ -2,11 +2,11 @@
 import { Form, Head } from '@inertiajs/react';
 import { LoaderCircle } from 'lucide-react';
 import InputError from '@/components/InputError';
-import TextLink from '@/components/ui/TextLink';
+import AuthLayout from '@/components/layout/AuthLayout';
 import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
 import { Label } from '@/components/ui/Label';
-import AuthLayout from '@/components/layout/AuthLayout';
+import TextLink from '@/components/ui/TextLink';
 import { login } from '@/routes';
 import { email } from '@/routes/password';
 

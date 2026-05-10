@@ -1,6 +1,6 @@
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/Avatar';
-import { getInitials } from '@/lib/utils';
 import type { User } from '@/lib/types';
+import { getInitials } from '@/lib/utils';
 
 export function UserInfo({
     user,

@@ -4,14 +4,14 @@ import ProfileController from '@/actions/App/Http/Controllers/Settings/ProfileCo
 import DeleteUser from '@/components/DeleteUser';
 import Heading from '@/components/Heading';
 import InputError from '@/components/InputError';
+import AppLayout from '@/components/layout/AppLayout';
+import SettingsLayout from '@/components/layout/settings/Layout';
 import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
 import { Label } from '@/components/ui/Label';
-import AppLayout from '@/components/layout/AppLayout';
-import SettingsLayout from '@/components/layout/settings/Layout';
+import type { BreadcrumbItem, SharedData } from '@/lib/types';
 import { edit } from '@/routes/profile';
 import { send } from '@/routes/verification';
-import type { BreadcrumbItem, SharedData } from '@/lib/types';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {

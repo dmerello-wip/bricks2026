@@ -4,12 +4,12 @@ import Heading from '@/components/Heading';
 import { Button } from '@/components/ui/Button';
 import { Separator } from '@/components/ui/Separator';
 import { useCurrentUrl } from '@/components/useCurrentUrl';
+import type { NavItem } from '@/lib/types';
 import { cn, toUrl } from '@/lib/utils';
 import { edit as editAppearance } from '@/routes/appearance';
 import { edit } from '@/routes/profile';
 import { show } from '@/routes/two-factor';
 import { edit as editPassword } from '@/routes/user-password';
-import type { NavItem } from '@/lib/types';
 
 const sidebarNavItems: NavItem[] = [
     {

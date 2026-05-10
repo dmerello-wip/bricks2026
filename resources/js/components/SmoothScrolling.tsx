@@ -1,8 +1,8 @@
 'use client';
 
 // import gsap from 'gsap';
-import { ReactLenis, useLenis, type LenisRef } from 'lenis/react';
-import { useRef, useEffect, type ReactNode } from 'react';
+import { ReactLenis, type LenisRef } from 'lenis/react';
+import { useRef, type ReactNode } from 'react';
 
 interface SmoothScrollingProps {
     children: ReactNode;
@@ -10,25 +10,6 @@ interface SmoothScrollingProps {
 
 function SmoothScrolling({ children }: SmoothScrollingProps) {
     const lenisRef = useRef<LenisRef>(null);
-
-    // for debugging purposes:
-    // useLenis(({ scroll }: { scroll: number }) => {
-    //     console.log('scroll', scroll);
-    // });
-
-    useEffect(() => {
-        function update(time: number): void {
-            lenisRef.current?.lenis?.raf(time * 1000);
-        }
-
-        // for gsap integration purposes:
-        // in case of gsap set autoRaf={false} to ReactLenis component
-
-        // gsap.ticker.add(update)
-        // return () => {
-        //   gsap.ticker.remove(update)
-        // }
-    });
 
     return (
         <ReactLenis

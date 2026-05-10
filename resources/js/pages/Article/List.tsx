@@ -2,8 +2,6 @@ import { Link, usePage } from '@inertiajs/react';
 import Eyelet from '@/components/editorial/atom/Eyelet';
 import PageLayout from '@/components/layout/PageLayout';
 import SeoHead from '@/components/seo/SeoHead';
-
-import AppLink from '@/components/ui/AppLink';
 import type { SeoData, SharedData } from '@/lib/types';
 
 type ArticleListItem = {

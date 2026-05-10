@@ -7,10 +7,10 @@ import {
     DropdownMenuSeparator,
 } from '@/components/ui/DropdownMenu';
 import { UserInfo } from '@/components/UserInfo';
+import type { User } from '@/lib/types';
 import { cleanupPointerEvents } from '@/lib/utils';
 import { logout } from '@/routes';
 import { edit } from '@/routes/profile';
-import type { User } from '@/lib/types';
 
 type Props = {
     user: User;

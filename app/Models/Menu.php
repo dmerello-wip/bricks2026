@@ -5,7 +5,7 @@ namespace App\Models;
 use A17\Twill\Models\Behaviors\HasRevisions;
 use A17\Twill\Models\Model;
 
-class Menu extends Model 
+class Menu extends Model
 {
     use HasRevisions;
 
@@ -14,5 +14,4 @@ class Menu extends Model
         'title',
         'description',
     ];
-    
 }

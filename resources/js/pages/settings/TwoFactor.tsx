@@ -1,16 +1,16 @@
 import { Form, Head } from '@inertiajs/react';
 import { ShieldBan, ShieldCheck } from 'lucide-react';
 import { useState } from 'react';
-import Heading from '@/components/Heading';
 import TwoFactorRecoveryCodes from '@/components/2fa/TwoFactorRecoveryCodes';
 import TwoFactorSetupModal from '@/components/2fa/TwoFactorSetupModal';
-import { Badge } from '@/components/ui/Badge';
-import { Button } from '@/components/ui/Button';
 import { useTwoFactorAuth } from '@/components/2fa/useTwoFactorAuth';
+import Heading from '@/components/Heading';
 import AppLayout from '@/components/layout/AppLayout';
 import SettingsLayout from '@/components/layout/settings/Layout';
-import { disable, enable, show } from '@/routes/two-factor';
+import { Badge } from '@/components/ui/Badge';
+import { Button } from '@/components/ui/Button';
 import type { BreadcrumbItem } from '@/lib/types';
+import { disable, enable, show } from '@/routes/two-factor';
 
 type Props = {
     requiresConfirmation?: boolean;

@@ -1,10 +1,10 @@
 import { Form, Head } from '@inertiajs/react';
 import InputError from '@/components/InputError';
+import AuthLayout from '@/components/layout/AuthLayout';
 import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
 import { Label } from '@/components/ui/Label';
 import { Spinner } from '@/components/ui/Spinner';
-import AuthLayout from '@/components/layout/AuthLayout';
 import { update } from '@/routes/password';
 
 type Props = {

@@ -10,8 +10,8 @@ import { Label } from '@/components/ui/Label';
 import type { Block } from '@/lib/types';
 import { cn } from '@/lib/utils';
 import subscriptions from '@/routes/subscriptions';
-import Title from '../editorial/atom/Title';
 import Subtitle from '../editorial/atom/Subtitle';
+import Title from '../editorial/atom/Title';
 
 interface SubscriptionFormData {
     band: string;
@@ -41,12 +41,10 @@ const helperClasses = 'mt-1 text-xs text-muted-foreground';
 const fieldsetDescriptionClasses = 'mb-6';
 const fieldClasses = 'grid gap-3';
 export default function SubscriptionForm({ block }: { block: Block }) {
-    if (!block) return null;
-
-    const title = block.content?.title as string | undefined;
-    const subtitle = block.content?.subtitle as string | undefined;
+    const title = block?.content?.title as string | undefined;
+    const subtitle = block?.content?.subtitle as string | undefined;
     const blockEvent =
-        (block as Block & { event?: { id: number; title: string } }).event ??
+        (block as Block & { event?: { id: number; title: string } })?.event ??
         null;
     const eventId = blockEvent?.id ?? '';
 
@@ -78,6 +76,8 @@ export default function SubscriptionForm({ block }: { block: Block }) {
         evento: eventId,
         data_iscrizione: '',
     });
+
+    if (!block) return null;
 
     const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();

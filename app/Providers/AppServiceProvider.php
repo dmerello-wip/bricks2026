@@ -78,7 +78,7 @@ class AppServiceProvider extends ServiceProvider
     {
         View::composer('twill::*', function ($view): void {
             $view->getFactory()->startPush('extra_css');
-            echo '<link rel="stylesheet" href="' . Vite::asset('resources/css/twill-admin-addons.css') . '">';
+            echo '<link rel="stylesheet" href="'.Vite::asset('resources/css/twill-admin-addons.css').'">';
             $view->getFactory()->stopPush();
         });
     }
@@ -91,7 +91,7 @@ class AppServiceProvider extends ServiceProvider
         // → URL generation: route('project', ['locale' => app()->getLocale(), 'prefix' => trans('routes.projects'), 'slug' => $slug])
         Route::macro('localizedModule', function (string $routeKey, string $controller, string $routeName, string $slugPattern = '[^/]+'): void {
             $prefixes = collect(array_keys(config('app.supported_locales')))
-                ->map(fn($locale) => trans("routes.$routeKey", [], $locale))
+                ->map(fn ($locale) => trans("routes.$routeKey", [], $locale))
                 ->unique()
                 ->join('|');
 
@@ -107,7 +107,7 @@ class AppServiceProvider extends ServiceProvider
         // → URL generation: route('article', ['locale' => ..., 'prefix' => trans('routes.articles'), 'categorySlug' => $cat->slug, 'slug' => $slug])
         Route::macro('localizedCategorizedArticle', function (string $routeKey, string $controller, string $routeName, string $slugPattern = '[^/]+'): void {
             $prefixes = collect(array_keys(config('app.supported_locales')))
-                ->map(fn($locale) => trans("routes.$routeKey", [], $locale))
+                ->map(fn ($locale) => trans("routes.$routeKey", [], $locale))
                 ->unique()
                 ->join('|');
 
@@ -124,7 +124,7 @@ class AppServiceProvider extends ServiceProvider
         // → URL generation: route('article-list', ['locale' => ..., 'prefix' => trans('routes.articles'), 'categorySlug' => $cat->getSlug()])
         Route::macro('localizedCategoryIndex', function (string $routeKey, string $controller, string $routeName): void {
             $prefixes = collect(array_keys(config('app.supported_locales')))
-                ->map(fn($locale) => trans("routes.$routeKey", [], $locale))
+                ->map(fn ($locale) => trans("routes.$routeKey", [], $locale))
                 ->unique()
                 ->join('|');
 
@@ -144,7 +144,7 @@ class AppServiceProvider extends ServiceProvider
         );
 
         Password::defaults(
-            fn(): ?Password => app()->isProduction()
+            fn (): ?Password => app()->isProduction()
             ? Password::min(12)
                 ->mixedCase()
                 ->letters()

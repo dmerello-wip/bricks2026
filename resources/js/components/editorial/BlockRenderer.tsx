@@ -1,16 +1,16 @@
 import React from 'react';
+import SubscriptionForm from '@/components/form/SubscriptionForm';
 import type { Block } from '@/lib/types';
 import Abstract from './Abstract';
-import Download from './Download';
 import CardsList from './CardsList';
+import Download from './Download';
 import EditorialCard from './EditorialCard';
 import Fallback from './Fallback';
-import Hero from './Hero';
-import Paragraph from './Paragraph';
 import Gallery from './Gallery';
+import Hero from './Hero';
 import Matrix from './Matrix';
+import Paragraph from './Paragraph';
 import Video from './Video';
-import SubscriptionForm from '@/components/form/SubscriptionForm';
 
 type BlockType =
     | 'abstract'

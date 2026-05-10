@@ -1,6 +1,5 @@
-import { useState } from 'react';
 import { ChevronUp, Download as DownloadIcon } from 'lucide-react';
-import { cn } from '@/lib/utils';
+import { useState } from 'react';
 import { Button } from '@/components/ui/Button';
 import {
     Collapsible,
@@ -8,6 +7,7 @@ import {
     CollapsibleTrigger,
 } from '@/components/ui/Collapsible';
 import type { Block } from '@/lib/types';
+import { cn } from '@/lib/utils';
 
 function AccordionRowItem({ block }: { block: Block }) {
     const { title, description } = block.content ?? {};

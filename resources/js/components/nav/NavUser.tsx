@@ -11,9 +11,9 @@ import {
     SidebarMenuItem,
     useSidebar,
 } from '@/components/ui/Sidebar';
+import { useIsMobile } from '@/components/ui/useMobile';
 import { UserInfo } from '@/components/UserInfo';
 import { UserMenuContent } from '@/components/UserMenuContent';
-import { useIsMobile } from '@/components/ui/useMobile';
 import type { SharedData } from '@/lib/types';
 
 export function NavUser() {

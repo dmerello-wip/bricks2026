@@ -15,8 +15,8 @@ export type {
 } from './swagger';
 
 import type { Auth } from './auth';
-import type { Block } from './swagger';
 import type { MenuItem } from './navigation';
+import type { Block } from './swagger';
 
 export type Locale = {
     name: string;
@@ -40,7 +40,7 @@ export type SharedData = {
     };
     page: {
         title: string;
-        [key: string]: any;
+        [key: string]: unknown;
     };
     blocks: Block[];
     [key: string]: unknown;

@@ -2,12 +2,12 @@
 
 namespace App\Twill\Fields;
 
-use A17\Twill\Services\Forms\Fields\Select;
 use A17\Twill\Services\Forms\Columns;
-use A17\Twill\Services\Forms\Fields\Input;
-use A17\Twill\Services\Forms\Fields\Checkbox;
 use A17\Twill\Services\Forms\Fields\Browser;
+use A17\Twill\Services\Forms\Fields\Checkbox;
 use A17\Twill\Services\Forms\Fields\Files;
+use A17\Twill\Services\Forms\Fields\Input;
+use A17\Twill\Services\Forms\Fields\Select;
 
 class BlockFields
 {
@@ -49,8 +49,8 @@ class BlockFields
                 ])
                 ->right([
                     Select::make()
-                        ->name($name . '_seo')
-                        ->label($label . ' HTML Tag')
+                        ->name($name.'_seo')
+                        ->label($label.' HTML Tag')
                         ->placeholder('Select a tag')
                         ->default('div')
                         ->options([

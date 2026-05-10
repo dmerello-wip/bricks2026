@@ -2,14 +2,12 @@
 
 namespace App\View\Components\Twill\Blocks;
 
-use A17\Twill\Services\Forms\Columns;
 use A17\Twill\Services\Forms\Fields\Checkbox;
 use A17\Twill\Services\Forms\Fields\Color;
 use A17\Twill\Services\Forms\Fields\Files;
 use A17\Twill\Services\Forms\Fields\Input;
 use A17\Twill\Services\Forms\Fields\Select;
 use A17\Twill\Services\Forms\Form;
-use App\Twill\Fields\BlockFields;
 use App\View\Components\Twill\AppBlock;
 use Illuminate\Contracts\View\View;
 
@@ -53,7 +51,7 @@ class Video extends AppBlock
             Color::make()
                 ->name('bg_color')
                 ->label('Background Color'),
-                
+
             Checkbox::make()
                 ->name('no_padding_bottom')
                 ->label('No padding bottom'),

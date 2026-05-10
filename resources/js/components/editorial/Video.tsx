@@ -1,7 +1,6 @@
 import VideoEmbed from '@/components/VideoPlayer';
 import type { Block } from '@/lib/types';
 import { cn } from '@/lib/utils';
-import Title from './atom/Title';
 
 export default function Video({ block }: { block: Block }) {
     if (!block) return null;

@@ -7,12 +7,11 @@ class ImageService
     /**
      * Build image data with Glide URL parameters
      *
-     * @param object $imageSource Object with image() and imageAltText() methods (Block or Model)
-     * @param mixed $media Media object with pivot data
-     * @param string $role Image role
-     * @param string $crop Crop name
-     * @param string|null $configPath Config path for crop settings (e.g., 'twill.block_editor.crops' or 'twill.settings.crops')
-     * @return array
+     * @param  object  $imageSource  Object with image() and imageAltText() methods (Block or Model)
+     * @param  mixed  $media  Media object with pivot data
+     * @param  string  $role  Image role
+     * @param  string  $crop  Crop name
+     * @param  string|null  $configPath  Config path for crop settings (e.g., 'twill.block_editor.crops' or 'twill.settings.crops')
      */
     public function buildImageData(
         object $imageSource,
@@ -54,11 +53,6 @@ class ImageService
 
     /**
      * Calculate output image dimensions based on crop ratio and min values
-     *
-     * @param int|null $originalCropWidth
-     * @param int|null $originalCropHeight
-     * @param array|null $minValues
-     * @return array
      */
     public function calculateImageDimensions(?int $originalCropWidth, ?int $originalCropHeight, ?array $minValues): array
     {
@@ -90,14 +84,6 @@ class ImageService
 
     /**
      * Build Glide URL parameters for image manipulation
-     *
-     * @param int|null $outputWidth
-     * @param int|null $outputHeight
-     * @param int|null $originalCropX
-     * @param int|null $originalCropY
-     * @param int|null $originalCropWidth
-     * @param int|null $originalCropHeight
-     * @return array
      */
     public function buildGlideParams(
         ?int $outputWidth,
@@ -129,11 +115,10 @@ class ImageService
      * Build image data from media collection for a given role and crop
      * Useful for standard form builder images
      *
-     * @param object $model Model with image() and imageAltText() methods
-     * @param string $role Image role
-     * @param string $crop Crop name
-     * @param string|null $configPath Config path for crop settings
-     * @return array|null
+     * @param  object  $model  Model with image() and imageAltText() methods
+     * @param  string  $role  Image role
+     * @param  string  $crop  Crop name
+     * @param  string|null  $configPath  Config path for crop settings
      */
     public function getImageForRole(
         object $model,
@@ -142,7 +127,7 @@ class ImageService
         ?string $configPath = 'twill.settings.crops'
     ): ?array {
         // Check if model has medias relationship
-        if (!method_exists($model, 'medias')) {
+        if (! method_exists($model, 'medias')) {
             return null;
         }
 
@@ -151,7 +136,7 @@ class ImageService
             return $media->pivot->role === $role;
         });
 
-        if (!$media) {
+        if (! $media) {
             return null;
         }
 
@@ -162,9 +147,8 @@ class ImageService
      * Build multiple images data from media collection grouped by role and crop
      * Useful for models with multiple images
      *
-     * @param object $model Model with medias relationship
-     * @param string|null $configPath Config path for crop settings
-     * @return array
+     * @param  object  $model  Model with medias relationship
+     * @param  string|null  $configPath  Config path for crop settings
      */
     public function getAllImages(
         object $model,
@@ -172,7 +156,7 @@ class ImageService
     ): array {
         $images = [];
 
-        if (!method_exists($model, 'medias')) {
+        if (! method_exists($model, 'medias')) {
             return $images;
         }
 

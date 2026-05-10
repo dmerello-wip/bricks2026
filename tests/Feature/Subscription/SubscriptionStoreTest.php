@@ -53,7 +53,8 @@ it('stores a subscription with valid payload (link only)', function () {
 });
 
 it('stores a subscription with an uploaded video file', function () {
-    Storage::fake('public');
+    $disk = config('twill.file_library.disk');
+    Storage::fake($disk);
 
     $payload = validSubscriptionPayload([
         'video_link' => null,
@@ -67,8 +68,10 @@ it('stores a subscription with an uploaded video file', function () {
 
     $subscription = Subscription::first();
     expect($subscription)->not->toBeNull();
-    expect($subscription->video_file_path)->not->toBeNull();
-    Storage::disk('public')->assertExists($subscription->video_file_path);
+
+    $file = $subscription->files()->first();
+    expect($file)->not->toBeNull();
+    Storage::disk($disk)->assertExists($file->uuid);
 });
 
 it('rejects an empty payload with 422-equivalent validation errors', function () {

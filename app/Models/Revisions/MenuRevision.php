@@ -6,5 +6,5 @@ use A17\Twill\Models\Revision;
 
 class MenuRevision extends Revision
 {
-    protected $table = "menu_revisions";
+    protected $table = 'menu_revisions';
 }

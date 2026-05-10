@@ -19,18 +19,18 @@ trait HandleSeoData
 
         foreach (config('translatable.locales') as $locale) {
             $translations[$locale] = [
-                'seo_title'       => $fields['seo_title'][$locale] ?? null,
+                'seo_title' => $fields['seo_title'][$locale] ?? null,
                 'seo_description' => $fields['seo_description'][$locale] ?? null,
-                'canonical'       => $fields['canonical'][$locale] ?? null,
-                'og_title'        => $fields['og_title'][$locale] ?? null,
-                'og_description'  => $fields['og_description'][$locale] ?? null,
+                'canonical' => $fields['canonical'][$locale] ?? null,
+                'og_title' => $fields['og_title'][$locale] ?? null,
+                'og_description' => $fields['og_description'][$locale] ?? null,
             ];
         }
 
         $object->seoData()->updateOrCreate(
             [],
             [
-                'no_index'     => (bool) ($fields['no_index'] ?? false),
+                'no_index' => (bool) ($fields['no_index'] ?? false),
                 'translations' => $translations,
             ]
         );

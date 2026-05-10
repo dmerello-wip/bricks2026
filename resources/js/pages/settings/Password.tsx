@@ -4,13 +4,13 @@ import { useRef } from 'react';
 import PasswordController from '@/actions/App/Http/Controllers/Settings/PasswordController';
 import Heading from '@/components/Heading';
 import InputError from '@/components/InputError';
+import AppLayout from '@/components/layout/AppLayout';
+import SettingsLayout from '@/components/layout/settings/Layout';
 import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
 import { Label } from '@/components/ui/Label';
-import AppLayout from '@/components/layout/AppLayout';
-import SettingsLayout from '@/components/layout/settings/Layout';
-import { edit } from '@/routes/user-password';
 import type { BreadcrumbItem } from '@/lib/types';
+import { edit } from '@/routes/user-password';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {

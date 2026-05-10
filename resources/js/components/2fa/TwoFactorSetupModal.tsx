@@ -2,6 +2,7 @@ import { Form } from '@inertiajs/react';
 import { REGEXP_ONLY_DIGITS } from 'input-otp';
 import { Check, Copy, ScanLine } from 'lucide-react';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { OTP_MAX_LENGTH } from '@/components/2fa/useTwoFactorAuth';
 import InputError from '@/components/InputError';
 import { Button } from '@/components/ui/Button';
 import {
@@ -18,7 +19,6 @@ import {
 } from '@/components/ui/InputOTP';
 import { useAppearance } from '@/components/ui/useAppearance';
 import { useClipboard } from '@/components/ui/useClipboard';
-import { OTP_MAX_LENGTH } from '@/components/2fa/useTwoFactorAuth';
 import { confirm } from '@/routes/two-factor';
 import AlertError from '../AlertError';
 import { Spinner } from '../ui/Spinner';

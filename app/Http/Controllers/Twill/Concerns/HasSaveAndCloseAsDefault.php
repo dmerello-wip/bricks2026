@@ -1,11 +1,12 @@
 <?php
+
 namespace App\Http\Controllers\Twill\Concerns;
 
 use Illuminate\Database\Eloquent\Model;
 
 trait HasSaveAndCloseAsDefault
 {
-    public function getSubmitOptions(Model $item): array|null
+    public function getSubmitOptions(Model $item): ?array
     {
         // Find "save" options from ModuleController or original Trait
         $options = parent::getSubmitOptions($item);

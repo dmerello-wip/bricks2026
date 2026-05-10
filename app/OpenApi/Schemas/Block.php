@@ -14,7 +14,7 @@ use OpenApi\Attributes as OA;
         new OA\Property(property: 'id', type: 'integer'),
         new OA\Property(property: 'parent_id', type: 'integer', nullable: true),
         new OA\Property(property: 'type', type: 'string'),
-        new OA\Property(property: 'content', type: 'object', additionalProperties: new OA\AdditionalProperties()),
+        new OA\Property(property: 'content', type: 'object', additionalProperties: new OA\AdditionalProperties),
         new OA\Property(
             property: 'medias',
             type: 'array',

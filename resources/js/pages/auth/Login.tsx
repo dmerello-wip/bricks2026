@@ -1,12 +1,12 @@
 import { Form, Head } from '@inertiajs/react';
 import InputError from '@/components/InputError';
-import TextLink from '@/components/ui/TextLink';
+import AuthLayout from '@/components/layout/AuthLayout';
 import { Button } from '@/components/ui/Button';
 import { Checkbox } from '@/components/ui/Checkbox';
 import { Input } from '@/components/ui/Input';
 import { Label } from '@/components/ui/Label';
 import { Spinner } from '@/components/ui/Spinner';
-import AuthLayout from '@/components/layout/AuthLayout';
+import TextLink from '@/components/ui/TextLink';
 import { register } from '@/routes';
 import { store } from '@/routes/login';
 import { request } from '@/routes/password';

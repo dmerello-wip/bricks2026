@@ -1,7 +1,7 @@
 import { cva } from 'class-variance-authority';
-import type { Block } from '@/lib/types';
 import Eyelet from '@/components/editorial/atom/Eyelet';
 import Title from '@/components/editorial/atom/Title';
+import type { Block } from '@/lib/types';
 import Picture from './Picture';
 
 const sectionClasses = cva('block-matrix', {

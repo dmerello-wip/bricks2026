@@ -47,6 +47,13 @@ _you should see in view-source the server side generated content_
         - `/types` => Global types
         - `/utils.ts` => Global utilities
 
+### Quality check pre-push
+
+vendor/bin/sail composer lint
+vendor/bin/sail npm run format:check
+vendor/bin/sail npm run lint
+vendor/bin/sail npm run build
+vendor/bin/sail artisan test --compact
 
 ---
 
@@ -146,4 +153,3 @@ Read Documentation in **DOCS/{single-topic}.md**
 - [Translations](DOCS/translations.md)
 - [Debugging PHP (Xdebug)](DOCS/debugging-php.md)
 - [Todo](DOCS/todo.md)
-

@@ -1,7 +1,7 @@
 import type { InertiaLinkProps } from '@inertiajs/react';
 import { usePage } from '@inertiajs/react';
-import { toUrl } from '@/lib/utils';
 import type { SharedData } from '@/lib/types';
+import { toUrl } from '@/lib/utils';
 
 export type IsCurrentUrlFn = (
     urlToCheck: NonNullable<InertiaLinkProps['href']>,
@@ -31,8 +31,7 @@ export function useCurrentUrl(): UseCurrentUrlReturn {
                 ? new URL(url).pathname
                 : url.split('?')[0];
         }
-    } catch (error) {
-        // Handle cases where usePage() fails (e.g., in SSR without proper context)
+    } catch {
         currentUrlPath = '/';
     }
 

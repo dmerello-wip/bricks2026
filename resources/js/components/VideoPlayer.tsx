@@ -1,3 +1,4 @@
+import type Plyr from 'plyr';
 import { useEffect, useRef, useState } from 'react';
 import 'plyr/dist/plyr.css';
 
@@ -19,10 +20,9 @@ function VideoPlayer({ video }: { video: VideoConfig }) {
 
     useEffect(() => {
         if (!ref.current) return;
-        let player: InstanceType<(typeof import('plyr'))['default']> | null =
-            null;
-        import('plyr').then(({ default: Plyr }) => {
-            player = new Plyr(ref.current!, {
+        let player: Plyr | null = null;
+        import('plyr').then(({ default: PlyrCtor }) => {
+            player = new PlyrCtor(ref.current!, {
                 controls: [
                     'play-large',
                     'play',

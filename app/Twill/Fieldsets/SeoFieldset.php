@@ -2,10 +2,10 @@
 
 namespace App\Twill\Fieldsets;
 
+use A17\Twill\Services\Forms\Columns;
 use A17\Twill\Services\Forms\Fields\Checkbox;
 use A17\Twill\Services\Forms\Fields\Input;
 use A17\Twill\Services\Forms\Fields\Medias;
-use A17\Twill\Services\Forms\Columns;
 use A17\Twill\Services\Forms\Fieldset;
 
 class SeoFieldset
@@ -75,7 +75,7 @@ class SeoFieldset
                             ->name('no_index')
                             ->label('No Index')
                             ->note('Prevent search engines from indexing this page.'),
-                    ])
+                    ]),
             ]);
     }
 }

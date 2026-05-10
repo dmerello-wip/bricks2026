@@ -1,6 +1,6 @@
-import { ReactNode } from 'react';
-import { Card, CardContent } from '../ui/Card';
+import type { ReactNode } from 'react';
 import type { Block } from '@/lib/types';
+import { Card, CardContent } from '../ui/Card';
 
 export default function BlockFallback({
     block,
