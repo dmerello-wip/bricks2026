@@ -62,8 +62,7 @@ services:
     scheduler:
         image: bricks2026-runtime:latest
         restart: unless-stopped
-        command: >
-            sh -c "while true; do php artisan schedule:run --no-interaction; sleep 60; done"
+        command: php artisan schedule:work
         env_file:
             - .env
         volumes:
@@ -88,7 +87,7 @@ services:
         expose:
             - '13714'
         healthcheck:
-            test: ['CMD-SHELL', 'wget -qO- http://localhost:13714 || exit 0']
+            test: ['CMD-SHELL', 'wget -q -O /dev/null http://localhost:13714/health || exit 1']
             interval: 15s
             timeout: 5s
             retries: 3

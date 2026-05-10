@@ -17,5 +17,8 @@ php artisan migrate --force --no-interaction
 echo "[entrypoint] Linking storage..."
 php artisan storage:link --force --no-interaction || true
 
+echo "[entrypoint] Rebuilding application caches..."
+php artisan optimize --no-interaction || true
+
 echo "[entrypoint] Starting supervisord..."
 exec /usr/bin/supervisord -c /etc/supervisor/conf.d/supervisord.conf
