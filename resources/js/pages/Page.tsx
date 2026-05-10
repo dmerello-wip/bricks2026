@@ -18,16 +18,18 @@ export default function Page() {
     return (
         <PageLayout>
             <SeoHead seo={seo} />
-            {blockList.length > 0 && (
-                <>
-                    {blockList.map((block: Block) => (
-                        <BlockRenderer
-                            key={block.id}
-                            block={block}
-                        />
-                    ))}
-                </>
-            )}
+            <div className="home-layout">
+                {blockList.length > 0 && (
+                    <>
+                        {blockList.map((block: Block) => (
+                            <BlockRenderer
+                                key={block.id}
+                                block={block}
+                            />
+                        ))}
+                    </>
+                )}
+            </div>
         </PageLayout>
     );
 }

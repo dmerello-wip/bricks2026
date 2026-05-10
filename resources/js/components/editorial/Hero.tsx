@@ -85,6 +85,8 @@ export default function Hero({ block }: { block: Block }) {
     const bgColor = block.content.bg_color ?? '';
     const alignment = block.content.text_alignment;
 
+    console.log(block.content);
+
     return (
         <section
             id={`block-${block.id}`}

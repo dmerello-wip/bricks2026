@@ -5,7 +5,7 @@ export default function Page() {
     return (
         <PageLayout>
             <Head title={'welcome'} />
-            <div className="container m-auto py-16">TODO</div>
+            <div className="welcome-layout container m-auto py-16">TODO</div>
         </PageLayout>
     );
 }

@@ -4,6 +4,7 @@ import PageLayout from '@/components/layout/PageLayout';
 import Map from '@/components/Map';
 import SeoHead from '@/components/seo/SeoHead';
 import type { EventModel, SeoData, SharedData } from '@/lib/types';
+import Hero from '@/components/editorial/Hero';
 
 type EventShowProps = SharedData & {
     event: EventModel;
@@ -12,6 +13,17 @@ type EventShowProps = SharedData & {
 
 export default function EventShow() {
     const { event, seo } = usePage<EventShowProps>().props;
+
+    const data = new Date(event.data)
+        .toLocaleString('it-IT', {
+            day: '2-digit',
+            month: '2-digit',
+            year: 'numeric',
+            hour: '2-digit',
+            minute: '2-digit',
+            hour12: false,
+        })
+        .replace(',', ', ore');
 
     let lat = NaN;
     let lng = NaN;
@@ -29,23 +41,24 @@ export default function EventShow() {
     return (
         <PageLayout>
             <SeoHead seo={seo} />
-            <article className="pt-16">
-                <div className="container mx-auto flex max-w-4xl flex-col gap-4">
-                    <Title
-                        content={event.title ?? ''}
-                        seoTag="h1"
-                    />
-                    {event.data && (
-                        <p className="text-muted-foreground">
-                            {new Date(event.data).toLocaleString()}
-                        </p>
-                    )}
-                    <Map
-                        lat={lat}
-                        lng={lng}
-                    />
-                    {event.description && <p>{event.description}</p>}
-                </div>
+            <article className="event-layout">
+                <Hero
+                    block={{
+                        id: 1,
+                        type: 'hero',
+                        content: {
+                            title: event.title ?? '',
+                            subtitle: data,
+                            text_alignment: 'text-center',
+                            bg_color: 'black',
+                        },
+                    }}
+                ></Hero>
+                <Map
+                    lat={lat}
+                    lng={lng}
+                />
+                {event.description && <p>{event.description}</p>}
             </article>
         </PageLayout>
     );
