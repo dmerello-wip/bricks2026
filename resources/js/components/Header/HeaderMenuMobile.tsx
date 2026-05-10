@@ -20,7 +20,10 @@ export function HeaderMenuMobile({
 }) {
     return (
         <Sheet>
-            <SheetTrigger asChild>
+            <SheetTrigger
+                asChild
+                className="text-white"
+            >
                 <Menu className="h-6 w-6" />
             </SheetTrigger>
             <SheetContent side="left">
