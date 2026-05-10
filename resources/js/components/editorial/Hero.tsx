@@ -100,14 +100,14 @@ export default function Hero({ block }: { block: Block }) {
                         imageMobile={imageMobileData}
                         className={heroPictureImageClasses({ mobileTextUnder })}
                     />
-                    <div className="absolute inset-0 bg-black/30" />
+                    {/* <div className="absolute inset-0 bg-black/30" /> */}
                 </div>
             )}
 
             {/* Content Container */}
             <div className={heroWrapperClasses({ alignment })}>
                 {/* Content */}
-                <div className="block-hero__content relative flex flex-col gap-6 sm:max-w-3xl sm:bg-black/50 sm:p-12 sm:backdrop-blur-xs">
+                <div className="block-hero__content relative flex flex-col gap-6 sm:w-1/2 sm:max-w-3xl">
                     <div className="flex flex-col gap-2">
                         <Eyelet
                             content={block.content.eyelet}

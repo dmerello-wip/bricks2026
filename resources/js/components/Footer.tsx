@@ -1,14 +1,18 @@
-import { LanguageSelector } from '@/components/LanguageSelector';
-import type { MenuItem } from '@/lib/types';
+// import { LanguageSelector } from '@/components/LanguageSelector';
+import BrandLogo from '@/components/BrandLogo';
 import AppLink from '@/components/ui/AppLink';
+import type { MenuItem } from '@/lib/types';
 
 export function Footer({ menu }: { menu: MenuItem[] }) {
     return (
-        <footer className="footer bg-muted py-8">
+        <footer className="footer bg-foreground py-8">
             <div className="container flex justify-between">
-                <p className="text-muted-foreground">
-                    &copy; {new Date().getFullYear()}. All rights reserved.
-                </p>
+                <div className="logo">
+                    <BrandLogo
+                        width={60}
+                        className="transition-all duration-500"
+                    />
+                </div>
 
                 {menu.length > 0 && (
                     <div className="menu flex grow justify-center gap-8">

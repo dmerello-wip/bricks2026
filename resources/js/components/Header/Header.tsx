@@ -20,7 +20,7 @@ export function Header({ menu }: { isLogged: boolean; menu: MenuItem[] }) {
         hasScrolled ? 'bg-foreground/80 p-3 backdrop-blur-md' : 'p-6',
     );
 
-    const logoSize = hasScrolled ? 60 : 180;
+    const logoSize = hasScrolled ? 60 : 130;
 
     useLenis((lenis) => {
         if (lenis.targetScroll > headerHeight) {
@@ -81,20 +81,20 @@ export function Header({ menu }: { isLogged: boolean; menu: MenuItem[] }) {
     );
 }
 
-function AuthTrigger({ isLogged }: { isLogged: boolean }) {
-    return isLogged ? (
-        <Button
-            asChild
-            variant="outline"
-        >
-            <Link href={dashboard()}>Dashboard</Link>
-        </Button>
-    ) : (
-        <Button
-            asChild
-            variant="outline"
-        >
-            <Link href={login()}>Log in</Link>
-        </Button>
-    );
-}
+// function AuthTrigger({ isLogged }: { isLogged: boolean }) {
+//     return isLogged ? (
+//         <Button
+//             asChild
+//             variant="outline"
+//         >
+//             <Link href={dashboard()}>Dashboard</Link>
+//         </Button>
+//     ) : (
+//         <Button
+//             asChild
+//             variant="outline"
+//         >
+//             <Link href={login()}>Log in</Link>
+//         </Button>
+//     );
+// }

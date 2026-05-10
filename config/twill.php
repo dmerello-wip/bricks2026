@@ -89,9 +89,9 @@ return [
         'base_path' => env('IMAGE_CACHE_PATH', 'storage/img/crops'),
         'original_media_for_extensions' => ['gif', 'svg'],
         'default_params' => [
-            'fm' => env('MEDIA_LIBRARY_DEFAULT_FORMAT', 'jpg'),
+            'fm' => env('MEDIA_LIBRARY_DEFAULT_FORMAT', 'webp'),
             'w' => 1920,
-            'q' => 90,
+            'q' => 85,
         ],
     ],
 ];

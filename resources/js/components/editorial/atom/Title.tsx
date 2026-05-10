@@ -15,7 +15,7 @@ export default function Title({
     if (!content) return null;
 
     const defaultClasses =
-        'block-title font-serif w-full text-4xl md:text-5xl font-bold text-primary uppercase';
+        'block-title font-serif w-full text-4xl md:text-6xl font-bold text-primary uppercase';
 
     return React.createElement(
         seoTag,
