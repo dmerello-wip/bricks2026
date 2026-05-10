@@ -75,9 +75,12 @@ export default function Hero({ block }: { block: Block }) {
         (child) => child.type === 'dynamic-repeater-ctas',
     ) ?? []) as CtaBlock[];
 
+    console.log(block.content);
+
     const imageDesktopData = block.images?.hero_image_desktop?.default || null;
     const imageMobileData = block.images?.hero_image_mobile?.default ?? null;
     const mobileTextUnder = block.content.text_under_mobile ?? false;
+    const bgColor = block.content.bg_color ?? '';
     const alignment = block.content.text_alignment;
 
     return (
@@ -91,6 +94,7 @@ export default function Hero({ block }: { block: Block }) {
                 block.content.text_color,
                 mobileTextUnder && 'hero-text-under',
             )}
+            style={{ backgroundColor: bgColor }}
         >
             {/* Picture Background */}
             {(imageDesktopData || imageMobileData) && (

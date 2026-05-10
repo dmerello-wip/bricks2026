@@ -4,6 +4,7 @@ namespace App\View\Components\Twill\Blocks;
 
 use A17\Twill\Services\Forms\Columns;
 use A17\Twill\Services\Forms\Fields\Checkbox;
+use A17\Twill\Services\Forms\Fields\Color;
 use A17\Twill\Services\Forms\Fields\Medias;
 use A17\Twill\Services\Forms\Fields\Wysiwyg;
 use A17\Twill\Services\Forms\Form;
@@ -31,18 +32,21 @@ class Hero extends AppBlock
                     BlockFields::textColor(),
                 ])
                 ->right([
-                    BlockFields::textAlignment(),
+                    Color::make()
+                        ->name('bg_color')
+                        ->label('Background Color'),
                 ]),
             Columns::make()
                 ->left([
-                    Checkbox::make()
-                        ->name('full_height')
-                        ->label('Full height'),
+                    BlockFields::textAlignment(),
                 ])
                 ->right([
                     Checkbox::make()
                         ->name('text_under_mobile')
                         ->label('Text under image on mobile'),
+                    Checkbox::make()
+                        ->name('full_height')
+                        ->label('Full height'),
                 ]),
             Medias::make()
                 ->name('hero_image_desktop')
