@@ -2,3 +2,25 @@
     margin-inline: auto;
     padding-inline: 1.5rem;
 }
+
+.block-text {
+    h1 {
+        padding: 1.2rem 0 1rem 0;
+    }
+
+    h2 {
+        padding: 1.2rem 0 0.8rem 0;
+    }
+
+    h3 {
+        padding: 1.2rem 0 0.6rem 0;
+    }
+
+    h4 {
+        padding: 1.2rem 0 0.4rem 0;
+    }
+
+    h5 {
+        padding: 1.2rem 0 0.4rem 0;
+    }
+}

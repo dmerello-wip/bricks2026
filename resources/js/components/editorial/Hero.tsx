@@ -75,8 +75,6 @@ export default function Hero({ block }: { block: Block }) {
         (child) => child.type === 'dynamic-repeater-ctas',
     ) ?? []) as CtaBlock[];
 
-    console.log(block.content);
-
     const imageDesktopData = block.images?.hero_image_desktop?.default || null;
     const imageMobileData = block.images?.hero_image_mobile?.default ?? null;
     const mobileTextUnder = block.content.text_under_mobile ?? false;
