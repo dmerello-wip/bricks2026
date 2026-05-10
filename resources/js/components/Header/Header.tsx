@@ -1,13 +1,11 @@
 import { Link } from '@inertiajs/react';
+import { useLenis } from 'lenis/react';
+import { useEffect, useState, useRef } from 'react';
 import BrandLogo from '@/components/BrandLogo';
 import { HeaderMenu } from '@/components/Header/HeaderMenu';
 import { HeaderMenuMobile } from '@/components/Header/HeaderMenuMobile';
-import { LanguageSelector } from '@/components/LanguageSelector';
-import { Button } from '@/components/ui/Button';
+// import { LanguageSelector } from '@/components/LanguageSelector';
 import type { MenuItem } from '@/lib/types';
-import { dashboard, login } from '@/routes';
-import { useEffect, useState, useRef } from 'react';
-import { useLenis } from 'lenis/react';
 import { cn } from '@/lib/utils';
 
 export function Header({ menu }: { isLogged: boolean; menu: MenuItem[] }) {
@@ -47,10 +45,12 @@ export function Header({ menu }: { isLogged: boolean; menu: MenuItem[] }) {
             <div className="header__inner flex items-center justify-between gap-6">
                 {/* Logo */}
                 <div className="logo">
-                    <BrandLogo
-                        width={logoSize}
-                        className="transition-all duration-500"
-                    />
+                    <Link href={'/'}>
+                        <BrandLogo
+                            width={logoSize}
+                            className="transition-all duration-500"
+                        />
+                    </Link>
                 </div>
 
                 {/* Menu Primary Desktop*/}

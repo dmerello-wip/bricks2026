@@ -15,7 +15,7 @@ export function Footer({ menu }: { menu: MenuItem[] }) {
                 </div>
 
                 {menu.length > 0 && (
-                    <div className="menu flex grow justify-center gap-8">
+                    <div className="menu flex grow justify-end gap-8">
                         {menu.map((item) => (
                             <AppLink
                                 key={item.id}

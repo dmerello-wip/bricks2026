@@ -43,13 +43,17 @@ const heroPictureImageClasses = cva('', {
 });
 
 const heroWrapperClasses = cva(
-    'block-hero__wrapper z-10 container mx-auto flex px-6 py-8 sm:py-24',
+    'block-hero__wrapper z-10 container mx-auto flex',
     {
         variants: {
             alignment: {
                 'text-center': 'justify-center text-center',
                 'text-left': 'justify-start text-left',
                 'text-right': 'justify-end text-left',
+            },
+            noPaddingBottom: {
+                false: 'px-6 py-8 sm:py-24',
+                true: 'px-6 pt-8 sm:pt-24',
             },
         },
     },
@@ -107,7 +111,12 @@ export default function Hero({ block }: { block: Block }) {
             )}
 
             {/* Content Container */}
-            <div className={heroWrapperClasses({ alignment })}>
+            <div
+                className={heroWrapperClasses({
+                    alignment,
+                    noPaddingBottom: block.content.no_padding_bottom ?? false,
+                })}
+            >
                 {/* Content */}
                 <div className="block-hero__content relative flex flex-col gap-6 sm:w-1/2 sm:max-w-3xl">
                     <div className="flex flex-col gap-2">

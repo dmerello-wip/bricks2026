@@ -47,6 +47,9 @@ class Hero extends AppBlock
                     Checkbox::make()
                         ->name('full_height')
                         ->label('Full height'),
+                    Checkbox::make()
+                        ->name('no_padding_bottom')
+                        ->label('No padding bottom'),
                 ]),
             Medias::make()
                 ->name('hero_image_desktop')
