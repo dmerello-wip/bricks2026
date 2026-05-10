@@ -109,7 +109,10 @@ export default function SubscriptionForm({ block }: { block: Block }) {
     };
 
     return (
-        <section className="block-subscription-form relative w-full py-16">
+        <section
+            id={`block-${block.id}`}
+            className="block-subscription-form relative w-full py-16"
+        >
             <div className="container mx-auto max-w-5xl px-6">
                 {(title || subtitle) && (
                     <header className="mb-12 flex flex-col gap-2 text-center md:text-left">

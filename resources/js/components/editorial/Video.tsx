@@ -9,6 +9,7 @@ export default function Video({ block }: { block: Block }) {
 
     return (
         <section
+            id={`block-${block.id}`}
             className={cn(
                 'group',
                 noPaddingBottom ? 'pt-16' : 'py-16',

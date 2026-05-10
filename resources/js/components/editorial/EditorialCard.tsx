@@ -23,7 +23,10 @@ export default function EditorialCard({
     ) ?? []) as CtaBlock[];
 
     return (
-        <div className="block-editorial-card flex flex-col">
+        <div
+            id={`block-${block.id}`}
+            className="block-editorial-card flex flex-col"
+        >
             {imageData && (
                 <div className="relative w-full">
                     <Picture image={imageData} />

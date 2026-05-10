@@ -8,7 +8,7 @@ import '../css/app.css';
 import i18n from './i18n';
 import { setUrlDefaults } from './wayfinder';
 
-const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
+const appName = import.meta.env.VITE_APP_NAME || 'Bricks';
 
 createInertiaApp({
     title: (title) => (title ? `${title} - ${appName}` : appName),

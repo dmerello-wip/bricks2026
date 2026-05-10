@@ -68,6 +68,7 @@ export default function Matrix({ block }: { block: Block }) {
 
     return (
         <section
+            id={`block-${block.id}`}
             className={sectionClasses({ noPaddingBottom })}
             style={{ backgroundColor: block.content?.bg_color || undefined }}
         >

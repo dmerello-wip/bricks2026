@@ -9,6 +9,7 @@ export default function Paragraph({ block }: { block: Block }) {
 
     return (
         <section
+            id={`block-${block.id}`}
             className={cn(
                 'block-paragraph group relative flex items-center',
                 block.content.text_color,

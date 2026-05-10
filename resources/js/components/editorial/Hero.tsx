@@ -87,6 +87,7 @@ export default function Hero({ block }: { block: Block }) {
 
     return (
         <section
+            id={`block-${block.id}`}
             className={cn(
                 heroSectionClasses({
                     mobileTextUnder,

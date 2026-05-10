@@ -85,7 +85,10 @@ export default function Download({ block }: { block: Block }) {
     const groups = block.children ?? [];
 
     return (
-        <section className="bg-background py-16">
+        <section
+            id={`block-${block.id}`}
+            className="bg-background py-16"
+        >
             <div className="container mx-auto px-6">
                 <div className="mx-auto w-full max-w-4xl">
                     {groups.map((group) => (

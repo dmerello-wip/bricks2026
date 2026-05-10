@@ -37,6 +37,7 @@ export default function CardsList({ block }: { block: Block }) {
 
     return (
         <section
+            id={`block-${block.id}`}
             className={cn(
                 sectionClasses({ noMargin }),
                 'group',

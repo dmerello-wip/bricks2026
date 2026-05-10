@@ -11,7 +11,7 @@ export default function Text({
     if (!content) return null;
 
     const defaultClasses =
-        'block-text text-lg group-[.block-text-dark]:text-foreground group-[.block-text-light]:text-background group-[.hero-text-under]:max-sm:!text-foreground';
+        'block-text text-lg group-[.block-text-dark]:text-foreground group-[.block-text-light]:text-background group-[.hero-text-under]:muted-foreground';
 
     return (
         <div

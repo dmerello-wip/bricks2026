@@ -10,7 +10,10 @@ export default function BlockFallback({
     children: ReactNode;
 }) {
     return (
-        <div className="container">
+        <div
+            id={`block-${block.id}`}
+            className="container"
+        >
             <Card
                 data-block-id={block.id}
                 className="my-4"

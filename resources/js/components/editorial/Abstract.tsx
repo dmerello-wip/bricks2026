@@ -41,6 +41,7 @@ export default function Abstract({ block }: { block: Block }) {
 
     return (
         <section
+            id={`block-${block.id}`}
             className={cn(
                 sectionClasses({ noPaddingBottom }),
                 'group',

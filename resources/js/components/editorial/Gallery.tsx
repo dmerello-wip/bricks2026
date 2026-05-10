@@ -71,6 +71,7 @@ export default function Gallery({ block }: { block: Block }) {
 
     return (
         <section
+            id={`block-${block.id}`}
             className={cn(
                 sectionClasses({ noPaddingBottom }),
                 'group',
