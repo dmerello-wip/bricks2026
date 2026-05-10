@@ -26,6 +26,7 @@ class Menuitem extends Model implements Sortable
         'parent_id',
         'type',
         'external_url',
+        'anchor',
         'target',
     ];
 

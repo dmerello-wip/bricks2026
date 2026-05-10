@@ -66,6 +66,7 @@ class MenuitemController extends BaseModuleController
                         ->options(
                             Options::make([
                                 Option::make('internal', 'Link Interno'),
+                                Option::make('home', 'Home'),
                                 Option::make('external', 'Link Esterno'),
                             ])
                         )
@@ -73,10 +74,16 @@ class MenuitemController extends BaseModuleController
 
                     Browser::make()
                         ->label('Contenuto Interno')
-                        ->modules(['pages', 'categories'])
+                        ->modules(['pages', 'categories', 'events'])
                         ->name('related_content')
                         ->max(1)
                         ->connectedTo('type', 'internal'),
+
+                    Input::make()
+                        ->name('anchor')
+                        ->label('Ancora (opzionale)')
+                        ->connectedTo('type', ['internal', 'home'])
+                        ->note('ID del blocco a cui scrollare, es: block-247. Visibile ispezionando l\'HTML della pagina target.'),
 
                     Input::make()
                         ->name('external_url')

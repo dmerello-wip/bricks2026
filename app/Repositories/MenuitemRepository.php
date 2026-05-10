@@ -121,6 +121,9 @@ class MenuitemRepository extends ModuleRepository
             if ($item instanceof \App\Models\Page) {
                 $editUrl = route('twill.pages.edit', ['page' => $item->id]);
                 $endpointType = 'pages';
+            } elseif ($item instanceof \App\Models\Event) {
+                $editUrl = route('twill.events.edit', ['event' => $item->id]);
+                $endpointType = 'events';
             } else {
                 $editUrl = route('twill.categories.edit', ['category' => $item->id]);
                 $endpointType = 'categories';
@@ -220,21 +223,34 @@ class MenuitemRepository extends ModuleRepository
     {
         return match ($item->type) {
             'external' => $item->external_url,
+            'home' => $this->withAnchor('/'.$locale.'/', $item->anchor),
             'internal' => (function () use ($item, $locale): ?string {
                 $related = $item->relatedContent->first()?->related;
                 if (! $related) {
                     return null;
                 }
                 if ($related instanceof \App\Models\Page) {
-                    return '/'.$locale.'/'.$related->slug;
-                }
-                if ($related instanceof \App\Models\Category) {
-                    return '/'.$locale.'/'.trans('routes.articles', [], $locale).'/'.$related->slug;
+                    $url = '/'.$locale.'/'.$related->slug;
+                } elseif ($related instanceof \App\Models\Event) {
+                    $url = '/'.$locale.'/'.trans('routes.events', [], $locale).'/'.$related->slug;
+                } elseif ($related instanceof \App\Models\Category) {
+                    $url = '/'.$locale.'/'.trans('routes.articles', [], $locale).'/'.$related->slug;
+                } else {
+                    return null;
                 }
 
-                return null;
+                return $this->withAnchor($url, $item->anchor);
             })(),
             default => null,
         };
+    }
+
+    private function withAnchor(string $url, ?string $anchor): string
+    {
+        if ($anchor = trim((string) $anchor)) {
+            return $url.'#'.ltrim($anchor, '#');
+        }
+
+        return $url;
     }
 }
