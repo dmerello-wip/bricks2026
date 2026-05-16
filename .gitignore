@@ -34,3 +34,4 @@ yarn-error.log
 !/.vscode/launch.json
 /.zed
 /.claude/settings.local.json
+.claude/skills/wip-*
