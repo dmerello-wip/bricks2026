@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreSubscriptionRequest;
+use App\Mail\SubscriptionConfirmation;
 use App\Mail\SubscriptionReceived;
 use App\Repositories\SubscriptionRepository;
 use Illuminate\Http\RedirectResponse;
@@ -40,6 +41,14 @@ class SubscriptionController extends Controller
         try {
             $receiver = env('MAIL_NOTIFICATION_RECEIVER', config('mail.from.address'));
             Mail::to($receiver)->send(new SubscriptionReceived($subscription));
+        } catch (\Throwable $e) {
+            // Don't block the user; log or ignore
+            report($e);
+        }
+
+        // Send confirmation email to subscriber
+        try {
+            Mail::to($subscription->email)->send(new SubscriptionConfirmation($subscription));
         } catch (\Throwable $e) {
             // Don't block the user; log or ignore
             report($e);
