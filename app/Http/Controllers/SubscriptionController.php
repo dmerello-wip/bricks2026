@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreSubscriptionRequest;
+use App\Mail\SubscriptionReceived;
 use App\Repositories\SubscriptionRepository;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Mail;
 
 class SubscriptionController extends Controller
 {
@@ -32,6 +34,15 @@ class SubscriptionController extends Controller
 
         if ($upload) {
             $this->subscriptions->attachVideoFile($subscription, $upload);
+        }
+
+        // Send notification email to configured receiver
+        try {
+            $receiver = env('MAIL_NOTIFICATION_RECEIVER', config('mail.from.address'));
+            Mail::to($receiver)->send(new SubscriptionReceived($subscription));
+        } catch (\Throwable $e) {
+            // Don't block the user; log or ignore
+            report($e);
         }
 
         return back()->with('success', 'Iscrizione inviata con successo.');
