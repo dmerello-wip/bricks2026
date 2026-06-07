@@ -32,6 +32,7 @@ class PageController extends BaseModuleController
         $form->add(
             BlockEditor::make()->blocks([
                 'hero',
+                'herovideo',
                 'abstract',
                 'paragraph',
                 'cardslist',

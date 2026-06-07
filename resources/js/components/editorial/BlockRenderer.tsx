@@ -8,6 +8,7 @@ import EditorialCard from './EditorialCard';
 import Fallback from './Fallback';
 import Gallery from './Gallery';
 import Hero from './Hero';
+import HeroVideo from './HeroVideo';
 import Matrix from './Matrix';
 import Paragraph from './Paragraph';
 import Video from './Video';
@@ -15,6 +16,7 @@ import Video from './Video';
 type BlockType =
     | 'abstract'
     | 'hero'
+    | 'herovideo'
     | 'paragraph'
     | 'cardslist'
     | 'editorialcard'
@@ -30,6 +32,7 @@ const BLOCK_COMPONENTS: Record<
 > = {
     abstract: Abstract,
     hero: Hero,
+    herovideo: HeroVideo,
     paragraph: Paragraph,
     cardslist: CardsList,
     editorialcard: EditorialCard,
