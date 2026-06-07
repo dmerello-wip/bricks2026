@@ -2,6 +2,7 @@
 
 namespace App\Repositories;
 
+use A17\Twill\Repositories\Behaviors\HandleBlocks;
 use A17\Twill\Repositories\Behaviors\HandleMedias;
 use A17\Twill\Repositories\Behaviors\HandleRevisions;
 use A17\Twill\Repositories\Behaviors\HandleSlugs;
@@ -12,7 +13,7 @@ use App\Repositories\Concerns\HandleSeoData;
 
 class EventRepository extends ModuleRepository
 {
-    use HandleMedias, HandleRevisions, HandleSlugs, HandleTranslations;
+    use HandleBlocks, HandleMedias, HandleRevisions, HandleSlugs, HandleTranslations;
     use HandleSeoData;
 
     public function __construct(Event $model)

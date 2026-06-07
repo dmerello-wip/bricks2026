@@ -1,59 +1,59 @@
 import { usePage } from '@inertiajs/react';
-import Title from '@/components/editorial/atom/Title';
+import BlockRenderer from '@/components/editorial/BlockRenderer';
 import PageLayout from '@/components/layout/PageLayout';
 import Map from '@/components/Map';
 import SeoHead from '@/components/seo/SeoHead';
-import type { EventModel, SeoData, SharedData } from '@/lib/types';
-import Hero from '@/components/editorial/Hero';
+import type { Block, EventModel, SeoData, SharedData } from '@/lib/types';
 
 type EventShowProps = SharedData & {
     event: EventModel;
+    blocks: Block[];
     seo: SeoData;
 };
 
-export default function EventShow() {
-    const { event, seo } = usePage<EventShowProps>().props;
+function parseLuogo(luogo: unknown): { latlng?: string } | null {
+    if (!luogo) {
+        return null;
+    }
+    if (typeof luogo === 'string') {
+        try {
+            return JSON.parse(luogo) as { latlng?: string };
+        } catch {
+            return null;
+        }
+    }
+    return luogo as { latlng?: string };
+}
 
-    const data = new Date(event.data)
-        .toLocaleString('it-IT', {
-            day: '2-digit',
-            month: '2-digit',
-            year: 'numeric',
-            hour: '2-digit',
-            minute: '2-digit',
-            hour12: false,
-        })
-        .replace(',', ', ore');
+export default function EventShow() {
+    const { event, seo, blocks } = usePage<EventShowProps>().props;
+
+    const blockList = Array.isArray(blocks) ? blocks : [];
 
     let lat = NaN;
     let lng = NaN;
-    if (event.luogo) {
-        try {
-            const choords = JSON.parse(event.luogo) as { latlng?: string };
-            const [latStr, lngStr] = (choords.latlng ?? '').split('|');
-            lat = parseFloat(latStr ?? '');
-            lng = parseFloat(lngStr ?? '');
-        } catch {
-            // luogo is not valid JSON — leave coords as NaN, Map will render nothing
-        }
+    const coords = parseLuogo(event.luogo);
+    if (coords?.latlng) {
+        const [latStr, lngStr] = coords.latlng.split('|');
+        lat = parseFloat(latStr ?? '');
+        lng = parseFloat(lngStr ?? '');
     }
 
     return (
         <PageLayout>
             <SeoHead seo={seo} />
             <article className="event-layout">
-                <Hero
-                    block={{
-                        id: 1,
-                        type: 'hero',
-                        content: {
-                            title: event.title ?? '',
-                            subtitle: data,
-                            text_alignment: 'text-center',
-                            bg_color: 'black',
-                        },
-                    }}
-                ></Hero>
+                {blockList.length > 0 && (
+                    <>
+                        {blockList.map((block: Block) => (
+                            <BlockRenderer
+                                key={block.id}
+                                block={block}
+                            />
+                        ))}
+                    </>
+                )}
+
                 <Map
                     lat={lat}
                     lng={lng}

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Twill;
 
 use A17\Twill\Http\Controllers\Admin\ModuleController as BaseModuleController;
 use A17\Twill\Models\Contracts\TwillModelContract;
+use A17\Twill\Services\Forms\Fields\BlockEditor;
 use A17\Twill\Services\Forms\Fields\DatePicker;
 use A17\Twill\Services\Forms\Fields\Input;
 use A17\Twill\Services\Forms\Fields\Map as MapField;
@@ -52,6 +53,20 @@ class EventController extends BaseModuleController
                 ->name('luogo')
                 ->label('Luogo')
                 ->saveExtendedData()
+        );
+
+        $form->add(
+            BlockEditor::make()->blocks([
+                'hero',
+                'abstract',
+                'paragraph',
+                'cardslist',
+                'gallery',
+                'download',
+                'matrix',
+                'video',
+                'subscriptionform',
+            ])
         );
 
         $form->addFieldset(SeoFieldset::make());
