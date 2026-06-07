@@ -124,7 +124,7 @@ export default function HeroVideo({ block }: { block: Block }) {
             <div className="block-hero-video__background absolute inset-0 z-0">
                 <HeroVideoBackground block={block} />
                 {/* Legibility overlay */}
-                <div className="absolute inset-0 bg-black/30" />
+                <div className="absolute inset-0 bg-black/50" />
             </div>
 
             {/* Content Container */}
