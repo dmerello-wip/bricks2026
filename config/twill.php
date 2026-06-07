@@ -94,4 +94,5 @@ return [
             'q' => 85,
         ],
     ],
+    'google_maps_api_key' => env('TWILL_GOOGLE_MAPS_API_KEY'),
 ];

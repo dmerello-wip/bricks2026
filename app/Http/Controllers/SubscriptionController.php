@@ -13,7 +13,8 @@ class SubscriptionController extends Controller
 {
     public function __construct(
         protected SubscriptionRepository $subscriptions,
-    ) {}
+    ) {
+    }
 
     public function store(StoreSubscriptionRequest $request): RedirectResponse
     {
