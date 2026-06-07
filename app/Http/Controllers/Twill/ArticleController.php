@@ -42,6 +42,7 @@ class ArticleController extends BaseModuleController
         $form->add(
             BlockEditor::make()->blocks([
                 'hero',
+                'herovideo',
                 'paragraph',
                 'video',
             ])
