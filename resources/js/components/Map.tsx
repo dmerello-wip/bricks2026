@@ -12,6 +12,7 @@ declare global {
 }
 
 const API_KEY = import.meta.env.VITE_GOOGLE_MAPS_API_KEY as string | undefined;
+const MAP_ID = (import.meta.env.VITE_GOOGLE_MAPS_MAP_ID as string | undefined) ?? 'a5becd16a54992c1eb2f9d6d';
 
 let scriptPromise: Promise<void> | null = null;
 
@@ -47,6 +48,7 @@ export default function Map({ lat, lng }: { lat: number; lng: number }) {
                 center,
                 zoom: 15,
                 disableDefaultUI: false,
+                mapId: MAP_ID,
             });
             new window.google.maps.Marker({ position: center, map });
         });
