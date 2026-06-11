@@ -32,6 +32,12 @@ services:
         depends_on:
             ssr:
                 condition: service_healthy
+        # Pin Traefik to the shared `coolify` network. The app is attached to
+        # several networks (coolify, project, app_network); without this label
+        # Traefik may resolve the backend to the app_network IP, which the
+        # coolify-proxy is not on, making every HTTPS request hang -> 504.
+        labels:
+            - traefik.docker.network=coolify
         networks:
             - app_network
 
