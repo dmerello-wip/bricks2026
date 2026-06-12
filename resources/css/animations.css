@@ -1,0 +1,52 @@
+/* Logo ornament entrance animations (play once on load) */
+
+/*
+ * The band stays static (centered via Tailwind) and clips its content.
+ * The diamond slides in diagonally: the horizontal part reads as the
+ * left→right / right→left reveal, the vertical part as the bottom→top /
+ * top→bottom entrance.
+ */
+.logo-hornament__diamond {
+    transform: translate(-50%, -50%);
+    animation-duration: 0.9s;
+    animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+    animation-fill-mode: both;
+}
+
+.logo-hornament--top .logo-hornament__diamond {
+    animation-name: lo-diamond-top;
+}
+
+.logo-hornament--bottom .logo-hornament__diamond {
+    animation-name: lo-diamond-bottom;
+}
+
+@keyframes lo-diamond-top {
+    from {
+        transform: translate(calc(-50% - 4rem), calc(-50% + 1.5rem));
+        opacity: 0;
+    }
+
+    to {
+        transform: translate(-50%, -50%);
+        opacity: 1;
+    }
+}
+
+@keyframes lo-diamond-bottom {
+    from {
+        transform: translate(calc(-50% + 4rem), calc(-50% - 1.5rem));
+        opacity: 0;
+    }
+
+    to {
+        transform: translate(-50%, -50%);
+        opacity: 1;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .logo-hornament__diamond {
+        animation: none;
+    }
+}

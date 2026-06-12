@@ -55,7 +55,7 @@ export default function Abstract({ block }: { block: Block }) {
         >
             <div className={containerClasses({ alignment })}>
                 {/* Text content */}
-                <div className="block-abstract__content flex flex-1 basis-[45%] flex-col gap-6">
+                <div className="block-abstract__content flex flex-1 basis-[45%] flex-col gap-4">
                     <div className="flex flex-col gap-2">
                         <Eyelet
                             content={block.content.eyelet}

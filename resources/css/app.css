@@ -15,6 +15,7 @@ if using blade components (not for inertia)
     * {
         @apply border-border outline-ring/50;
     }
+
     body {
         @apply bg-background text-foreground;
         letter-spacing: var(--tracking-normal);
@@ -28,3 +29,4 @@ if using blade components (not for inertia)
 /* application utilities */
 @import './vendors.css';
 @import './common.css';
+@import './animations.css';

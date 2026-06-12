@@ -1,5 +1,6 @@
 import { cva } from 'class-variance-authority';
 import Eyelet from '@/components/editorial/atom/Eyelet';
+import LogoOrnament from '@/components/editorial/atom/LogoOrnament';
 import Subtitle from '@/components/editorial/atom/Subtitle';
 import Text from '@/components/editorial/atom/Text';
 import Title from '@/components/editorial/atom/Title';
@@ -129,8 +130,8 @@ export default function HeroVideo({ block }: { block: Block }) {
 
             {/* Content Container */}
             <div className={heroVideoWrapperClasses({ alignment })}>
-                <div className="block-hero-video__content relative flex flex-col gap-6 sm:w-1/2 sm:max-w-3xl">
-                    <div className="flex flex-col gap-2">
+                <div className="block-hero-video__content relative flex flex-col gap-4 sm:w-1/2 sm:max-w-3xl">
+                    <div className="flex flex-col">
                         <Eyelet
                             content={block.content.eyelet}
                             seoTag={block.content.eyelet_seo}
@@ -146,8 +147,17 @@ export default function HeroVideo({ block }: { block: Block }) {
                             seoTag={block.content.subtitle_seo}
                         />
                     </div>
-
-                    <Text content={block.content.text} />
+                    {block.content.text && (
+                        <Text content={block.content.text} />
+                    )}
+                    <LogoOrnament
+                        position="bottom"
+                        color="secondary"
+                    />
+                    <LogoOrnament
+                        position="top"
+                        color="primary"
+                    />
                 </div>
             </div>
         </section>
