@@ -29,6 +29,18 @@ const containerClasses = cva(
     },
 );
 
+const imageClasses = cva(
+    'block-abstract__image relative shrink-0 grow-0 basis-[55%]',
+    {
+        variants: {
+            alignment: {
+                left: 'md:mr-[calc(50%-50vw)]',
+                right: 'md:ml-[calc(50%-50vw)]',
+            },
+        },
+    },
+);
+
 export default function Abstract({ block }: { block: Block }) {
     if (!block) return null;
 
@@ -89,7 +101,7 @@ export default function Abstract({ block }: { block: Block }) {
 
                 {/* Image */}
                 {imageData && (
-                    <div className="block-abstract__image relative flex-1 basis-[55%]">
+                    <div className={imageClasses({ alignment })}>
                         <Picture
                             image={imageData}
                             className="size-full"
