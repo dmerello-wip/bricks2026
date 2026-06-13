@@ -580,11 +580,10 @@ export default function SubscriptionForm({ block }: { block: Block }) {
                                         type="submit"
                                         size="lg"
                                         disabled={processing}
-                                        className="px-10"
                                     >
                                         {processing
                                             ? 'Invio in corso...'
-                                            : 'Invia la sottoscrizione'}
+                                            : 'Invia la candidatura'}
                                     </Button>
                                 </div>
                             </div>

@@ -49,7 +49,7 @@
     --opacity-80: oklch(1 0 89.8756 / 0.20000000298023224);
     --custom-bg-input-80: oklch(0.9219 0 89.8756);
     --custom-bg-primary-10: oklch(0.2046 0 89.8756 / 0.05000000074505806);
-    --radius: 0.5rem;
+    --radius: 0rem;
     --font-sans: system-ui;
     --font-serif: Unbounded;
     --font-mono: DM Mono;

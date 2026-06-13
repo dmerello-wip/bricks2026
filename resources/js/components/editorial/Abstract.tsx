@@ -71,7 +71,9 @@ export default function Abstract({ block }: { block: Block }) {
                         />
                     </div>
 
-                    <Text content={block.content.text} />
+                    {block.content.text && (
+                        <Text content={block.content.text} />
+                    )}
 
                     {ctas.length > 0 && (
                         <div className="flex flex-wrap gap-2 pt-4">

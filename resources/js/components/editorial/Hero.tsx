@@ -137,7 +137,9 @@ export default function Hero({ block }: { block: Block }) {
                         />
                     </div>
 
-                    <Text content={block.content.text} />
+                    {block.content.text && (
+                        <Text content={block.content.text} />
+                    )}
 
                     {ctas.length > 0 && (
                         <div className={heroCtasWrapper({ alignment })}>

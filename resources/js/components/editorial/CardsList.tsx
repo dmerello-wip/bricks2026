@@ -46,7 +46,12 @@ export default function CardsList({ block }: { block: Block }) {
             style={{ backgroundColor: block.content.bg_color || undefined }}
         >
             <div className={'container mx-auto px-6'}>
-                <div className={cn('grid gap-12 md:gap-8', gridColsClass)}>
+                <div
+                    className={cn(
+                        'grid gap-12 md:gap-8 xl:gap-16',
+                        gridColsClass,
+                    )}
+                >
                     {cards.map((card) => (
                         <EditorialCard
                             key={card.id}
