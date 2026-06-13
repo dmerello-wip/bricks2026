@@ -35,7 +35,7 @@ return [
                 'default' => [
                     [
                         'name' => 'default',
-                        'ratio' => 16 / 9,
+                        'ratio' => 0,
                         'minValues' => [
                             'width' => 720,
                         ],
