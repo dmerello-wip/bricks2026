@@ -27,6 +27,7 @@ export type Locale = {
 
 export type SharedData = {
     name: string;
+    isHome: boolean;
     auth: Auth;
     sidebarOpen: boolean;
     locale: string;

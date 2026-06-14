@@ -5,7 +5,7 @@ import Subtitle from '@/components/editorial/atom/Subtitle';
 import Text from '@/components/editorial/atom/Text';
 import Title from '@/components/editorial/atom/Title';
 import type { Block, CtaBlock } from '@/lib/types';
-import { cn } from '@/lib/utils';
+import { cn, isEmpty } from '@/lib/utils';
 import Picture from './Picture';
 
 const heroSectionClasses = cva(
@@ -137,7 +137,7 @@ export default function Hero({ block }: { block: Block }) {
                         />
                     </div>
 
-                    {block.content.text && (
+                    {!isEmpty(block.content.text) && (
                         <Text content={block.content.text} />
                     )}
 

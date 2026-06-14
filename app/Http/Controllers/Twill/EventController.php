@@ -11,6 +11,7 @@ use A17\Twill\Services\Forms\Fields\Map as MapField;
 use A17\Twill\Services\Forms\Form;
 use A17\Twill\Services\Listings\Columns\Text;
 use A17\Twill\Services\Listings\TableColumns;
+use App\Models\Event;
 use App\Twill\Fieldsets\SeoFieldset;
 
 class EventController extends BaseModuleController
@@ -89,6 +90,7 @@ class EventController extends BaseModuleController
             Text::make()
                 ->field('luogo')
                 ->title('Luogo')
+                ->customRender(fn (Event $event): string => is_array($event->luogo) ? ($event->luogo['address'] ?? '') : '')
         );
 
         return $table;

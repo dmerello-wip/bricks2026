@@ -25,3 +25,9 @@ export function getInitials(fullName: string): string {
 export function cleanupPointerEvents() {
     document.body.style.removeProperty('pointer-events');
 }
+
+export function isEmpty(value: any): boolean {
+    if (value == null) return true; // null or undefined
+    if (typeof value === 'string' && value === '<p></p>') return true; // empty rich text
+    return false;
+}

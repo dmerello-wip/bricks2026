@@ -44,7 +44,7 @@ function HashScroll() {
 }
 
 export default function PageLayout({ children }: PageLayoutProps) {
-    const { auth, menu } = usePage<SharedData>().props;
+    const { auth, menu, isHome } = usePage<SharedData>().props;
 
     const primaryMenu = menu.primary || [];
     const footerMenu = menu.footer || [];
@@ -57,6 +57,7 @@ export default function PageLayout({ children }: PageLayoutProps) {
             <div className="flex min-h-screen flex-col">
                 <Header
                     isLogged={isLogged}
+                    isHome={isHome}
                     menu={primaryMenu}
                 />
                 <main className="grow">{children}</main>

@@ -8,17 +8,26 @@ import { HeaderMenuMobile } from '@/components/Header/HeaderMenuMobile';
 import type { MenuItem } from '@/lib/types';
 import { cn } from '@/lib/utils';
 
-export function Header({ menu }: { isLogged: boolean; menu: MenuItem[] }) {
+export function Header({
+    menu,
+    isHome,
+}: {
+    isLogged: boolean;
+    isHome: boolean;
+    menu: MenuItem[];
+}) {
     const [headerHeight, setHeaderHeight] = useState(0);
     const [hasScrolled, setHasScrolled] = useState(false);
     const headerRef = useRef(null);
 
+    const isCompact = hasScrolled || !isHome;
+
     const headerClasses = cn(
         'header fixed top-0 z-50 w-full',
-        hasScrolled ? 'bg-foreground/80 p-3 backdrop-blur-md' : 'p-6',
+        isCompact ? 'bg-foreground/60 p-3 backdrop-blur-md' : 'p-3',
     );
 
-    const logoSize = hasScrolled ? 60 : 130;
+    const logoSize = isCompact ? 70 : 130;
 
     useLenis((lenis) => {
         if (lenis.targetScroll > headerHeight) {

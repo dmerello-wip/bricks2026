@@ -39,6 +39,7 @@ class HandleInertiaRequests extends Middleware
         return [
             ...parent::share($request),
             'name' => config('app.name'),
+            'isHome' => $request->routeIs('home'),
             'auth' => [
                 'user' => $request->user(),
             ],
