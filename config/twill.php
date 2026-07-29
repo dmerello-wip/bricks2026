@@ -63,6 +63,18 @@ return [
                     [
                         'name' => 'default',
                         'ratio' => 0,
+                        'minValues' => [
+                            'width' => 380,
+                        ],
+                    ],
+                ],
+                'zoomed' => [
+                    [
+                        'name' => 'zoomed',
+                        'ratio' => 0,
+                        'minValues' => [
+                            'width' => 1920,
+                        ],
                     ],
                 ],
             ],

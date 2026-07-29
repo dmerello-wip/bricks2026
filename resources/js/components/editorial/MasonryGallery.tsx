@@ -32,7 +32,7 @@ function MasonryItem({ block }: { block: Block }) {
             {imageData && (
                 <Picture
                     image={imageData}
-                    className="block h-auto w-full rounded-lg"
+                    className="block h-auto w-full rounded-md"
                 />
             )}
 
