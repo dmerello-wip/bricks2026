@@ -8,14 +8,27 @@ type CtaProps = {
     className?: string;
 };
 
+/**
+ * Resolves the href a CTA would actually render with, or null when the CTA is
+ * incomplete. Exported so callers can tell an empty repeater item apart from a
+ * real CTA without duplicating this guard.
+ */
+export function resolveCtaHref(cta?: CtaContent | null): string | null {
+    if (!cta?.cta_label) return null;
+
+    const href = cta.cta_type === 'download' ? cta.cta_dl_link : cta.cta_link;
+
+    return href || null;
+}
+
 export default function Cta({ cta, className }: CtaProps) {
     const ctaType = cta.cta_type;
     const target = cta.cta_target_blank ? '_blank' : '_self';
     const buttonStyle = cta.cta_style === 'secondary' ? 'secondary' : 'default';
     const label = cta.cta_label;
-    const href = ctaType === 'download' ? cta.cta_dl_link : cta.cta_link;
+    const href = resolveCtaHref(cta);
 
-    if (!href || !label) return null;
+    if (!href) return null;
 
     return (
         <Button

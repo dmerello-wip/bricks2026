@@ -1,10 +1,12 @@
 import { cva } from 'class-variance-authority';
-import Cta from '@/components/editorial/atom/Cta';
+import { useState } from 'react';
+import Cta, { resolveCtaHref } from '@/components/editorial/atom/Cta';
 import Eyelet from '@/components/editorial/atom/Eyelet';
 import Subtitle from '@/components/editorial/atom/Subtitle';
 import Title from '@/components/editorial/atom/Title';
 import type { Block, CtaBlock } from '@/lib/types';
 import { cn } from '@/lib/utils';
+import ImageZoomModal from './ImageZoomModal';
 import Picture from './Picture';
 
 const sectionClasses = cva('block-masonry-gallery', {
@@ -20,21 +22,47 @@ const sectionClasses = cva('block-masonry-gallery', {
 });
 
 function MasonryItem({ block }: { block: Block }) {
+    const [isZoomOpen, setIsZoomOpen] = useState(false);
+
     const imageData = block.images?.masonry_image?.default ?? null;
-    const ctas = (block.children?.filter(
-        (child) => child.type === 'dynamic-repeater-ctas',
-    ) ?? []) as CtaBlock[];
+
+    /**
+     * The `zoomed` crop only exists on items saved after it was added to
+     * config/twill.php, so older content falls back to the `default` crop.
+     */
+    const zoomImageData = block.images?.masonry_image?.zoomed ?? imageData;
+
+    const ctas = (
+        (block.children?.filter(
+            (child) => child.type === 'dynamic-repeater-ctas',
+        ) ?? []) as CtaBlock[]
+    ).filter((cta) => resolveCtaHref(cta.content));
 
     if (!imageData && ctas.length === 0) return null;
 
+    const isZoomable = imageData !== null && ctas.length === 0;
+
     return (
         <div className="block-masonry-gallery__item mb-4 break-inside-avoid">
-            {imageData && (
-                <Picture
-                    image={imageData}
-                    className="block h-auto w-full rounded-md"
-                />
-            )}
+            {imageData &&
+                (isZoomable ? (
+                    <button
+                        type="button"
+                        onClick={() => setIsZoomOpen(true)}
+                        aria-label={imageData.alt || 'Zoom image'}
+                        className="block w-full cursor-zoom-in rounded-md focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-hidden"
+                    >
+                        <Picture
+                            image={imageData}
+                            className="block h-auto w-full rounded-md"
+                        />
+                    </button>
+                ) : (
+                    <Picture
+                        image={imageData}
+                        className="block h-auto w-full rounded-md"
+                    />
+                ))}
 
             {ctas.length > 0 && (
                 <div className="flex flex-wrap gap-2 pt-3">
@@ -45,6 +73,14 @@ function MasonryItem({ block }: { block: Block }) {
                         />
                     ))}
                 </div>
+            )}
+
+            {isZoomable && zoomImageData && (
+                <ImageZoomModal
+                    image={zoomImageData}
+                    open={isZoomOpen}
+                    onOpenChange={setIsZoomOpen}
+                />
             )}
         </div>
     );
