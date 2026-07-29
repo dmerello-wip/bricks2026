@@ -60,7 +60,7 @@ export default function Map({ lat, lng }: { lat: number; lng: number }) {
 
     return (
         <section className="map">
-            <div className="w-full md:container">
+            <div className="w-full">
                 <div
                     ref={mapRef}
                     className="h-120 w-full overflow-hidden rounded-lg"

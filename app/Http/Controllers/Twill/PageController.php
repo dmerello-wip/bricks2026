@@ -37,6 +37,7 @@ class PageController extends BaseModuleController
                 'paragraph',
                 'cardslist',
                 'gallery',
+                'masonrygallery',
                 'download',
                 'matrix',
                 'video',

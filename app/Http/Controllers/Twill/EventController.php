@@ -63,6 +63,7 @@ class EventController extends BaseModuleController
                 'paragraph',
                 'cardslist',
                 'gallery',
+                'masonrygallery',
                 'download',
                 'matrix',
                 'video',

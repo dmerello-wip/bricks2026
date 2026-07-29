@@ -21,7 +21,7 @@ const sectionClasses = cva('block-gallery', {
 });
 
 function GalleryItem({ block }: { block: Block }) {
-    const imageData = block.images?.image?.default || null;
+    const imageData = block.images?.gallery_image?.default || null;
     const caption = block.content?.caption;
     const isVideo = block.content?.item_type === 'video';
 

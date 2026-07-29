@@ -58,6 +58,14 @@ return [
                     ],
                 ],
             ],
+            'masonry_image' => [
+                'default' => [
+                    [
+                        'name' => 'default',
+                        'ratio' => 0,
+                    ],
+                ],
+            ],
             'abstract_image' => [
                 'default' => [
                     [

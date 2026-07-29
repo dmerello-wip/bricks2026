@@ -19,7 +19,7 @@ export default function Paragraph({ block }: { block: Block }) {
             {/* Content Container */}
             <div
                 className={cn(
-                    'block-paragraph__wrapper container max-w-4xl p-6',
+                    'block-paragraph__wrapper container max-w-4xl px-6',
                     block.content.no_margin ? 'pt-16' : 'py-16',
                 )}
             >

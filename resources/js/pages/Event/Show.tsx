@@ -1,5 +1,6 @@
 import { usePage } from '@inertiajs/react';
 import BlockRenderer from '@/components/editorial/BlockRenderer';
+import Paragraph from '@/components/editorial/Paragraph';
 import PageLayout from '@/components/layout/PageLayout';
 import Map from '@/components/Map';
 import SeoHead from '@/components/seo/SeoHead';
@@ -30,6 +31,19 @@ export default function EventShow() {
 
     const blockList = Array.isArray(blocks) ? blocks : [];
 
+    const descriptionBlock: Block | null = event.description
+        ? {
+              id: 0,
+              type: 'paragraph',
+              content: {
+                  text: event.description,
+                  columns: 'cols-1',
+                  text_alignment: 'text-left',
+                  text_color: 'block-text-dark',
+              },
+          }
+        : null;
+
     let lat = NaN;
     let lng = NaN;
     const coords = parseLuogo(event.luogo);
@@ -58,7 +72,6 @@ export default function EventShow() {
                     lat={lat}
                     lng={lng}
                 />
-                {event.description && <p>{event.description}</p>}
             </article>
         </PageLayout>
     );

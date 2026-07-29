@@ -9,6 +9,7 @@ import Fallback from './Fallback';
 import Gallery from './Gallery';
 import Hero from './Hero';
 import HeroVideo from './HeroVideo';
+import MasonryGallery from './MasonryGallery';
 import Matrix from './Matrix';
 import Paragraph from './Paragraph';
 import Video from './Video';
@@ -22,6 +23,7 @@ type BlockType =
     | 'editorialcard'
     | 'download'
     | 'gallery'
+    | 'masonrygallery'
     | 'matrix'
     | 'video'
     | 'subscriptionform';
@@ -38,6 +40,7 @@ const BLOCK_COMPONENTS: Record<
     editorialcard: EditorialCard,
     download: Download,
     gallery: Gallery,
+    masonrygallery: MasonryGallery,
     matrix: Matrix,
     video: Video,
     subscriptionform: SubscriptionForm,
