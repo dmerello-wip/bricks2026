@@ -90,7 +90,7 @@ export default function Download({ block }: { block: Block }) {
             className="bg-background py-16"
         >
             <div className="container mx-auto px-6">
-                <div className="mx-auto w-full max-w-4xl">
+                <div className="mx-auto w-full max-w-5xl">
                     {groups.map((group) => (
                         <AccordionGroup
                             key={group.id}

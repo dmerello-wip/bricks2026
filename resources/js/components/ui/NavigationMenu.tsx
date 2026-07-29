@@ -58,7 +58,9 @@ function NavigationMenuItem({
     );
 }
 
-const navigationMenuTriggerStyle = cva('font-bold text-background uppercase');
+const navigationMenuTriggerStyle = cva(
+    'inline-flex w-max flex-row items-center gap-1 rounded-sm p-2 text-sm font-bold whitespace-nowrap text-background uppercase transition-colors hover:bg-accent hover:text-accent-foreground',
+);
 
 function NavigationMenuTrigger({
     className,
@@ -71,9 +73,9 @@ function NavigationMenuTrigger({
             className={cn(navigationMenuTriggerStyle(), 'group', className)}
             {...props}
         >
-            {children}{' '}
+            {children}
             <ChevronDownIcon
-                className="relative top-[1px] ml-1 size-3 transition duration-300 group-data-[state=open]:rotate-180"
+                className="size-3 shrink-0 transition duration-300 group-data-[state=open]:rotate-180"
                 aria-hidden="true"
             />
         </NavigationMenuPrimitive.Trigger>
