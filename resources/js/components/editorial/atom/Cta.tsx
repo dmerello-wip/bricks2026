@@ -1,11 +1,14 @@
+import type { VariantProps } from 'class-variance-authority';
+
 import AppLink from '@/components/ui/AppLink';
-import { Button } from '@/components/ui/Button';
+import { Button, type buttonVariants } from '@/components/ui/Button';
 import type { CtaContent } from '@/lib/types';
 import { cn } from '@/lib/utils';
 
 type CtaProps = {
     cta: CtaContent;
     className?: string;
+    size?: VariantProps<typeof buttonVariants>['size'];
 };
 
 /**
@@ -21,7 +24,7 @@ export function resolveCtaHref(cta?: CtaContent | null): string | null {
     return href || null;
 }
 
-export default function Cta({ cta, className }: CtaProps) {
+export default function Cta({ cta, className, size = 'default' }: CtaProps) {
     const ctaType = cta.cta_type;
     const target = cta.cta_target_blank ? '_blank' : '_self';
     const buttonStyle = cta.cta_style === 'secondary' ? 'secondary' : 'default';
@@ -35,7 +38,7 @@ export default function Cta({ cta, className }: CtaProps) {
             className={cn('w-full sm:w-auto', className)}
             variant={buttonStyle}
             asChild
-            size="lg"
+            size={size}
         >
             <AppLink
                 href={href}

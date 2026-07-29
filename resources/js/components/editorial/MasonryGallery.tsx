@@ -43,7 +43,7 @@ function MasonryItem({ block }: { block: Block }) {
     const isZoomable = imageData !== null && ctas.length === 0;
 
     return (
-        <div className="block-masonry-gallery__item mb-4 break-inside-avoid">
+        <div className="block-masonry-gallery__item relative mb-4 break-inside-avoid">
             {imageData &&
                 (isZoomable ? (
                     <button
@@ -65,11 +65,12 @@ function MasonryItem({ block }: { block: Block }) {
                 ))}
 
             {ctas.length > 0 && (
-                <div className="flex flex-wrap gap-2 pt-3">
+                <div className="absolute bottom-4 left-4">
                     {ctas.map((cta) => (
                         <Cta
                             key={cta.id}
                             cta={cta.content!}
+                            size="sm"
                         />
                     ))}
                 </div>
