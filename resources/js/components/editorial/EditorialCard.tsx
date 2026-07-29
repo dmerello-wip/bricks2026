@@ -28,7 +28,7 @@ export default function EditorialCard({
             className="block-editorial-card flex flex-col"
         >
             {imageData && (
-                <div className="relative w-full">
+                <div className="relative w-full overflow-hidden rounded-md">
                     <Picture image={imageData} />
                 </div>
             )}
