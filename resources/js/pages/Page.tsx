@@ -18,7 +18,7 @@ export default function Page() {
     return (
         <PageLayout>
             <SeoHead seo={seo} />
-            <div className="home-layout">
+            <div className="layout home-layout">
                 {blockList.length > 0 && (
                     <>
                         {blockList.map((block: Block) => (

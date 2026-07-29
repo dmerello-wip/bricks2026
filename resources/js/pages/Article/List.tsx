@@ -35,7 +35,7 @@ export default function ArticleList() {
         <PageLayout>
             <SeoHead seo={seo} />
 
-            <div className="container mx-auto max-w-6xl px-6 pt-16 pb-24">
+            <div className="layout articlelist-layout container mx-auto max-w-6xl px-6 pt-16 pb-24">
                 <header className="mb-12">
                     <h1 className="text-4xl font-bold text-primary md:text-5xl">
                         {category.title}

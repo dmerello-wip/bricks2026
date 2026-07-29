@@ -42,7 +42,7 @@ export default function EventShow() {
     return (
         <PageLayout>
             <SeoHead seo={seo} />
-            <article className="event-layout">
+            <article className="layout event-layout">
                 {blockList.length > 0 && (
                     <>
                         {blockList.map((block: Block) => (

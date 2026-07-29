@@ -24,3 +24,10 @@
         padding: 1.2rem 0 0.4rem 0;
     }
 }
+
+/* layout header with sticky */
+
+/* body:has([class*="layout"] > section:first-child)  */
+body [class*="layout"]>section:first-child {
+    @apply pt-18 lg:pt-22;
+}

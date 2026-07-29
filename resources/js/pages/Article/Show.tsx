@@ -22,7 +22,7 @@ export default function ArticleShow() {
     return (
         <PageLayout>
             <SeoHead seo={seo} />
-            <article className="pt-16">
+            <article className="layout article-layout pt-16">
                 <div className="container mx-auto flex max-w-4xl flex-col gap-2">
                     {categoryName && <Eyelet content={categoryName} />}
                     <Title
