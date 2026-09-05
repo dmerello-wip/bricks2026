@@ -12,6 +12,49 @@
     }
 }
 
+/* gallery block — scale up the active slide, dim the rest.
+   Splide sets is-active / is-prev / is-next on the slides; the block passes
+   updateOnMove so the classes land at the start of the transition. */
+
+.block-gallery__carousel {
+    --gallery-slide-scale: 0.85;
+    --gallery-slide-scale-adjacent: 0.95;
+    --gallery-slide-opacity: 0.25;
+    --gallery-slide-opacity-adjacent: 0.65;
+
+    .splide__slide > * {
+        transform: scale(var(--gallery-slide-scale));
+        opacity: var(--gallery-slide-opacity);
+        transition:
+            transform 0.4s ease-in-out,
+            opacity 0.4s ease-in-out;
+    }
+
+    .splide__slide.is-prev > *,
+    .splide__slide.is-next > * {
+        transform: scale(var(--gallery-slide-scale-adjacent));
+        opacity: var(--gallery-slide-opacity-adjacent);
+    }
+
+    .splide__slide.is-active > * {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+/* the peek layout keeps two full slides in view, so it needs a gentler falloff */
+.block-gallery__carousel--peek {
+    --gallery-slide-scale: 0.92;
+    --gallery-slide-opacity: 0.5;
+    --gallery-slide-opacity-adjacent: 0.8;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .block-gallery__carousel .splide__slide > * {
+        transition: none;
+    }
+}
+
 /* ------------- plyr ------------- */
 
 :root {

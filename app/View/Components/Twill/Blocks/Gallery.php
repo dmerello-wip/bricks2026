@@ -36,6 +36,15 @@ class Gallery extends AppBlock
                     BlockFields::textColor(),
                 ]),
 
+            Select::make()
+                ->name('layout')
+                ->label('Layout')
+                ->default('peek')
+                ->options([
+                    ['value' => 'peek', 'label' => 'Peek — left aligned, next slide peeking'],
+                    ['value' => 'centered', 'label' => 'Centered — active slide in the middle'],
+                ]),
+
             Checkbox::make()
                 ->name('no_padding_bottom')
                 ->label('No padding bottom'),
