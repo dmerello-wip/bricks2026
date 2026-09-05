@@ -8,21 +8,21 @@
 }
 
 .block-text h1 {
-    @apply text-3xl text-primary uppercase;
+    @apply text-3xl text-secondary uppercase;
 }
 
 .block-text h2 {
-    @apply text-2xl text-primary font-semibold;
+    @apply text-2xl text-secondary font-semibold;
 }
 
 .block-text h3 {
-    @apply text-xl text-primary font-semibold;
+    @apply text-xl text-secondary font-semibold;
 }
 
 .block-text h4,
 .block-text h5,
 .block-text h6 {
-    @apply text-lg text-primary font-bold;
+    @apply text-lg text-secondary font-bold;
 }
 
 .block-text p {
@@ -57,7 +57,12 @@
 }
 
 .block-text blockquote {
-    @apply pl-4 border-l-4 border-primary text-base my-3;
+    @apply pl-4 border-l-4 border-primary my-3;
+}
+
+.block-text blockquote,
+.block-text blockquote p {
+    @apply text-xl leading-8 font-semibold;
 }
 
 
