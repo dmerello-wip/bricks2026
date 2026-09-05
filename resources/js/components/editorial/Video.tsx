@@ -1,4 +1,5 @@
 import VideoEmbed from '@/components/VideoPlayer';
+import { revealProps } from '@/lib/reveal';
 import type { Block } from '@/lib/types';
 import { cn } from '@/lib/utils';
 
@@ -17,7 +18,10 @@ export default function Video({ block }: { block: Block }) {
             )}
             style={{ backgroundColor: block.content?.bg_color || undefined }}
         >
-            <div className="w-full md:container">
+            <div
+                className="w-full md:container"
+                {...revealProps()}
+            >
                 <VideoEmbed
                     videoType={block.content?.video_type}
                     youtubeInput={block.content?.youtube_id}

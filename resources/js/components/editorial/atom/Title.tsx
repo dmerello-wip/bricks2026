@@ -1,16 +1,19 @@
 import React from 'react';
+import { REVEAL_INDEX, revealProps } from '@/lib/reveal';
 import { cn } from '@/lib/utils';
 
 interface TitleProps {
     content: string;
     seoTag?: keyof React.JSX.IntrinsicElements;
     className?: string;
+    revealIndex?: number;
 }
 
 export default function Title({
     content,
     seoTag = 'div',
     className = '',
+    revealIndex = REVEAL_INDEX.title,
 }: TitleProps) {
     if (!content) return null;
 
@@ -21,6 +24,7 @@ export default function Title({
         seoTag,
         {
             className: cn(defaultClasses, className),
+            ...revealProps(revealIndex),
         },
         content,
     );

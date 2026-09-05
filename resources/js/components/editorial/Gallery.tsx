@@ -40,6 +40,7 @@ function GalleryItem({ block }: { block: Block }) {
                         <Picture
                             image={imageData}
                             className="w-full"
+                            reveal
                         />
                     )
                 )}

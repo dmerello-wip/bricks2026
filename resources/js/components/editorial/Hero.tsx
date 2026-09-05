@@ -24,7 +24,7 @@ const heroSectionClasses = cva(
     },
 );
 
-const heroPictureClasses = cva('block-hero__picture z-0', {
+const heroPictureClasses = cva('block-hero__picture z-0 overflow-hidden', {
     variants: {
         mobileTextUnder: {
             true: 'relative w-full sm:absolute sm:inset-0',
@@ -106,6 +106,7 @@ export default function Hero({ block }: { block: Block }) {
                         image={imageDesktopData}
                         imageMobile={imageMobileData}
                         className={heroPictureImageClasses({ mobileTextUnder })}
+                        reveal
                     />
                     {/* <div className="absolute inset-0 bg-black/30" /> */}
                 </div>

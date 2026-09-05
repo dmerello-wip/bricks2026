@@ -1,6 +1,7 @@
 import { cva } from 'class-variance-authority';
 import Eyelet from '@/components/editorial/atom/Eyelet';
 import Title from '@/components/editorial/atom/Title';
+import { revealProps } from '@/lib/reveal';
 import type { Block } from '@/lib/types';
 import Picture from './Picture';
 
@@ -16,7 +17,7 @@ const sectionClasses = cva('block-matrix', {
     },
 });
 
-function MatrixItem({ block }: { block: Block }) {
+function MatrixItem({ block, itemIndex }: { block: Block; itemIndex: number }) {
     const imageData = block.images?.image?.default || null;
     const linkType = block.content?.link_type ?? 'none';
     const externalUrl = block.content?.link_external ?? null;
@@ -47,13 +48,21 @@ function MatrixItem({ block }: { block: Block }) {
                     linkType === 'external' ? 'noopener noreferrer' : undefined
                 }
                 className="flex items-center justify-center opacity-80 transition-opacity hover:opacity-100"
+                {...revealProps(itemIndex)}
             >
                 {content}
             </a>
         );
     }
 
-    return <div className="flex items-center justify-center">{content}</div>;
+    return (
+        <div
+            className="flex items-center justify-center"
+            {...revealProps(itemIndex)}
+        >
+            {content}
+        </div>
+    );
 }
 
 export default function Matrix({ block }: { block: Block }) {
@@ -88,10 +97,11 @@ export default function Matrix({ block }: { block: Block }) {
 
                 {items.length > 0 && (
                     <div className="mx-auto flex w-full max-w-344 flex-wrap justify-center gap-12">
-                        {items.map((item) => (
+                        {items.map((item, i) => (
                             <MatrixItem
                                 key={item.id}
                                 block={item}
+                                itemIndex={i}
                             />
                         ))}
                     </div>

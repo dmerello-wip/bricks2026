@@ -105,6 +105,7 @@ export default function Abstract({ block }: { block: Block }) {
                         <Picture
                             image={imageData}
                             className="size-full"
+                            reveal
                         />
                     </div>
                 )}

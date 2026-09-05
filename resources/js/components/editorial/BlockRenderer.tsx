@@ -12,6 +12,7 @@ import HeroVideo from './HeroVideo';
 import MasonryGallery from './MasonryGallery';
 import Matrix from './Matrix';
 import Paragraph from './Paragraph';
+import Reveal from './Reveal';
 import Video from './Video';
 
 type BlockType =
@@ -55,7 +56,13 @@ function getBlockComponent(type: string) {
     return Fallback;
 }
 
-export default function BlockRenderer({ block }: { block: Block }) {
+export default function BlockRenderer({
+    block,
+    depth = 0,
+}: {
+    block: Block;
+    depth?: number;
+}) {
     if (!block) return null;
 
     const renderedChildren =
@@ -64,12 +71,22 @@ export default function BlockRenderer({ block }: { block: Block }) {
                   <BlockRenderer
                       key={child.id}
                       block={child}
+                      depth={depth + 1}
                   />
               ))
             : null;
 
-    return React.createElement(getBlockComponent(block.type), {
+    const renderedBlock = React.createElement(getBlockComponent(block.type), {
         block,
         children: renderedChildren,
     });
+
+    /**
+     * Only top-level blocks own a scroll-reveal root: nested blocks animate
+     * with their parent, and a nested root would hide them until it intersects
+     * on its own.
+     */
+    if (depth > 0) return renderedBlock;
+
+    return <Reveal>{renderedBlock}</Reveal>;
 }

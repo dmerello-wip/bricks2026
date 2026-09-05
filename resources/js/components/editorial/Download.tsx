@@ -6,15 +6,25 @@ import {
     CollapsibleContent,
     CollapsibleTrigger,
 } from '@/components/ui/Collapsible';
+import { revealProps } from '@/lib/reveal';
 import type { Block } from '@/lib/types';
 import { cn } from '@/lib/utils';
 
-function AccordionRowItem({ block }: { block: Block }) {
+function AccordionRowItem({
+    block,
+    itemIndex,
+}: {
+    block: Block;
+    itemIndex: number;
+}) {
     const { title, description } = block.content ?? {};
     const download_url = block.files?.download_url;
 
     return (
-        <div className="border-b border-border py-4">
+        <div
+            className="border-b border-border py-4"
+            {...revealProps(itemIndex)}
+        >
             <div className="flex items-center gap-4">
                 <div className="flex min-w-0 flex-1 flex-col gap-1">
                     <p className="text-sm leading-5 font-medium text-foreground">
@@ -68,10 +78,11 @@ function AccordionGroup({ block }: { block: Block }) {
                 />
             </CollapsibleTrigger>
             <CollapsibleContent>
-                {items.map((item) => (
+                {items.map((item, i) => (
                     <AccordionRowItem
                         key={item.id}
                         block={item}
+                        itemIndex={i}
                     />
                 ))}
             </CollapsibleContent>

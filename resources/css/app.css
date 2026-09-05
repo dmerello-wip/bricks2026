@@ -30,3 +30,4 @@ if using blade components (not for inertia)
 @import './vendors.css';
 @import './common.css';
 @import './animations.css';
+@import './reveal.css';

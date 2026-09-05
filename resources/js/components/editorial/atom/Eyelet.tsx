@@ -1,15 +1,19 @@
 import React from 'react';
+import { REVEAL_INDEX, revealProps } from '@/lib/reveal';
 import { cn } from '@/lib/utils';
+
 interface EyeletProps {
     content: string;
     seoTag?: keyof React.JSX.IntrinsicElements;
     className?: string;
+    revealIndex?: number;
 }
 
 export default function Eyelet({
     content,
     seoTag = 'div',
     className = '',
+    revealIndex = REVEAL_INDEX.eyelet,
 }: EyeletProps) {
     if (!content) return null;
 
@@ -20,6 +24,7 @@ export default function Eyelet({
         seoTag,
         {
             className: cn(defaultClasses, className),
+            ...revealProps(revealIndex),
         },
         content,
     );

@@ -55,12 +55,16 @@ function MasonryItem({ block }: { block: Block }) {
                         <Picture
                             image={imageData}
                             className="block h-auto w-full rounded-md"
+                            wrapperClassName="rounded-md"
+                            reveal
                         />
                     </button>
                 ) : (
                     <Picture
                         image={imageData}
                         className="block h-auto w-full rounded-md"
+                        wrapperClassName="rounded-md"
+                        reveal
                     />
                 ))}
 

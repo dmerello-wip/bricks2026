@@ -29,7 +29,10 @@ export default function EditorialCard({
         >
             {imageData && (
                 <div className="relative w-full overflow-hidden rounded-md">
-                    <Picture image={imageData} />
+                    <Picture
+                        image={imageData}
+                        reveal
+                    />
                 </div>
             )}
 
