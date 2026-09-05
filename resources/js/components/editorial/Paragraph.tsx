@@ -43,16 +43,18 @@ export default function Paragraph({ block }: { block: Block }) {
                         <Title
                             content={block.content.title}
                             seoTag={block.content.title_seo}
+                            className={'text-2xl md:text-3xl'}
                         />
                     </div>
 
                     <Text
                         content={block.content.text}
-                        className={
+                        className={cn(
+                            'block-paragraph__text pt-8',
                             block.content.columns === 'cols-2'
                                 ? 'md:columns-2'
-                                : 'columns-1'
-                        }
+                                : 'columns-1',
+                        )}
                     />
                 </div>
             </div>

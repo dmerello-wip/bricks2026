@@ -4,26 +4,62 @@
 }
 
 .block-text {
-    h1 {
-        padding: 1.2rem 0 1rem 0;
-    }
-
-    h2 {
-        padding: 1.2rem 0 0.8rem 0;
-    }
-
-    h3 {
-        padding: 1.2rem 0 0.6rem 0;
-    }
-
-    h4 {
-        padding: 1.2rem 0 0.4rem 0;
-    }
-
-    h5 {
-        padding: 1.2rem 0 0.4rem 0;
-    }
+    @apply flex flex-col gap-4 w-full;
 }
+
+.block-text h1 {
+    @apply text-3xl text-primary uppercase;
+}
+
+.block-text h2 {
+    @apply text-2xl text-primary font-semibold;
+}
+
+.block-text h3 {
+    @apply text-xl text-primary font-semibold;
+}
+
+.block-text h4,
+.block-text h5,
+.block-text h6 {
+    @apply text-lg text-primary font-bold;
+}
+
+.block-text p {
+    @apply text-base leading-6 font-normal;
+}
+
+.block-text strong,
+.block-text b {
+    @apply font-bold;
+}
+
+.block-text em,
+.block-text i {
+    @apply italic;
+}
+
+.block-text ul {
+    @apply list-disc text-base leading-6;
+}
+
+.block-text ol {
+    @apply list-decimal text-base leading-6;
+}
+
+.block-text ul li,
+.block-text ol li {
+    @apply ml-6 mb-2 last:mb-0 marker:text-secondary;
+}
+
+.block-text a {
+    @apply underline underline-offset-2 hover:opacity-80;
+}
+
+.block-text blockquote {
+    @apply pl-4 border-l-4 border-primary text-base my-3;
+}
+
 
 /* layout header with sticky */
 
