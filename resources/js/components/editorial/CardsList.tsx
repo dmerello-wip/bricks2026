@@ -48,7 +48,7 @@ export default function CardsList({ block }: { block: Block }) {
             <div className={'container mx-auto px-6'}>
                 <div
                     className={cn(
-                        'grid gap-12 md:gap-8 xl:gap-16',
+                        'grid gap-4 md:gap-8 xl:gap-16',
                         gridColsClass,
                     )}
                 >
