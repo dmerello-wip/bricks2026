@@ -52,8 +52,8 @@ const heroWrapperClasses = cva(
                 'text-right': 'justify-end text-left',
             },
             noPaddingBottom: {
-                false: 'px-6 py-8 sm:py-24',
-                true: 'px-6 pt-8 sm:pt-24',
+                false: 'px-6 pt-24 pb-8 sm:py-24',
+                true: 'px-6 pt-24 sm:pt-24',
             },
         },
     },

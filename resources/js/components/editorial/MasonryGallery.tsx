@@ -5,9 +5,12 @@ import Eyelet from '@/components/editorial/atom/Eyelet';
 import Subtitle from '@/components/editorial/atom/Subtitle';
 import Title from '@/components/editorial/atom/Title';
 import type { Block, CtaBlock } from '@/lib/types';
-import { cn } from '@/lib/utils';
+import { cn, isEmpty } from '@/lib/utils';
 import ImageZoomModal from './ImageZoomModal';
 import Picture from './Picture';
+
+const hasValue = (content?: string | null): boolean =>
+    !isEmpty(content) && (content ?? '').trim() !== '';
 
 const sectionClasses = cva('block-masonry-gallery', {
     variants: {
@@ -102,6 +105,11 @@ export default function MasonryGallery({ block }: { block: Block }) {
     const noPaddingBottom = block.content?.no_padding_bottom ?? false;
     const textColor = block.content?.text_color ?? 'block-text-dark';
 
+    const hasHeader =
+        hasValue(block.content.eyelet) ||
+        hasValue(block.content.title) ||
+        hasValue(block.content.subtitle);
+
     return (
         <section
             id={`block-${block.id}`}
@@ -113,20 +121,22 @@ export default function MasonryGallery({ block }: { block: Block }) {
             style={{ backgroundColor: block.content?.bg_color || undefined }}
         >
             <div className="block-masonry-gallery__container container mx-auto px-6">
-                <div className="flex flex-col gap-2 pb-10">
-                    <Eyelet
-                        content={block.content.eyelet}
-                        seoTag={block.content.eyelet_seo}
-                    />
-                    <Title
-                        content={block.content.title}
-                        seoTag={block.content.title_seo}
-                    />
-                    <Subtitle
-                        content={block.content.subtitle}
-                        seoTag={block.content.subtitle_seo}
-                    />
-                </div>
+                {hasHeader && (
+                    <div className="block-masonry-gallery__header flex flex-col gap-2 pb-10">
+                        <Eyelet
+                            content={block.content.eyelet}
+                            seoTag={block.content.eyelet_seo}
+                        />
+                        <Title
+                            content={block.content.title}
+                            seoTag={block.content.title_seo}
+                        />
+                        <Subtitle
+                            content={block.content.subtitle}
+                            seoTag={block.content.subtitle_seo}
+                        />
+                    </div>
+                )}
 
                 {items.length > 0 && (
                     <div className="columns-1 gap-4 sm:columns-2 md:columns-3 lg:columns-4">
