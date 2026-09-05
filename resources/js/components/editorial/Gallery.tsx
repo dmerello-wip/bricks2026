@@ -80,6 +80,7 @@ const centeredOptions = {
         768: {
             perPage: 1.1,
             gap: '1rem',
+            clones: 2,
         },
     },
 };
