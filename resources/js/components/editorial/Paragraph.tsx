@@ -1,11 +1,17 @@
 import Eyelet from '@/components/editorial/atom/Eyelet';
 import type { Block } from '@/lib/types';
-import { cn } from '@/lib/utils';
+import { cn, isEmpty } from '@/lib/utils';
 import Text from './atom/Text';
 import Title from './atom/Title';
 
+const hasValue = (content?: string | null): boolean =>
+    !isEmpty(content) && (content ?? '').trim() !== '';
+
 export default function Paragraph({ block }: { block: Block }) {
     if (!block) return null;
+
+    const hasHeader =
+        hasValue(block.content.eyelet) || hasValue(block.content.title);
 
     return (
         <section
@@ -34,23 +40,25 @@ export default function Paragraph({ block }: { block: Block }) {
                               : 'text-center',
                     )}
                 >
-                    <div className="flex flex-col gap-2">
-                        <Eyelet
-                            content={block.content.eyelet}
-                            seoTag={block.content.eyelet_seo}
-                        />
+                    {hasHeader && (
+                        <div className="block-paragraph__header flex flex-col gap-2 pb-8">
+                            <Eyelet
+                                content={block.content.eyelet}
+                                seoTag={block.content.eyelet_seo}
+                            />
 
-                        <Title
-                            content={block.content.title}
-                            seoTag={block.content.title_seo}
-                            className={'text-2xl md:text-3xl'}
-                        />
-                    </div>
+                            <Title
+                                content={block.content.title}
+                                seoTag={block.content.title_seo}
+                                className={'text-2xl md:text-3xl'}
+                            />
+                        </div>
+                    )}
 
                     <Text
                         content={block.content.text}
                         className={cn(
-                            'block-paragraph__text pt-8',
+                            'block-paragraph__text',
                             block.content.columns === 'cols-2'
                                 ? 'md:columns-2'
                                 : 'columns-1',
