@@ -21,10 +21,12 @@ it('dispatches to the remote SSR server without a local bundle when ensure_bundl
         ]),
     ]);
 
-    $this->get('/it/')
+    $response = $this->get('/it/')
         ->assertSuccessful()
         ->assertSee('Rendered by SSR', false)
         ->assertSee('<title inertia>SSR Title</title>', false);
+
+    expect(substr_count($response->getContent(), '<title'))->toBe(1);
 
     Http::assertSent(fn ($request) => $request->url() === 'http://ssr:13714/render');
 });
