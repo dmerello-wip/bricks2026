@@ -8,6 +8,11 @@
 #   - MySQL 8.4 → impostare DB_HOST, DB_DATABASE, DB_USERNAME, DB_PASSWORD nell'env
 #   - SMTP relay → impostare MAIL_* nell'env
 #   - Non richiede Redis (cache/session/queue usano il driver database)
+#
+# Inertia SSR: il bundle vive solo nel container `ssr`, quindi nell'env di
+# `app` vanno impostati INERTIA_SSR_URL=http://ssr:13714 e
+# INERTIA_SSR_ENSURE_BUNDLE_EXISTS=false, altrimenti Laravel salta l'SSR
+# (non trova bootstrap/ssr/ssr.js in locale) e serve la pagina client-side.
 
 services:
     app:
