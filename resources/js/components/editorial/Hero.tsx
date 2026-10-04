@@ -1,6 +1,7 @@
 import { cva } from 'class-variance-authority';
 import Cta from '@/components/editorial/atom/Cta';
 import Eyelet from '@/components/editorial/atom/Eyelet';
+import LogoOrnament from '@/components/editorial/atom/LogoOrnament';
 import Subtitle from '@/components/editorial/atom/Subtitle';
 import Text from '@/components/editorial/atom/Text';
 import Title from '@/components/editorial/atom/Title';
@@ -84,6 +85,7 @@ export default function Hero({ block }: { block: Block }) {
     const mobileTextUnder = block.content.text_under_mobile ?? false;
     const bgColor = block.content.bg_color ?? '';
     const alignment = block.content.text_alignment;
+    const ornamentAlign = alignment === 'text-center' ? 'center' : 'left';
 
     return (
         <section
@@ -152,6 +154,16 @@ export default function Hero({ block }: { block: Block }) {
                             ))}
                         </div>
                     )}
+                    <LogoOrnament
+                        position="bottom"
+                        color="secondary"
+                        align={ornamentAlign}
+                    />
+                    <LogoOrnament
+                        position="top"
+                        color="primary"
+                        align={ornamentAlign}
+                    />
                 </div>
             </div>
         </section>

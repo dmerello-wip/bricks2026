@@ -139,6 +139,20 @@ class TwillBlockService
             }
         }
 
+        if ($ctaType === 'event') {
+            $event = $block->getRelated('events')->first();
+            if ($event) {
+                $locale = app()->getLocale();
+                $slug = $event->slugs()
+                    ->where('active', true)
+                    ->where('locale', $locale)
+                    ->first()
+                    ?->slug;
+
+                $internalUrl = $slug ? '/'.$locale.'/'.trans('routes.events', [], $locale).'/'.$slug : null;
+            }
+        }
+
         // Resolve download file URL via file library
         $downloadUrl = null;
         $downloadFilename = null;
@@ -156,7 +170,8 @@ class TwillBlockService
             'content' => [
                 'cta_label' => $block->content['cta_label'][app()->getLocale()] ?? null,
                 'cta_style' => $block->content['cta_style'] ?? 'primary',
-                'cta_type' => $ctaType,
+                // Events are internal links for the frontend: only the URL resolution differs
+                'cta_type' => $ctaType === 'event' ? 'internal' : $ctaType,
                 'cta_link' => $ctaType === 'external' ? ($block->content['cta_external_link'][app()->getLocale()] ?? null) : $internalUrl,
                 'cta_target_blank' => $block->content['cta_target_blank'] ?? false,
                 'cta_dl_link' => $downloadUrl,

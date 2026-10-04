@@ -86,6 +86,7 @@ class BlockFields
                         ->options([
                             ['value' => 'external', 'label' => 'External'],
                             ['value' => 'internal', 'label' => 'Internal'],
+                            ['value' => 'event', 'label' => 'Event'],
                             ['value' => 'download', 'label' => 'Download'],
                         ]),
                 ])
@@ -102,6 +103,13 @@ class BlockFields
                         ->label('Page')
                         ->max(1)
                         ->connectedTo('cta_type', 'internal'),
+
+                    Browser::make()
+                        ->name('events')
+                        ->modules([['label' => 'Events', 'name' => 'events']])
+                        ->label('Event')
+                        ->max(1)
+                        ->connectedTo('cta_type', 'event'),
 
                     Files::make()
                         ->name('cta_file')
