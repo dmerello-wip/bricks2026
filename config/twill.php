@@ -115,4 +115,8 @@ return [
         ],
     ],
     'google_maps_api_key' => env('TWILL_GOOGLE_MAPS_API_KEY'),
+    // twill:build runs `npm ci` with a hard Symfony Process timeout (default 300s).
+    // On the 4GB arm64 VPS the step takes ~90s idle but exceeded 300s while another
+    // Coolify deploy was building concurrently (2026-10-22). Give it headroom.
+    'build_timeout' => 900,
 ];
