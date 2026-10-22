@@ -1,7 +1,7 @@
 ###############################################################################
 # Stage 1 — php-base: Composer deps + generated assets for the frontend build
 ###############################################################################
-FROM php:8.4-cli-alpine AS php-base
+FROM php:8.4.27-cli-alpine AS php-base
 
 RUN apk add --no-cache \
     bash \
@@ -104,7 +104,7 @@ RUN WAYFINDER_SKIP=1 npm run build:ssr
 ###############################################################################
 # Stage 3 — runtime: nginx + php-fpm (Alpine) managed by supervisord
 ###############################################################################
-FROM php:8.4-fpm-alpine AS runtime
+FROM php:8.4.27-fpm-alpine AS runtime
 
 # Runtime libs + transient build deps for PHP extensions (removed at the end)
 RUN apk add --no-cache \
