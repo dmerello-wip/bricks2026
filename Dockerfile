@@ -97,6 +97,13 @@ COPY --from=php-base /app/resources/js/actions ./resources/js/actions
 COPY --from=php-base /app/resources/js/routes ./resources/js/routes
 COPY --from=php-base /app/resources/js/wayfinder ./resources/js/wayfinder
 
+# Vite only inlines VITE_*-prefixed variables, and the build context has no .env
+# (.dockerignore). Coolify already passes GOOGLE_MAPS_API_KEY as a build-arg: map it
+# to the VITE_ name here so the Map component ships with the key. Without this the
+# key is `undefined` at build time and the whole loader is tree-shaken away.
+ARG GOOGLE_MAPS_API_KEY
+ENV VITE_GOOGLE_MAPS_API_KEY=$GOOGLE_MAPS_API_KEY
+
 # Build client bundle + SSR bundle (WAYFINDER_SKIP prevents the plugin from
 # re-running php artisan wayfinder:generate — files are already copied above)
 RUN WAYFINDER_SKIP=1 npm run build:ssr

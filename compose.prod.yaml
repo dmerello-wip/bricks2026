@@ -20,6 +20,8 @@ services:
             context: .
             dockerfile: Dockerfile
             target: runtime
+            args:
+                - GOOGLE_MAPS_API_KEY
         image: bricks2026-runtime:latest
         restart: unless-stopped
         expose:
@@ -94,6 +96,8 @@ services:
             context: .
             dockerfile: Dockerfile
             target: ssr
+            args:
+                - GOOGLE_MAPS_API_KEY
         restart: unless-stopped
         expose:
             - '13714'
