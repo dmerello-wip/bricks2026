@@ -11,7 +11,7 @@ declare global {
     }
 }
 
-const API_KEY = import.meta.env.VITE_GOOGLE_MAPS_API_KEY as string | undefined;
+const API_KEY = import.meta.env.GOOGLE_MAPS_API_KEY as string | undefined;
 const MAP_ID =
     (import.meta.env.VITE_GOOGLE_MAPS_MAP_ID as string | undefined) ??
     'a5becd16a54992c1eb2f9d6d';
